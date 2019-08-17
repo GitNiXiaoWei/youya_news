@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="../jquery/jquery-2.1.1.min.js"></script>
+<form name="formUpLoad" action="testDownLoad" method="post">
+    <input value="" id="files" name="fileName">
+    <input type="submit" value="提交">
+</form>
+<br>
+<input value="" id="file">
+<button id="down">下载</button>
+<script>
+    $("#down").click(function () {
+        var file=$("#file").val();
+        $.ajax({
+            type : "post",
+            url:"http://localhost:8080/spring_mybatis_test/fileUpAndDown/testDownLoad",
+            data:{
+                fileName:file
+            }
+
+        })
+    })
+</script>
+</body>
+</html>

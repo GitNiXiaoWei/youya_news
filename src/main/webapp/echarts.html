@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>柱状图</title>
+    <script src="jquery/jquery-2.1.1.min.js"></script>
+    <script src="echarts/js/echarts.min.js"></script>
+</head>
+<body>
+<div>
+    <button id="list">展示列表</button>
+    <button id="pid">展示饼图</button>
+</div>
+<div id="barDiv" style="width: 800px;height:600px;margin: 20px auto"></div>
+<script>
+    $("#list").click(function () {
+        mycahrts.setOption(option,true);
+    });
+    $("#pid").click(function () {
+        mycahrts.setOption(option2,true);
+    });
+    var content = document.getElementById("barDiv");
+    var mycahrts = echarts.init(content);
+
+    var option = {
+        xAxis: {
+            type: 'value',
+            boundaryGap: [0, 0.01]
+        },
+        yAxis: {
+            type: 'category',
+            data: ['巴西','印尼','美国','印度','中国','世界人口(万)']
+        },
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        }
+    };
+    var option2 = {
+        title : {
+            text: '某站点用户访问来源',
+            subtext: '纯属虚构',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        }
+    };
+    //如何在前端获取到series的值并将其赋值到option.series中
+
+        $.ajax({
+            type : "GET",
+            dataType:"json",
+            url : "values",
+            async:false,
+            success:function(result){
+                console.log(result);
+                option.series=[{
+                    name: '2018年',
+                    type: 'bar',
+                    data: result
+
+                }];
+            }
+        });
+
+
+        $.ajax({
+            type : "GET",
+            dataType:"jsonp",
+            jsonp: "callback",
+            url : "http://localhost:8080//spring_mybatis_test//fruit",
+            async:false,
+            success:function(result){
+                console.log(result);
+                var names=[];
+                $(result).each(function(index,item){
+                    names.push(item.name)
+                });
+                console.log(names);
+                option2.legend={
+                    orient: 'vertical',
+                    left: 'left',
+                    data: names
+
+                };
+                option2.series=[
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        data: result,
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ];
+                console.log(option2);
+            }
+        });
+
+</script>
+</body>
+</html>

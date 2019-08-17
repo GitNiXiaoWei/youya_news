@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wangeditordemo</title>
+    <link href="wangeditor/wangEditor.min.css"/>
+    <link rel="stylesheet" href="wangeditor/wangEditor-fullscreen-plugin.css">
+    <script src="wangeditor/wangEditor.min.js"></script>
+    <script src="jquery/jquery-2.1.1.min.js"></script>
+    <script src="wangeditor/wangEditor-fullscreen-plugin.js"></script>
+</head>
+<body>
+    <div id="editor"></div>
+    <input type="button" id="test1" value="拿html"/>
+    <input type="button" id="test2" value="拿text"/>
+<!--    <div id="seditor"></div>-->
+    <script>
+        // 获取html
+        $("#test1").bind("click",function(){
+            alert(editor.txt.html());
+        });
+        //获取文本
+        $("#test2").bind("click",function(){
+            alert(editor.txt.text());
+        });
+    </script>
+</body>
+<script src="wangeditor/myWangEditor.js"></script>
+<!--<script src="wangeditor/smallWangEditor.js"></script>-->
+</html>

@@ -1,7 +1,10 @@
 package controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pojo.DraftsInfo;
 import service.DraftsInfoService;
@@ -14,9 +17,13 @@ public class DraftsController {
     DraftsInfoService draftsInfoService;
 
     @RequestMapping(name = "getAllDrafts",value = "getAllDrafts")
-    public List<DraftsInfo> getAllDrafts(){
+    public Object getAllDrafts(@RequestParam(required = true,defaultValue = "1",value = "pageNum")Integer pageNum){
+        int defaultPageSize = 8;
+        PageHelper.startPage(pageNum,defaultPageSize);
+
         List<DraftsInfo> allDrafts = draftsInfoService.getAllDrafts();
+        PageInfo<DraftsInfo> userInfoPageInfo =new PageInfo<DraftsInfo>(allDrafts);
         System.out.println("allDrafts = " + allDrafts);
-        return allDrafts;
+        return userInfoPageInfo;
     }
 }
