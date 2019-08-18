@@ -26,9 +26,8 @@ public class SendMail {
         this.receiveMailAccount = receiveMailAccount;
     }
 
-    public int run() throws Exception {
-        Random random = new Random();
-        int i = random.nextInt(9000)+1000;
+    public void run(int i) throws Exception {
+
         // 1. 创建参数配置, 用于连接邮件服务器的参数配置
         Properties props = new Properties();                    // 参数配置
         props.setProperty("mail.transport.protocol", "smtp");   // 使用的协议（JavaMail规范要求）
@@ -78,7 +77,6 @@ public class SendMail {
 
         // 7. 关闭连接
         transport.close();
-        return i;
     }
 
     /**

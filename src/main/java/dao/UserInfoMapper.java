@@ -1,10 +1,9 @@
 package dao;
 
+import dto.UserInfoDTO;
 import pojo.UserInfo;
 
-import java.util.List;
-
 public interface UserInfoMapper {
-    public List<UserInfo> selectByUserName();
-    public int insertUser();
+    public UserInfo selectByUserName(UserInfoDTO userInfoDTO);
+    public int insertUser(UserInfoDTO userInfoDTO);
 }
