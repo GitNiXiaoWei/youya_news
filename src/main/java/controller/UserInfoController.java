@@ -52,7 +52,7 @@ public class UserInfoController {
         int i = random.nextInt(9000)+1000;
         sendMail.run(i);
         System.err.println("i :"+i);
-        return i+"";
+        return i;
     }
 
 }

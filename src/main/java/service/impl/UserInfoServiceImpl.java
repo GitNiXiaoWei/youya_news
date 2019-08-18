@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import pojo.UserInfo;
 import service.UserInfoService;
 
-import java.util.List;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
