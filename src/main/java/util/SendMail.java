@@ -6,6 +6,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Random;
 
 public class SendMail {
     // 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
@@ -19,9 +20,15 @@ public class SendMail {
     public static String myEmailSMTPHost = "smtp.qq.com";
 
     // 收件人邮箱（替换为自己知道的有效邮箱）
-    public static String receiveMailAccount = "836373065@qq.com";
+    public  String receiveMailAccount ;
 
-    public static void main(String[] args) throws Exception {
+    public void setReceiveMailAccount(String receiveMailAccount) {
+        this.receiveMailAccount = receiveMailAccount;
+    }
+
+    public int run() throws Exception {
+        Random random = new Random();
+        int i = random.nextInt(9000)+1000;
         // 1. 创建参数配置, 用于连接邮件服务器的参数配置
         Properties props = new Properties();                    // 参数配置
         props.setProperty("mail.transport.protocol", "smtp");   // 使用的协议（JavaMail规范要求）
@@ -46,7 +53,7 @@ public class SendMail {
         session.setDebug(true);
 
         // 3. 创建一封邮件
-        MimeMessage message = createMimeMessage(session, myEmailAccount, receiveMailAccount);
+        MimeMessage message = createMimeMessage(session, myEmailAccount, receiveMailAccount,i);
 
         // 4. 根据 Session 获取邮件传输对象
         Transport transport = session.getTransport();
@@ -71,6 +78,7 @@ public class SendMail {
 
         // 7. 关闭连接
         transport.close();
+        return i;
     }
 
     /**
@@ -82,7 +90,7 @@ public class SendMail {
      * @return
      * @throws Exception
      */
-    public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail) throws Exception {
+    public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail,int i) throws Exception {
         // 1. 创建一封邮件
         MimeMessage message = new MimeMessage(session);
 
@@ -96,7 +104,7 @@ public class SendMail {
         message.setSubject("欢迎加入悠亚新闻", "UTF-8");
 
         // 5. Content: 邮件正文（可以使用html标签）
-        message.setContent("验证码：4518", "text/html;charset=UTF-8");
+        message.setContent("验证码："+i, "text/html;charset=UTF-8");
         // 6. 设置发件时间
         message.setSentDate(new Date());
 

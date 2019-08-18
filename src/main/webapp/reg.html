@@ -39,9 +39,23 @@
 			<input type="text" class="form-control" id="email" placeholder="请输入邮箱地址" style="margin-top:10px;">
 			<span class="glyphicon glyphicon glyphicon-envelope form-control-feedback"></span>
 		  </div>
+
+          <div class="form-group has-feedback">
+              <div class="input-group">
+                  <div class="input-group-addon" type="button" onclick="get()" ><i class="glyphicon glyphicon-search"></i>获取验证码</div>
+                  <input class="form-control has-success" type="text" placeholder="请输入验证码" >
+              </div>
+          </div>
+
+          <div class="form-group has-success has-feedback">
+              <select type="text" class="form-control" id="sex"  style="margin-top:10px;font-size: 18px">
+                  <option value="1">男♂</option>
+                  <option value="0">女♀</option>
+              </select>
+          </div>
         <div class="checkbox">
           <label>
-            忘记密码
+
           </label>
           <label style="float:right">
             <a href="login.html">我有账号</a>
@@ -52,35 +66,53 @@
     </div>
     <script src="jquery/jquery-2.1.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-  <script>
-      function register(){
-          var username=$("#username").val();
-          var password=$("#password").val();
-          var email=$("#email").val();
-          $.ajax({
-              url:"http://localhost:8080/spring_mybatis_test/register",
-              type:"post",
-              data:JSON.stringify({
-                  username:username,
-                  password:password,
-                  email:email
-              }),
-              contentType: "application/json;charset=utf-8",
-              success: function (responseText) {
-                  var text = responseText.toString();
-                  if ("true" == text) {
-                      location.href = "user.html";
-                  } else if("false" == text) {
-                      alert("用户名已存在")
-                  }else {
-                      alert("账户名密码不能为空")
-                  }
-              },
-              error: function (responseText) {
-                  alert(responseText)
-              }
-          })
-      }
+
+    <script>
+        var code;
+        function get() {
+            var email=$("#email").val();
+            $.ajax({
+                type:"get",
+                url:"http://localhost:8080/youya_news/getCode",
+                data:{
+                    email:email
+                },
+                success:function (result) {
+                    code=result
+                }
+            });
+            alert("验证码已发入邮箱")
+        }
+        function register(){
+            var username=$("#username").val();
+            var password=$("#password").val();
+            var email=$("#email").val();
+            var sex=$("#sex").val();
+            $.ajax({
+                url:"http://localhost:8080/youya_news/register",
+                type:"post",
+                contentType: "application/json;charset=utf-8",
+                data:JSON.stringify({
+                    username:username,
+                    password:password,
+                    email:email,
+                    sex:sex
+                }),
+                success: function (responseText) {
+                    var text = responseText.toString();
+                    if ("true" == text) {
+                        location.href = "login.html";
+                    } else if("false" == text) {
+                        alert("用户名已存在")
+                    }else {
+                        alert("账户名密码不能为空")
+                    }
+                },
+                error: function (responseText) {
+                    alert(responseText)
+                }
+            })
+        }
   </script>
   </body>
 </html>
