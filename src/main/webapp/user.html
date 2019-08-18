@@ -25,7 +25,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <div><a class="navbar-brand" style="font-size:32px;" href="#">众筹平台 - 用户维护</a></div>
+            <div><a class="navbar-brand" style="font-size:32px;" href="#">悠亚新闻用户个人中心</a></div>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -57,29 +57,9 @@
 
 <div class="container-fluid">
     <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="thumbnail" style="    border-radius: 0px;">
-                                <img src="img/services-box1.jpg" class="img-thumbnail" alt="">
-                                <div class="caption" style="text-align:center;">
-                                    <h3>
-                                        ZhangSan
-                                    </h3>
-                                    <span class="label label-danger" style="cursor:pointer;" onclick="window.location.href='accttype.html'">未实名认证</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group">
-                        <div class="list-group-item active">
-                            资产总览<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
-                        </div>
-                        <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='minecrowdfunding.html'">
-                            我的众筹<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-sm-3 col-md-2 sidebar">
+            <!--个人菜单-->
+        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -158,6 +138,8 @@
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="script/docs.min.js"></script>
 <script type="text/javascript">
+    $(".sidebar").load("personal.html");
+
     $("#account1").click(function () {
         $("#selects1").html($(this).text()+"<span class='caret'></span>")
     })
@@ -366,7 +348,7 @@
         location.href="http://localhost:8080/spring_mybatis_test/assignRole.html?userid="+userid
     }
 
-    // $(".tree").load("menu.html");
+
 
 </script>
 

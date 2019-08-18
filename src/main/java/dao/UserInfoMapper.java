@@ -6,4 +6,5 @@ import pojo.UserInfo;
 public interface UserInfoMapper {
     public UserInfo selectByUserName(UserInfoDTO userInfoDTO);
     public int insertUser(UserInfoDTO userInfoDTO);
+    public UserInfo selectByUserNameAndPassword(UserInfoDTO userInfoDTO);
 }

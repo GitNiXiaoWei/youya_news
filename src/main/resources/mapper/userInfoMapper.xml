@@ -3,11 +3,13 @@
         PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.UserInfoMapper">
-
     <select id="selectByUserName" resultType="pojo.UserInfo" parameterType="dto.UserInfoDTO">
         select * from user where username=#{username}
     </select>
     <insert id="insertUser" parameterType="dto.UserInfoDTO">
         insert into user  values (default ,#{username},#{password},#{sex},#{email},#{icon});
     </insert>
+    <select id="selectByUserNameAndPassword" resultType="pojo.UserInfo" parameterType="dto.UserInfoDTO">
+        select * from user where username=#{username} and password=#{password}
+    </select>
 </mapper>

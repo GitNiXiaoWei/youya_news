@@ -25,4 +25,14 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
         return false;
     }
+
+    @Override
+    public UserInfo login(UserInfoDTO userInfoDto) {
+        UserInfo userInfo = userInfoMapper.selectByUserNameAndPassword(userInfoDto);
+        if (userInfo!=null){
+            return userInfo;
+        }else {
+            return null;
+        }
+    }
 }

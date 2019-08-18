@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import pojo.UserInfo;
 import service.UserInfoService;
 import util.SendMail;
 
+import javax.servlet.http.HttpSession;
 import java.util.Random;
 
 @Controller
@@ -53,6 +55,18 @@ public class UserInfoController {
         sendMail.run(i);
         System.err.println("i :"+i);
         return i;
+    }
+
+    @RequestMapping(name = "login",value = "/login")
+    @ResponseBody
+    public Object login(@RequestBody UserInfoDTO userInfoDto, HttpSession httpSession){
+        UserInfo login = userInfoService.login(userInfoDto);
+        if (login!=null){
+            httpSession.setAttribute("userInfo",login);
+            return "true";
+        }else {
+            return "false";
+        }
     }
 
 }
