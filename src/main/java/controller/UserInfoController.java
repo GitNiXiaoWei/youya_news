@@ -57,6 +57,12 @@ public class UserInfoController {
         return i;
     }
 
+    /**
+     * 用户登录
+     * @param userInfoDto
+     * @param httpSession
+     * @return
+     */
     @RequestMapping(name = "loginCheck",value = "/loginCheck")
     @ResponseBody
     public Object login(@RequestBody UserInfoDTO userInfoDto, HttpSession httpSession){
