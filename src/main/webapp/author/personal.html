@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="thumbnail" style="border-radius: 0px;">
+                <img src="../img/services-box1.jpg" class="img-thumbnail" alt="">
+                <div class="caption" style="text-align:center;">
+                    <h3 id="h3">
+                        ZhangSan
+                    </h3>
+                    <!--   <span class="label label-danger" style="cursor:pointer;" onclick="window.location.href='accttype.html'">未实名认证</span>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="list-group">
+        <a class="list-group-item active">
+            草稿箱<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+        </a>
+        <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='minecrowdfunding.html'">
+            我的新闻<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+        </div>
+    </div>
+
+</body>
+<script src="../jquery/jquery-2.1.1.min.js"></script>
+<script>
+    $.ajax({
+        type:"get",
+        url:"http://localhost:8080/youya_news/initUser",
+        success:function (result) {
+            $(result).each(function(index,item){
+                $("#h3").text(item.username)
+            })
+        }
+    })
+</script>
+</html>

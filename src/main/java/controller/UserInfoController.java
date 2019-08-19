@@ -76,4 +76,16 @@ public class UserInfoController {
         }
     }
 
+    @RequestMapping(name = "initUser",value = "/initUser")
+    @ResponseBody
+    public Object initUser( HttpSession httpSession){
+        Object userInfo = httpSession.getAttribute("userInfo");
+        if ( userInfo==null){
+            return null;
+        }else {
+            System.out.println("userInfo = " + userInfo);
+            return userInfo;
+        }
+    }
+
 }

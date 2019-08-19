@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="GB18030" >
+<head>
+    <meta charset="GB18030"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <style>
+        .tree li {
+            list-style-type: none;
+            cursor:pointer;
+        }
+        table tbody tr:nth-child(odd){background:#F4F4F4;}
+        table tbody td:nth-child(even){color:#C00;}
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div><a class="navbar-brand" style="font-size:32px;" href="#">悠亚新闻用户个人中心</a></div>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li style="padding-top:8px;">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i> 张三 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
+                            <li class="divider"></li>
+                            <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li style="margin-left:10px;padding-top:8px;">
+                    <button type="button" class="btn btn-default btn-danger">
+                        <span class="glyphicon glyphicon-question-sign"></span> 帮助
+                    </button>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <!--个人菜单-->
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 数据列表</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline" role="form" style="float:left;">
+                        <div class="form-group has-feedback">
+                            <div class="input-group ">
+                                <!--下拉框-->
+                                <div class="input-group-addon tree-closed">
+                                    <button id="selects1" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">查询条件<span class="caret"></span></button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li id="account1"><a>账&ensp;&ensp;&ensp;&ensp;号</a></li>
+                                        <li id="username1"><a>名&ensp;&ensp;&ensp;&ensp;称</a></li>
+                                        <li id="email1"><a>邮箱地址</a></li>
+                                    </ul>
+                                </div>
+                                <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue1">
+                            </div>
+                            <div class="input-group ">
+                                <!--下拉框-->
+                                <div class="input-group-addon tree-closed">
+                                    <button id="selects2" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">查询条件<span class="caret"></span></button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li id="account2"><a>账&ensp;&ensp;&ensp;&ensp;号</a></li>
+                                        <li id="username2"><a>名&ensp;&ensp;&ensp;&ensp;称</a></li>
+                                        <li id="email2"><a>邮箱地址</a></li>
+                                    </ul>
+                                </div>
+                                <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue2">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-warning" id="selectByClue" onclick="aaa()"><i class="glyphicon glyphicon-search"></i> 查询</button>
+                    </form>
+                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+                    <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+                    <br>
+                    <hr style="clear:both;">
+                    <div class="table-responsive">
+                        <!--dataTable-->
+                        <table class="table  table-bordered" >
+                            <thead>
+                            <tr>
+                                <th width="30">#</th>
+                                <th width="30"><input type="checkbox" id="checkbox"></th>
+                                <th>新闻标题</th>
+                                <th>创建时间</th>
+                                <th>修改时间</th>
+                                <th width="100">操作</th>
+                            </tr>
+                            </thead >
+                            <tbody id = "dataTable">
+
+
+                            </tbody>
+                            <tfoot>
+                            <tr >
+                                <td colspan="6" align="center">
+                                    <ul class="pagination">
+                                        <!--页码-->
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../jquery/jquery-2.1.1.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../script/docs.min.js"></script>
+<script type="text/javascript">
+    $(".sidebar").load("personal.html");
+
+    $("#account1").click(function () {
+        $("#selects1").html($(this).text()+"<span class='caret'></span>")
+    })
+    $("#username1").click(function () {
+        $("#selects1").html($(this).text()+"<span class='caret'></span>")
+    })
+    $("#email1").click(function () {
+        $("#selects1").html($(this).text()+"<span class='caret'></span>")
+    })
+    $("#account2").click(function () {
+        $("#selects2").html($(this).text()+"<span class='caret'></span>")
+    })
+    $("#username2").click(function () {
+        $("#selects2").html($(this).text()+"<span class='caret'></span>")
+    })
+    $("#email2").click(function () {
+        $("#selects2").html($(this).text()+"<span class='caret'></span>")
+    })
+    $(function () {
+        $(".input-group-addon").click(function(){
+            if ( $(this).find("ul") ) {
+                $(this).toggleClass("tree-closed");
+                if ( $(this).hasClass("tree-closed") ) {
+                    $("ul", this).hide("fast");
+                } else {
+                    $("ul", this).show("fast");
+                }
+            }
+        });
+    });
+
+
+    function aaa(pageNum) {
+        var clue1=$("#clue1").val()
+        var clue2=$("#clue2").val()
+        if (clue1==""&&clue2==""){
+            location.reload()
+        }
+        var selects1=$("#selects1").text()
+        var selects2=$("#selects2").text()
+        if (selects1[0]=="账"){
+            selects1="account"
+        }else if (selects1[0]=="名"){
+            selects1="username"
+        }else if (selects1[0]=="邮"){
+            selects1="email"
+        }
+        if (selects2[0]=="账"){
+            selects2="account"
+        }else if (selects2[0]=="名"){
+            selects2="username"
+        }else if (selects2[0]=="邮"){
+            selects2="email"
+        }
+        console.log(clue1+" : "+selects1)
+        console.log(clue2+" : "+selects2)
+        if (pageNum==null){
+            pageNum=0
+        }
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            contentType: "application/json;charset=utf-8",
+            url:"selectUserByClue",
+            data:JSON.stringify({
+                clue1:clue1,
+                clue2:clue2,
+                selects1:selects1,
+                selects2:selects2,
+                pageNum:pageNum
+            }),
+            success : function(result){
+                context(result);
+                selectpages(result);
+                console.log(result);
+            },
+            error : function(e){
+
+            }
+        })
+    }
+
+    var pageNum = window.location.search.split("=")[1];
+    var requestURL = "getAllDrafts";
+    if(pageNum!=null){
+        requestURL+="?pageNum="+pageNum;
+    }
+        $.ajax({
+            type : "GET",
+            dataType:"json",
+            url : requestURL,
+            success : function(result) {
+                context(result);
+                newpages(result);
+                console.log(result);
+            },
+            error : function(e){
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        })
+
+        function context(result){
+            var trStr="";
+            $(result.list).each(function(index,item){
+                    trStr+= "<tr id=tr"+item.draftsid+">";
+                    trStr+="<td>"+item.draftsid+"</td>";
+                    trStr+="<td><input type='checkbox' class='checkboxs' id=check_"+item.draftsid+" onclick='check("+item.draftsid+")'></td>";
+                    trStr+="<td>"+item.newstitle+"</td>";
+                    trStr+="<td>"+item.newscreatetime+"</td>";
+                    trStr+="<td>"+item.updatetime+"</td>";
+                    trStr+="<td>";
+                    trStr+="<button type=\"button\" class='btn btn-success btn-xs' onclick='assignRole("+item.userid+")'><i class=' glyphicon glyphicon-check' ></i></button>&nbsp;";
+                    trStr+="<button type=\"button\" class='btn btn-primary btn-xs' onclick='updateUser("+item.userid+")'><i class=' glyphicon glyphicon-pencil' ></i></button>&nbsp;";
+                    trStr+="<button type=\"button\" class='btn btn-danger btn-xs' onclick='removeUser("+item.userid+")'><i class=' glyphicon glyphicon-remove'  ></i></button>";
+                    trStr+="</td>";
+                    trStr+="</tr>";
+            });
+            $("#dataTable").html(trStr);
+        }
+
+        function newpages(result){
+            var splitePageStr = "<li id='prePage'><a href="+result.prePage+"'../user.html?pageNum=' id='pre'>上一页</a></li>";
+            for(var i=1;i<=result.pages;i++){
+                splitePageStr +="<li id='pages"+i+"'><a href="+i+"'../user.html?pageNum='>"+i+"</a></li>";
+            }
+            splitePageStr += "<li id='nextPage'><a href="+result.nextPage+"'../user.html?pageNum=' id='next' >下一页</a></li>";
+            $(".pagination").html(splitePageStr);
+
+            if (result.isFirstPage){
+                $("#prePage").addClass("disabled");
+                $("#pre").click(false);
+            }
+            if (result.isLastPage){
+                $("#nextPage").addClass("disabled");
+                $("#next").click(false);
+            }
+            $("#pages"+result.pageNum).addClass("active");
+        }
+    function selectpages(result){
+        var splitePageStr = "<li id='prePage'><a  onclick='aaa("+result.prePage+")'>上一页</a></li>";
+        for(var i=1;i<=result.pages;i++){
+            splitePageStr +="<li id='pages"+i+"'><a onclick='aaa("+i+")' >"+i+"</a></li>";
+        }
+        splitePageStr += "<li id='nextPage'><a  onclick='aaa("+result.nextPage+")'>下一页</a></li>";
+        $(".pagination").html(splitePageStr);
+
+        if (result.isFirstPage){
+            $("#prePage").addClass("disabled");
+            $("#prePage a").removeAttr('onclick');
+        }
+        if (result.isLastPage){
+            $("#nextPage").addClass("disabled");
+            $("#nextPage a").removeAttr('onclick');
+        }
+        $("#pages"+result.pageNum).addClass("active");
+    }
+
+
+
+    $("#checkbox").click(function () {
+           var fal =$(this).prop("checked");
+           $(".checkboxs").prop("checked",fal)
+       });
+
+       function check(id){
+           var flg =$("#check_"+id).prop("checked");
+           if (!flg){
+               $("#checkbox").prop("checked",flg)
+           } else if($(".checkboxs").length==$(".checkboxs:checked").length){
+               $("#checkbox").prop("checked",flg)
+           }
+       }
+
+
+       $(".btn-danger").click(function () {
+           var a=$(".checkboxs:checked")
+           for (var i = 0; i < a.length; i++) {
+               removeUser($(a[i]).attr("id").split("_")[1])
+           }
+       })
+
+
+
+    function removeUser(userid) {
+        $.ajax({
+            url:"http://localhost:8080/spring_mybatis_test/removeUser",
+            type:"post",
+            contentType: "application/json;charset=utf-8",
+            data:JSON.stringify({
+                userid:userid
+            }),
+            success: function (responseText) {
+                $("#tr"+userid).remove();
+            },
+            error: function (responseText) {
+                alert(responseText)
+            }
+        })
+    }
+
+    function updateUser(userid){
+        location.href="http://localhost:8080/spring_mybatis_test/edit.html?userid="+userid
+    }
+    function assignRole(userid) {
+        location.href="http://localhost:8080/spring_mybatis_test/assignRole.html?userid="+userid
+    }
+
+
+
+</script>
+
+</body>
+</html>
