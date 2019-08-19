@@ -46,15 +46,15 @@
     </bean>
 
     <!--配置拦截器集合-->
-<!--    <mvc:interceptors>-->
-<!--        &lt;!&ndash;配置登录拦截器&ndash;&gt;-->
-<!--        <mvc:interceptor>-->
-<!--            <mvc:mapping path="/*.html"/>-->
-<!--            <mvc:exclude-mapping path="/login.html"/>-->
-<!--            <bean class="filter.LoginInterceptor"/>-->
-<!--        </mvc:interceptor>-->
+    <mvc:interceptors>
+        <!--配置登录拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/*.html"/>
+            <mvc:exclude-mapping path="/login.html"/>
+            <bean class="filter.LoginInterceptor"/>
+        </mvc:interceptor>
 
-<!--    </mvc:interceptors>-->
+    </mvc:interceptors>
 
     <!-- 使用thymeleaf解析 -->
     <bean id="templateResolver"
