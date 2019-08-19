@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="GB18030" >
+<html lang="zh-CN" >
 <head>
-    <meta charset="GB18030"/>
+    <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content=""/>
@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/main.css"/>
+    <link rel="stylesheet" href="../dropzone/basic.min.css" />
+    <link rel="stylesheet" href="../dropzone/dropzone.min.css" />
+    <link href="../wangeditor/wangEditor.min.css"/>
+    <link rel="stylesheet" href="../wangeditor/wangEditor-fullscreen-plugin.css">
+    <script src="../wangeditor/wangEditor.min.js"></script>
+    <script src="../dropzone/dropzone.min.js"></script>
+
     <style>
         .tree li {
             list-style-type: none;
@@ -25,7 +32,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <div><a class="navbar-brand" style="font-size:32px;" href="#">”∆—«–¬Œ≈”√ªß∏ˆ»À÷––ƒ</a></div>
+            <div><a class="navbar-brand" style="font-size:32px;" href="#">ÊÇ†‰∫öÊñ∞ÈóªÁî®Êà∑‰∏™‰∫∫‰∏≠ÂøÉ</a></div>
         </div>
     </div>
 </nav>
@@ -33,46 +40,46 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-            <!--∏ˆ»À≤Àµ•-->
+            <!--‰∏™‰∫∫ËèúÂçï-->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div id="myTabContent" class="tab-content" style="margin-top:10px;">
                 <div  class="panel panel-default tab-pane fade active in" id="list" aria-labelledby="list-tab">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i>  ˝æ›¡–±Ì</h3>
+                        <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> Êï∞ÊçÆÂàóË°®</h3>
                     </div>
                     <div class="panel-body">
                         <form class="form-inline" role="form" style="float:left;">
                             <div class="form-group has-feedback">
                                 <div class="input-group ">
-                                    <!--œ¬¿≠øÚ-->
+                                    <!--‰∏ãÊãâÊ°Ü-->
                                     <div class="input-group-addon tree-closed">
-                                        <button id="selects1" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">≤È—ØÃıº˛<span class="caret"></span></button>
+                                        <button id="selects1" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">Êü•ËØ¢Êù°‰ª∂<span class="caret"></span></button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li id="account1"><a>’À&ensp;&ensp;&ensp;&ensp;∫≈</a></li>
-                                            <li id="username1"><a>√˚&ensp;&ensp;&ensp;&ensp;≥∆</a></li>
-                                            <li id="email1"><a>” œ‰µÿ÷∑</a></li>
+                                            <li id="account1"><a>Ë¥¶&ensp;&ensp;&ensp;&ensp;Âè∑</a></li>
+                                            <li id="username1"><a>Âêç&ensp;&ensp;&ensp;&ensp;Áß∞</a></li>
+                                            <li id="email1"><a>ÈÇÆÁÆ±Âú∞ÂùÄ</a></li>
                                         </ul>
                                     </div>
-                                    <input class="form-control has-success" type="text" placeholder="«Î ‰»Î≤È—ØÃıº˛" id="clue1">
+                                    <input class="form-control has-success" type="text" placeholder="ËØ∑ËæìÂÖ•Êü•ËØ¢Êù°‰ª∂" id="clue1">
                                 </div>
                                 <div class="input-group ">
-                                    <!--œ¬¿≠øÚ-->
+                                    <!--‰∏ãÊãâÊ°Ü-->
                                     <div class="input-group-addon tree-closed">
-                                        <button id="selects2" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">≤È—ØÃıº˛<span class="caret"></span></button>
+                                        <button id="selects2" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">Êü•ËØ¢Êù°‰ª∂<span class="caret"></span></button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li id="account2"><a>’À&ensp;&ensp;&ensp;&ensp;∫≈</a></li>
-                                            <li id="username2"><a>√˚&ensp;&ensp;&ensp;&ensp;≥∆</a></li>
-                                            <li id="email2"><a>” œ‰µÿ÷∑</a></li>
+                                            <li id="account2"><a>Ë¥¶&ensp;&ensp;&ensp;&ensp;Âè∑</a></li>
+                                            <li id="username2"><a>Âêç&ensp;&ensp;&ensp;&ensp;Áß∞</a></li>
+                                            <li id="email2"><a>ÈÇÆÁÆ±Âú∞ÂùÄ</a></li>
                                         </ul>
                                     </div>
-                                    <input class="form-control has-success" type="text" placeholder="«Î ‰»Î≤È—ØÃıº˛" id="clue2">
+                                    <input class="form-control has-success" type="text" placeholder="ËØ∑ËæìÂÖ•Êü•ËØ¢Êù°‰ª∂" id="clue2">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-warning" id="selectByClue" onclick="aaa()"><i class="glyphicon glyphicon-search"></i> ≤È—Ø</button>
+                            <button type="button" class="btn btn-warning" id="selectByClue" onclick="aaa()"><i class="glyphicon glyphicon-search"></i> Êü•ËØ¢</button>
                         </form>
-                        <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> …æ≥˝</button>
-                        <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> –¬‘ˆ</button>
+                        <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> Âà†Èô§</button>
+                        <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> Êñ∞Â¢û</button>
                         <br>
                         <hr style="clear:both;">
                         <div class="table-responsive">
@@ -82,10 +89,10 @@
                                 <tr>
                                     <th width="30">#</th>
                                     <th width="30"><input type="checkbox" id="checkbox"></th>
-                                    <th>–¬Œ≈±ÍÃ‚</th>
-                                    <th>¥¥Ω® ±º‰</th>
-                                    <th>–ﬁ∏ƒ ±º‰</th>
-                                    <th width="100">≤Ÿ◊˜</th>
+                                    <th>Êñ∞ÈóªÊ†áÈ¢ò</th>
+                                    <th>ÂàõÂª∫Êó∂Èó¥</th>
+                                    <th>‰øÆÊîπÊó∂Èó¥</th>
+                                    <th width="100">Êìç‰Ωú</th>
                                 </tr>
                                 </thead >
                                 <tbody id = "dataTable">
@@ -96,7 +103,7 @@
                                 <tr >
                                     <td colspan="6" align="center">
                                         <ul class="pagination">
-                                            <!--“≥¬Î-->
+                                            <!--È°µÁ†Å-->
                                         </ul>
                                     </td>
                                 </tr>
@@ -109,112 +116,52 @@
                 <div  class="panel panel-default tab-pane fade " id="detail" aria-labelledby="detail-tab">
                     <div style="margin-left: 10px; margin-top: 20px; margin-right: 10px">
                         <div class="form-group has-success has-feedback">
-                            <input type="text" class="form-control" id="username" placeholder="«Î ‰»Îµ«¬º’À∫≈" >
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                            <h4>Êñ∞ÈóªÁ±ªÂà´</h4>
+                            <select  class="form-control" id="category"  >
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                            <span class="glyphicon glyphicon-tag form-control-feedback"></span>
                         </div>
                         <div class="form-group has-success has-feedback">
-                            <input type="text" class="form-control" id="password" placeholder="«Î ‰»Îµ«¬º√‹¬Î" style="margin-top:10px;">
-                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            <h4>Êñ∞ÈóªÊ†áÈ¢ò</h4>
+                            <input type="text" class="form-control" id="newstitle"  >
+                            <span class="glyphicon glyphicon-tag form-control-feedback"></span>
                         </div>
                         <div class="form-group has-success has-feedback">
-                            <input type="text" class="form-control" id="email" placeholder="«Î ‰»Î” œ‰µÿ÷∑" style="margin-top:10px;">
-                            <span class=" glyphicon glyphicon-envelope form-control-feedback"></span>
+                            <h4>ÂâØÊ†áÈ¢ò</h4>
+                            <input type="text" class="form-control" id="newssubtitle" style="margin-top:10px;">
+                            <span class="glyphicon glyphicon-tags form-control-feedback"></span>
                         </div>
+                        <div class="form-group has-success has-feedback" >
+                            <h4>‰∏ªÂõæÁâá</h4>
+                            <div id="newsimg"  class="dropzone"  >
+                                <img src="../img/services-box1.jpg" id="oldimg">
+                            </div>
+                            <span class=" glyphicon glyphicon-picture form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-success has-feedback">
+                            <h4>ÂÜÖÂÆπ</h4>
+                            <div id="newscontext" ></div>
+                            <span class="glyphicon  glyphicon-book form-control-feedback"></span>
+                        </div>
+                        <a class="btn btn-lg btn-success btn-block" onclick="register()" > Êèê‰∫§</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<script src="dropzone.js" ></script>
 <script src="../jquery/jquery-2.1.1.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <script src="../script/docs.min.js"></script>
+<script src="../wangeditor/wangEditor-fullscreen-plugin.js"></script>
+<script src="myWangEditor.js"></script>
+<script src="select.js"></script>
 <script type="text/javascript">
     $(".sidebar").load("personal.html");
-
-
-    $("#account1").click(function () {
-        $("#selects1").html($(this).text()+"<span class='caret'></span>")
-    })
-    $("#username1").click(function () {
-        $("#selects1").html($(this).text()+"<span class='caret'></span>")
-    })
-    $("#email1").click(function () {
-        $("#selects1").html($(this).text()+"<span class='caret'></span>")
-    })
-    $("#account2").click(function () {
-        $("#selects2").html($(this).text()+"<span class='caret'></span>")
-    })
-    $("#username2").click(function () {
-        $("#selects2").html($(this).text()+"<span class='caret'></span>")
-    })
-    $("#email2").click(function () {
-        $("#selects2").html($(this).text()+"<span class='caret'></span>")
-    })
-    $(function () {
-        $(".input-group-addon").click(function(){
-            if ( $(this).find("ul") ) {
-                $(this).toggleClass("tree-closed");
-                if ( $(this).hasClass("tree-closed") ) {
-                    $("ul", this).hide("fast");
-                } else {
-                    $("ul", this).show("fast");
-                }
-            }
-        });
-    });
-
-
-    function aaa(pageNum) {
-        var clue1=$("#clue1").val()
-        var clue2=$("#clue2").val()
-        if (clue1==""&&clue2==""){
-            location.reload()
-        }
-        var selects1=$("#selects1").text()
-        var selects2=$("#selects2").text()
-        if (selects1[0]=="’À"){
-            selects1="account"
-        }else if (selects1[0]=="√˚"){
-            selects1="username"
-        }else if (selects1[0]=="” "){
-            selects1="email"
-        }
-        if (selects2[0]=="’À"){
-            selects2="account"
-        }else if (selects2[0]=="√˚"){
-            selects2="username"
-        }else if (selects2[0]=="” "){
-            selects2="email"
-        }
-        console.log(clue1+" : "+selects1)
-        console.log(clue2+" : "+selects2)
-        if (pageNum==null){
-            pageNum=0
-        }
-        $.ajax({
-            type:"post",
-            dataType:"json",
-            contentType: "application/json;charset=utf-8",
-            url:"selectUserByClue",
-            data:JSON.stringify({
-                clue1:clue1,
-                clue2:clue2,
-                selects1:selects1,
-                selects2:selects2,
-                pageNum:pageNum
-            }),
-            success : function(result){
-                context(result);
-                selectpages(result);
-                console.log(result);
-            },
-            error : function(e){
-
-            }
-        })
-    }
 
     var pageNum = window.location.search.split("=")[1];
     var requestURL = "http://localhost:8080/youya_news/getAllDrafts";
@@ -255,11 +202,11 @@
         }
 
         function newpages(result){
-            var splitePageStr = "<li id='prePage'><a href="+result.prePage+"'../user.html?pageNum=' id='pre'>…œ“ª“≥</a></li>";
+            var splitePageStr = "<li id='prePage'><a href="+result.prePage+"'../user.html?pageNum=' id='pre'>‰∏ä‰∏ÄÈ°µ</a></li>";
             for(var i=1;i<=result.pages;i++){
                 splitePageStr +="<li id='pages"+i+"'><a href="+i+"'../user.html?pageNum='>"+i+"</a></li>";
             }
-            splitePageStr += "<li id='nextPage'><a href="+result.nextPage+"'../user.html?pageNum=' id='next' >œ¬“ª“≥</a></li>";
+            splitePageStr += "<li id='nextPage'><a href="+result.nextPage+"'../user.html?pageNum=' id='next' >‰∏ã‰∏ÄÈ°µ</a></li>";
             $(".pagination").html(splitePageStr);
 
             if (result.isFirstPage){
@@ -272,25 +219,6 @@
             }
             $("#pages"+result.pageNum).addClass("active");
         }
-    function selectpages(result){
-        var splitePageStr = "<li id='prePage'><a  onclick='aaa("+result.prePage+")'>…œ“ª“≥</a></li>";
-        for(var i=1;i<=result.pages;i++){
-            splitePageStr +="<li id='pages"+i+"'><a onclick='aaa("+i+")' >"+i+"</a></li>";
-        }
-        splitePageStr += "<li id='nextPage'><a  onclick='aaa("+result.nextPage+")'>œ¬“ª“≥</a></li>";
-        $(".pagination").html(splitePageStr);
-
-        if (result.isFirstPage){
-            $("#prePage").addClass("disabled");
-            $("#prePage a").removeAttr('onclick');
-        }
-        if (result.isLastPage){
-            $("#nextPage").addClass("disabled");
-            $("#nextPage a").removeAttr('onclick');
-        }
-        $("#pages"+result.pageNum).addClass("active");
-    }
-
 
 
     $("#checkbox").click(function () {
@@ -307,14 +235,12 @@
            }
        }
 
-
        $(".btn-danger").click(function () {
            var a=$(".checkboxs:checked")
            for (var i = 0; i < a.length; i++) {
                removeUser($(a[i]).attr("id").split("_")[1])
            }
        })
-
 
 
     function removeUser(userid) {
