@@ -37,13 +37,16 @@
         </div>
         <div class="form-group has-success has-feedback">
             <input type="text" class="form-control" id="email" placeholder="请输入邮箱地址" style="margin-top:10px;">
-            <span class="glyphicon glyphicon glyphicon-envelope form-control-feedback"></span>
+            <span class=" glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
 
         <div class="form-group has-feedback">
             <div class="input-group">
-                <div class="input-group-addon" type="button" onclick="get()" ><i class="glyphicon glyphicon-search"></i>获取验证码</div>
-                <input class="form-control has-success" id="getcode" type="text" placeholder="请输入验证码" >
+                <a class="input-group-addon" type="button" onclick="get()" href="#" >
+                    <i class="glyphicon glyphicon-search"></i>
+                    获取验证码
+                </a>
+                <input class="form-control has-success " id="getcode" type="text" placeholder="请输入验证码" >
             </div>
         </div>
 
@@ -80,10 +83,19 @@
             },
             success:function (result) {
                 code=result;
+                console.log(code);
                 alert("验证码已发入邮箱")
             }
         });
     }
+    $("#getcode").keyup(function () {
+        var cod=$(this).val();
+        if (cod==code){
+            $(".input-group").append("<a class=\"glyphicon glyphicon-check form-control-feedback\"></a>")
+        }else {
+            $(".glyphicon-check").remove()
+        }
+    });
     function register(){
         var cod=$("#getcode").val();
         if (code===""){

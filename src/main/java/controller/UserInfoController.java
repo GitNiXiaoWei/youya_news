@@ -48,10 +48,10 @@ public class UserInfoController {
     @ResponseBody
     public Object getCode(@RequestParam String email) throws Exception {
         System.err.println("email = " + email);
-        SendMail sendMail = new SendMail();
-        sendMail.setReceiveMailAccount(email);
         Random random = new Random();
         int i = random.nextInt(9000)+1000;
+        SendMail sendMail = new SendMail();
+        sendMail.setReceiveMailAccount(email);
         sendMail.run(i);
         System.err.println("i :"+i);
         return i;
