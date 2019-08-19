@@ -16,6 +16,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         //2.如果没有？如果有?
         UserInfo userInfo = (UserInfo)session.getAttribute("userInfo");
         if(userInfo==null){
+            String requestURI = httpServletRequest.getRequestURI();
+            if (requestURI.equals("/youya_news/login.html")){
+                return true;
+            }
             httpServletRequest.getRequestDispatcher("login.html").forward(httpServletRequest,httpServletResponse);
             return false;
         }else{

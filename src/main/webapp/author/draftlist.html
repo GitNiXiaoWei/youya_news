@@ -223,7 +223,7 @@
     }
 
     var pageNum = window.location.search.split("=")[1];
-    var requestURL = "getAllDrafts";
+    var requestURL = "http://localhost:8080/youya_news/getAllDrafts";
     if(pageNum!=null){
         requestURL+="?pageNum="+pageNum;
     }
@@ -347,8 +347,6 @@
     function assignRole(userid) {
         location.href="http://localhost:8080/spring_mybatis_test/assignRole.html?userid="+userid
     }
-
-
 
 </script>
 

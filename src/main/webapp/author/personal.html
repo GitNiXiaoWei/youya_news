@@ -18,17 +18,18 @@
         </div>
     </div>
     <div class="list-group">
-        <a class="list-group-item active">
+        <a id="draftlist" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='draftlist.html'">
             草稿箱<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
-        <div class="list-group-item " style="cursor:pointer;" onclick="window.location.href='minecrowdfunding.html'">
+        <a class="list-group-item " style="cursor:pointer;" onclick="window.location.href='minecrowdfunding.html'">
             我的新闻<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
-        </div>
+        </a>
     </div>
 
 </body>
 <script src="../jquery/jquery-2.1.1.min.js"></script>
 <script>
+    var page=location.toString().split("/")[5]
     $.ajax({
         type:"get",
         url:"http://localhost:8080/youya_news/initUser",
@@ -38,5 +39,6 @@
             })
         }
     })
+    $("#"+page.split(".")[0]).addClass("active")
 </script>
 </html>
