@@ -57,9 +57,10 @@ public class UserInfoController {
         return i;
     }
 
-    @RequestMapping(name = "login",value = "/login")
+    @RequestMapping(name = "loginCheck",value = "/loginCheck")
     @ResponseBody
     public Object login(@RequestBody UserInfoDTO userInfoDto, HttpSession httpSession){
+        System.out.println("userInfoDto = " + userInfoDto);
         UserInfo login = userInfoService.login(userInfoDto);
         if (login!=null){
             httpSession.setAttribute("userInfo",login);

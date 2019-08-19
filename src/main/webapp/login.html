@@ -55,11 +55,10 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script>
     function dologin() {
-        // var type = $(":selected").val();
         var username=$("#username").val();
         var password=$("#password").val();
         $.ajax({
-            url:"http://localhost:8080/spring_mybatis_test/check",
+            url:"http://localhost:8080/youya_news/loginCheck",
             type:"post",
             dataType:"json",
             contentType: "application/json;charset=utf-8",
@@ -70,7 +69,7 @@
             success: function (responseText) {
                 var text = responseText.toString();
                 if ("true" == text) {
-                    location.href = "main.html";
+                    location.href = "member.html";
                 } else {
                     alert("”√ªß√˚√‹¬Î¥ÌŒÛ")
                 }
