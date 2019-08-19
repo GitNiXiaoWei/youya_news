@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="GB18030">
+<head>
+    <meta charset="GB18030">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../dropzone/basic.min.css"/>
+    <link rel="stylesheet" href="../dropzone/dropzone.min.css"/>
+    <script src="../dropzone/dropzone.min.js"></script>
+    <script src="../jquery/jquery-2.1.1.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <style>
+        #footer {
+            padding: 15px 0;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            text-align: center;
+        }
+        #topcontrol {
+            color: #fff;
+            z-index: 99;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            background: #222;
+            position: relative;
+            right: 14px !important;
+            bottom: 11px !important;
+            border-radius: 3px !important;
+        }
+
+        #topcontrol:after {
+            /*top: -2px;*/
+            left: 8.5px;
+            content: "\f106";
+            position: absolute;
+            text-align: center;
+            font-family: FontAwesome;
+        }
+
+        #topcontrol:hover {
+            color: #fff;
+            background: #18ba9b;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+    </style>
+</head>
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html" style="font-size:32px;">千峰-创意产品众筹平台</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse" style="float:right;">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> 张三<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="member.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
+                                <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
+                                <li class="divider"></li>
+                                <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-sm-3 col-md-3 column">
+
+        </div>
+
+        <div class="col-sm-9 col-md-9 column">
+            <div style="margin-left: 10%;margin-right: 30%;margin-top: 70px">
+                <div class="form-group has-success has-feedback">
+                    <input type="text" class="form-control" id="email" placeholder="请输入邮箱地址" style="margin-top:10px;">
+                    <span class=" glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-success has-feedback">
+                    <input type="text" class="form-control" id="username" placeholder="请输入登录账号" autofocus>
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-success has-feedback">
+                    <input type="text" class="form-control" id="password" placeholder="请输入登录密码" style="margin-top:10px;">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group has-success has-feedback">
+                    <select type="text" class="form-control" id="sex"  style="margin-top:10px;font-size: 18px">
+                        <option value="1">男♂</option>
+                        <option value="0">女♀</option>
+                    </select>
+                </div>
+                <div class="form-group has-success has-feedback">
+                    <div id="dropzoneDiv" class="dropzone"></div>
+                    <input id="imgUrl" type="hidden"/>
+                </div>
+                <a class="btn btn-lg btn-success btn-block" onclick="register()" > 提交</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    Dropzone.options.dropzoneDiv = {
+        url: "fileUpAndDown/upload", // 文件提交地址
+        method: "post",  // 也可用put
+        paramName: "dropzFile", // 默认为file
+        maxFiles: 1,// 一次性上传的文件数量上限
+        maxFilesize: 2, // 文件大小，单位：MB
+        acceptedFiles: ".jpg,.gif,.png,.jpeg,.txt,.doc,.docx", // 上传的类型
+        addRemoveLinks: true,
+        parallelUploads: 1,// 一次上传的文件数量
+        //previewsContainer:"#preview", // 上传图片的预览窗口
+        dictDefaultMessage: '拖动文件至此或者点击上传',
+        dictMaxFilesExceeded: "您最多只能上传1个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg,.txt,.doc,.docx。",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大上传文件最大支持.",
+        dictRemoveLinks: "删除",
+        dictCancelUpload: "取消",
+        init: function () {
+            this.on("addedfile", function (file) {
+                // 上传文件时触发的事件
+            });
+            this.on("success", function (file, data) {
+                console.log(data);
+                var status = data.status;
+                if(status==200){
+                    var filePath = data.filePath;
+                    $("#imgUrl").val(filePath);
+                }
+                console.log(file);
+            });
+            this.on("error", function (file, data) {
+
+                console.error(data);
+                console.log(file);
+                // 上传失败触发的事件
+            });
+            this.on("removedfile", function (file) {
+                // 删除文件时触发的方法
+            });
+        }
+
+    }
+</script>
+<script src="../jquery/jquery-2.1.1.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../script/docs.min.js"></script>
+<script src="../script/back-to-top.js"></script>
+<script>
+    $(".col-md-3").load("personal.html")
+    $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+
+</script>
+</body>
+</html>

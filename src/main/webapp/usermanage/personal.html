@@ -10,7 +10,7 @@
                 <img src="../img/services-box1.jpg" class="img-thumbnail" alt="">
                 <div class="caption" style="text-align:center;">
                     <h3 id="h3">
-                        ZhangSan
+                        李彦东
                     </h3>
                     <!--   <span class="label label-danger" style="cursor:pointer;" onclick="window.location.href='accttype.html'">未实名认证</span>-->
                 </div>
@@ -18,21 +18,21 @@
         </div>
     </div>
     <div class="list-group">
-        <a id="userpersonal" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='userpersonal.html'">
+        <a id="userpersonal" class="list-group-item " style="cursor:pointer;" onclick="window.location.href='userpersonal.html'">
             个人信息<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
-        <a id="draftlist" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='draftlist.html'">
-            草稿箱<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+        <a id="apply" class="list-group-item " style="cursor:pointer;" onclick="window.location.href='apply.html'">
+            申请当作者<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
-        <a class="list-group-item " style="cursor:pointer;" onclick="window.location.href='minecrowdfunding.html'">
-            我的新闻<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+        <a id="message" class="list-group-item " style="cursor:pointer;" onclick="window.location.href='message.html'">
+            消息通知<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
     </div>
 
 </body>
 <script src="../jquery/jquery-2.1.1.min.js"></script>
 <script>
-    var page=location.toString().split("/")[5]
+    var page=location.toString().split("/")[5];
     $.ajax({
         type:"get",
         url:"http://localhost:8080/youya_news/initUser",
@@ -42,6 +42,8 @@
             })
         }
     })
+
     $("#"+page.split(".")[0]).addClass("active")
+
 </script>
 </html>

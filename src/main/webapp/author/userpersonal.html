@@ -27,6 +27,7 @@
         <div class="navbar-header">
             <div><a class="navbar-brand" style="font-size:32px;" href="#">悠亚新闻用户个人中心</a></div>
         </div>
+
     </div>
 </nav>
 
@@ -36,93 +37,7 @@
             <!--个人菜单-->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <div id="myTabContent" class="tab-content" style="margin-top:10px;">
-                <div  class="panel panel-default tab-pane fade active in" id="list" aria-labelledby="list-tab">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 数据列表</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form class="form-inline" role="form" style="float:left;">
-                            <div class="form-group has-feedback">
-                                <div class="input-group ">
-                                    <!--下拉框-->
-                                    <div class="input-group-addon tree-closed">
-                                        <button id="selects1" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">查询条件<span class="caret"></span></button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li id="account1"><a>账&ensp;&ensp;&ensp;&ensp;号</a></li>
-                                            <li id="username1"><a>名&ensp;&ensp;&ensp;&ensp;称</a></li>
-                                            <li id="email1"><a>邮箱地址</a></li>
-                                        </ul>
-                                    </div>
-                                    <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue1">
-                                </div>
-                                <div class="input-group ">
-                                    <!--下拉框-->
-                                    <div class="input-group-addon tree-closed">
-                                        <button id="selects2" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">查询条件<span class="caret"></span></button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li id="account2"><a>账&ensp;&ensp;&ensp;&ensp;号</a></li>
-                                            <li id="username2"><a>名&ensp;&ensp;&ensp;&ensp;称</a></li>
-                                            <li id="email2"><a>邮箱地址</a></li>
-                                        </ul>
-                                    </div>
-                                    <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue2">
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-warning" id="selectByClue" onclick="aaa()"><i class="glyphicon glyphicon-search"></i> 查询</button>
-                        </form>
-                        <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                        <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
-                        <br>
-                        <hr style="clear:both;">
-                        <div class="table-responsive">
-                            <!--dataTable-->
-                            <table class="table  table-bordered" >
-                                <thead>
-                                <tr>
-                                    <th width="30">#</th>
-                                    <th width="30"><input type="checkbox" id="checkbox"></th>
-                                    <th>新闻标题</th>
-                                    <th>创建时间</th>
-                                    <th>修改时间</th>
-                                    <th width="100">操作</th>
-                                </tr>
-                                </thead >
-                                <tbody id = "dataTable">
 
-
-                                </tbody>
-                                <tfoot>
-                                <tr >
-                                    <td colspan="6" align="center">
-                                        <ul class="pagination">
-                                            <!--页码-->
-                                        </ul>
-                                    </td>
-                                </tr>
-
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div  class="panel panel-default tab-pane fade " id="detail" aria-labelledby="detail-tab">
-                    <div style="margin-left: 10px; margin-top: 20px; margin-right: 10px">
-                        <div class="form-group has-success has-feedback">
-                            <input type="text" class="form-control" id="username" placeholder="请输入登录账号" >
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-success has-feedback">
-                            <input type="text" class="form-control" id="password" placeholder="请输入登录密码" style="margin-top:10px;">
-                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-success has-feedback">
-                            <input type="text" class="form-control" id="email" placeholder="请输入邮箱地址" style="margin-top:10px;">
-                            <span class=" glyphicon glyphicon-envelope form-control-feedback"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -132,7 +47,6 @@
 <script src="../script/docs.min.js"></script>
 <script type="text/javascript">
     $(".sidebar").load("personal.html");
-
 
     $("#account1").click(function () {
         $("#selects1").html($(this).text()+"<span class='caret'></span>")
@@ -246,8 +160,8 @@
                     trStr+="<td>"+item.newscreatetime+"</td>";
                     trStr+="<td>"+item.updatetime+"</td>";
                     trStr+="<td>";
-                    trStr+="<a onclick='update("+item.draftsid+")' href='#detail' class='btn btn-primary btn-xs'  role=\"tab\" data-toggle=\"tab\" aria-controls=\"home\" aria-expanded=\"true\"><i class=' glyphicon glyphicon-pencil' ></i></a>&nbsp;";
-                    trStr+="<a type=\"button\" class='btn btn-danger btn-xs' onclick='removeUser("+item.draftsid+")'><i class=' glyphicon glyphicon-remove'  ></i></a>";
+                    trStr+="<button type=\"button\" class='btn btn-primary btn-xs' onclick='updateUser("+item.userid+")'><i class=' glyphicon glyphicon-pencil' ></i></button>&nbsp;";
+                    trStr+="<button type=\"button\" class='btn btn-danger btn-xs' onclick='removeUser("+item.userid+")'><i class=' glyphicon glyphicon-remove'  ></i></button>";
                     trStr+="</td>";
                     trStr+="</tr>";
             });
@@ -334,14 +248,12 @@
         })
     }
 
-    $('#detail').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-    })
-    function update(userid){
-
+    function updateUser(userid){
+        location.href="http://localhost:8080/spring_mybatis_test/edit.html?userid="+userid
     }
-
+    function assignRole(userid) {
+        location.href="http://localhost:8080/spring_mybatis_test/assignRole.html?userid="+userid
+    }
 
 </script>
 
