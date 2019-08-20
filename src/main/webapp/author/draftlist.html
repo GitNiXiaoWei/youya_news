@@ -38,15 +38,23 @@
 </nav>
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="row ">
         <div class="col-sm-3 col-md-2 sidebar">
             <!--个人菜单-->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <ul  class="nav nav-pills" >
+                <li role="presentation" >
+                    <a href="#" id="draftbox" >草稿箱</a>
+                </li>
+                <li role="presentation">
+                    <a href="#"  >已提交</a>
+                </li>
+            </ul>
             <div id="myTabContent" class="tab-content" style="margin-top:10px;">
-                <div  class="panel panel-default tab-pane fade active in" id="list" aria-labelledby="list-tab">
+                <div  class="panel panel-default tab-pane fade active in" id="lists" aria-labelledby="lists-tab" >
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 数据列表</h3>
+                        <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 草稿箱</h3>
                     </div>
                     <div class="panel-body">
                         <form class="form-inline" role="form" style="float:left;">
@@ -113,7 +121,7 @@
                         </div>
                     </div>
                 </div>
-                <div  class="panel panel-default tab-pane fade " id="detail" aria-labelledby="detail-tab">
+                <div  class="panel panel-default tab-pane fade" id="detail" aria-labelledby="detail-tab" >
                     <div style="margin-left: 10px; margin-top: 20px; margin-right: 10px">
                         <div class="form-group has-success has-feedback">
                             <h4>新闻类别</h4>
@@ -153,6 +161,8 @@
         </div>
     </div>
 </div>
+<!--<script src="../script/docs.min.js"></script>-->
+<!--<script src="../script/back-to-top.js"></script>-->
 <script src="dropzone.js" ></script>
 <script src="../jquery/jquery-2.1.1.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
@@ -261,13 +271,20 @@
         })
     }
 
-    $('#detail').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-    })
     function update(userid){
 
     }
+    $('#detail').click(fun1());
+     function  fun1(){
+         $(this).tab('show')
+     }
+
+    $('#draftbox').click(function (e) {
+        $('#lists').addClass("active in")
+        $('#detail').removeClass("active in")
+        $(this).parent().attr("class","active")
+    });
+
 
 
 </script>
