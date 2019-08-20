@@ -89,7 +89,11 @@
         <div class="col-sm-9 col-md-9 column">
             <div style="margin-left: 10%;margin-right: 30%;margin-top: 70px">
                 <div class="form-group has-success has-feedback">
-                    <input type="text" class="form-control" id="email" placeholder="请输入邮箱地址" style="margin-top:10px;">
+                    <input type="text" class="hidden" id="userid" style="margin-top:10px;"  >
+                    <span class=" glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-success has-feedback">
+                    <input type="text" class="form-control" id="email" placeholder="请输入邮箱地址" style="margin-top:10px;" readonly>
                     <span class=" glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-success has-feedback">
@@ -108,17 +112,74 @@
                 </div>
                 <div class="form-group has-success has-feedback">
                     <div id="dropzoneDiv" class="dropzone"></div>
-                    <input id="imgUrl" type="hidden"/>
+                    <input id="icon" type="hidden"/>
                 </div>
-                <a class="btn btn-lg btn-success btn-block" onclick="register()" > 提交</a>
+                <a class="btn btn-lg btn-success btn-block" onclick="updateinformation()" > 提交</a>
             </div>
 
         </div>
     </div>
 </div>
+
+<script>
+    $.ajax({
+        type:"get",
+        url:"http://localhost:8080/youya_news/initUser",
+        success:function (result) {
+            console.log(result)
+            $(result).each(function(index,item){
+                $("#userid").val(item.userid)
+                $("#email").val(item.email)
+                $("#username").val(item.username)
+                $("#password").val(item.password)
+                $("#sex").val(item.sex)
+                $("#icon").val(item.icon)
+            })
+        },
+        error : function(e){
+            console.error(e);
+        }
+    });
+    function updateinformation() {
+        $.ajax({
+            url: "http://localhost:8080/youya_news/informationUpdateByUsername",
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            data : JSON.stringify({
+                "userid":$("#userid").val(),
+                "username":$("#username").val(),
+                "email":$("#email").val(),
+                "sex":$("#sex").val(),
+                "icon":$("#icon").val(),
+                "password":$("#password").val()
+
+            }),
+            success: function (result) {
+                console.log(result);
+                window.location.href = "http://localhost:8080/youya_news/login.html";
+                alert("请重新登录")
+            },
+            error : function(e){
+                console.log(e);
+                console.log(e.status);
+                console.log(e.responseText);
+
+            }
+        });
+
+    }
+
+    $(".col-md-3").load("personal.html")
+    $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+
+</script>
 <script>
     Dropzone.options.dropzoneDiv = {
-        url: "fileUpAndDown/upload", // 文件提交地址
+        url: "http://localhost:8080/youya_news/fileUpAndDown/upload", // 文件提交地址
         method: "post",  // 也可用put
         paramName: "dropzFile", // 默认为file
         maxFiles: 1,// 一次性上传的文件数量上限
@@ -144,7 +205,7 @@
                 var status = data.status;
                 if(status==200){
                     var filePath = data.filePath;
-                    $("#imgUrl").val(filePath);
+                    $("#icon").val(filePath);
                 }
                 console.log(file);
             });
@@ -152,26 +213,14 @@
 
                 console.error(data);
                 console.log(file);
-                // 上传失败触发的事件
+
             });
             this.on("removedfile", function (file) {
-                // 删除文件时触发的方法
+
             });
         }
 
     }
-</script>
-<script src="../jquery/jquery-2.1.1.min.js"></script>
-<script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../script/docs.min.js"></script>
-<script src="../script/back-to-top.js"></script>
-<script>
-    $(".col-md-3").load("personal.html")
-    $('#myTab a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-    })
-
 </script>
 </body>
 </html>

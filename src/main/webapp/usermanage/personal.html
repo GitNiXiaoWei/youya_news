@@ -7,10 +7,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="thumbnail" style="border-radius: 0px;">
-                <img src="../img/services-box1.jpg" class="img-thumbnail" alt="">
+                <img id="imgurl" src="D:\mavenWork\img\d57b77ab-74a7-441f-b246-fc155e04eb50.jpg" class="img-thumbnail" alt="">
                 <div class="caption" style="text-align:center;">
                     <h3 id="h3">
-                        李彦东
+
                     </h3>
                     <!--   <span class="label label-danger" style="cursor:pointer;" onclick="window.location.href='accttype.html'">未实名认证</span>-->
                 </div>
@@ -39,6 +39,7 @@
         success:function (result) {
             $(result).each(function(index,item){
                 $("#h3").text(item.username)
+                $("#imgurl").attr("src",item.icon)
             })
         }
     })
