@@ -6,7 +6,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Random;
 
 public class SendMail {
     // 发件人的 邮箱 和 密码（替换为自己的邮箱和密码）
