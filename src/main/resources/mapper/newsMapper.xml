@@ -6,4 +6,7 @@
     <select id="getAllDrafts" resultType="pojo.DraftsInfo">
         select * from drafts
     </select>
+    <update id="removeDraft" parameterType="pojo.DraftsInfo">
+        update drafts set  =  where ;
+    </update>
 </mapper>

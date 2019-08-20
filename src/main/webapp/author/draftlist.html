@@ -243,13 +243,13 @@
        })
 
 
-    function removeUser(userid) {
+    function removeUser(draftsid) {
         $.ajax({
-            url:"http://localhost:8080/spring_mybatis_test/removeUser",
+            url:"http://localhost:8080/youya_news/removeDraft",
             type:"post",
             contentType: "application/json;charset=utf-8",
             data:JSON.stringify({
-                userid:userid
+                draftsid:draftsid
             }),
             success: function (responseText) {
                 $("#tr"+userid).remove();

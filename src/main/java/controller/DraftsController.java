@@ -3,9 +3,7 @@ package controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pojo.DraftsInfo;
 import service.DraftsInfoService;
 
@@ -25,5 +23,10 @@ public class DraftsController {
         PageInfo<DraftsInfo> userInfoPageInfo =new PageInfo<DraftsInfo>(allDrafts);
         System.out.println("allDrafts = " + allDrafts);
         return userInfoPageInfo;
+    }
+
+    @RequestMapping(name = "removeDraft",value = "removeDraft")
+    public Object removeDraft(@RequestBody DraftsInfo draftsInfo){
+        return null;
     }
 }
