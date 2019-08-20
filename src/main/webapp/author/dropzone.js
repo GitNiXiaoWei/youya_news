@@ -1,9 +1,9 @@
 Dropzone.options.newsimg = {
-    url: "http://localhost:8080/youya_news/fileUpAndDown/upload", // 文件提交地址
+    url: "/youya_news/fileUpAndDown/upload", // 文件提交地址
     method: "post",  // 也可用put
     paramName: "dropzFile", // 默认为file
     maxFiles: 1,// 一次性上传的文件数量上限
-    maxFilesize: 2048, // 文件大小，单位：MB
+    maxFilesize: 10, // 文件大小，单位：MB
     clickable:true,
     acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
     addRemoveLinks: true,
@@ -28,7 +28,8 @@ Dropzone.options.newsimg = {
             // 上传成功触发的事件
             console.log(data);
             console.log(file);
-            $("#oldimg").remove()
+            $("#oldimg").remove();
+            $("#nowimg").val(data.serverPath+"/"+data.filename)
         });
         this.on("error", function (file, data) {
             // 上传失败触发的事件

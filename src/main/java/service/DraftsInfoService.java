@@ -1,5 +1,6 @@
 package service;
 
+import dto.DraftsInfoDTO;
 import pojo.DraftsInfo;
 import pojo.UserInfo;
 import vo.CategoryVO;
@@ -12,4 +13,5 @@ public interface DraftsInfoService {
     public int removeDraft(DraftsInfo draftsInfo);
     public DraftsInfoVO getDraftDetail(int id);
     public List<CategoryVO> getAllCategory();
+    public int updateDraft(DraftsInfoDTO draftsInfoDTO);
 }

@@ -13,9 +13,22 @@
         and dc.categoryid=c.categoryid
     </select>
     <update id="removeDraft" parameterType="pojo.DraftsInfo">
-        update drafts set status = 0 where draftsid=#{draftsid};
+        update drafts set status = 0 where draftsid=#{draftsid}
     </update>
     <select id="getAllCategory" resultType="vo.CategoryVO">
         select * from category
     </select>
+    <update id="updateDraft" parameterType="dto.DraftsInfoDTO">
+        update drafts set
+        newstitle =  #{newstitle},
+        newscontext =  #{newscontext},
+        newssubtitle =  #{newssubtitle},
+        newsimg =  #{newsimg}
+        where draftsid=#{draftsid}
+    </update>
+    <update id="updateDraftsCategory" parameterType="dto.DraftsInfoDTO">
+        update drafts_category set
+        categoryid  = #{categoryid}
+        where draftsid=#{draftsid};
+    </update>
 </mapper>

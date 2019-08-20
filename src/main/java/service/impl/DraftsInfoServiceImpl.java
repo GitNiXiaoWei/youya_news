@@ -1,6 +1,7 @@
 package service.impl;
 
 import dao.DraftsInfoMapper;
+import dto.DraftsInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pojo.DraftsInfo;
@@ -35,6 +36,13 @@ public class DraftsInfoServiceImpl implements DraftsInfoService {
     @Override
     public List<CategoryVO> getAllCategory() {
         return draftsInfoMapper.getAllCategory();
+    }
+
+    @Override
+    public int updateDraft(DraftsInfoDTO draftsInfoDTO) {
+        int i = draftsInfoMapper.updateDraft(draftsInfoDTO);
+        int i1 = draftsInfoMapper.updateDraftsCategory(draftsInfoDTO);
+        return i;
     }
 
 }

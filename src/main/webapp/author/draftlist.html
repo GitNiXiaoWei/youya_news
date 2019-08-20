@@ -52,6 +52,7 @@
                 </li>
             </ul>
             <div id="myTabContent" class="tab-content" style="margin-top:10px;">
+                <!--列表页-->
                 <div  class="panel panel-default tab-pane fade active in" id="lists" aria-labelledby="lists-tab" >
                     <div class="panel-heading">
                         <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 草稿箱</h3>
@@ -87,7 +88,10 @@
                             <button type="button" class="btn btn-warning" id="selectByClue" onclick="aaa()"><i class="glyphicon glyphicon-search"></i> 查询</button>
                         </form>
                         <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                        <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+                        <a class="btn btn-primary" style="float:right;" href="#detail" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            新增
+                        </a>
                         <br>
                         <hr style="clear:both;">
                         <div class="table-responsive">
@@ -120,6 +124,7 @@
                         </div>
                     </div>
                 </div>
+                <!--内容页-->
                 <div  class="panel panel-default tab-pane fade" id="detail" aria-labelledby="detail-tab" >
                     <div style="margin-left: 10px; margin-top: 20px; margin-right: 10px">
                         <div class="form-group has-success has-feedback">
@@ -142,8 +147,10 @@
                         <div class="form-group has-success has-feedback" >
                             <h4>主图片</h4>
                             <div id="newsimg"  class="dropzone"  >
-                                <img src="../img/services-box1.jpg" id="oldimg">
+                                <img src="" id="oldimg">
                             </div>
+                            <input type="hidden" id="nowimg">
+                            <input type="hidden" id="draftsid">
                             <span class=" glyphicon glyphicon-picture form-control-feedback"></span>
                         </div>
                         <div class="form-group has-success has-feedback">
@@ -151,8 +158,8 @@
                             <div id="newscontext" ></div>
                             <span class="glyphicon  glyphicon-book form-control-feedback"></span>
                         </div>
-                        <a class="btn btn-lg btn-success btn-block" onclick="subm()" > 保存修改</a>
-                        <a class="btn btn-lg btn-primary btn-block" onclick="upnews()" > 提交文章</a>
+                        <a class="btn btn-lg btn-success btn-block" onclick="subm()" > 保存草稿</a>
+                        <a class="btn btn-lg btn-primary btn-block" onclick="upnews()" > 发布文章</a>
                     </div>
                 </div>
             </div>
@@ -172,10 +179,11 @@
     $(".sidebar").load("personal.html");
 
     var pageNum = window.location.search.split("=")[1];
-    var requestURL = "http://localhost:8080/youya_news/getAllDrafts";
+    var requestURL = "/youya_news/getAllDrafts";
     if(pageNum!=null){
         requestURL+="?pageNum="+pageNum;
     }
+    //获取草稿箱内容
     $.ajax({
         type : "GET",
         dataType:"json",
@@ -190,7 +198,7 @@
             console.log(e.responseText);
         }
     })
-
+    //拼接草稿箱内容
     function context(result){
         var trStr="";
         $(result.list).each(function(index,item){
@@ -201,14 +209,14 @@
             trStr+="<td>"+item.newscreatetime+"</td>";
             trStr+="<td>"+item.updatetime+"</td>";
             trStr+="<td>";
-            trStr+="<a onclick='update("+item.draftsid+")' href='#detail' class='btn btn-primary btn-xs'  role=\"tab\" data-toggle=\"tab\" aria-controls=\"home\" aria-expanded=\"true\"><i class=' glyphicon glyphicon-pencil' ></i></a>&nbsp;";
+            trStr+="<a onclick='showdetail("+item.draftsid+")' href='#detail' class='btn btn-primary btn-xs'  role=\"tab\" data-toggle=\"tab\" aria-controls=\"home\" aria-expanded=\"true\"><i class=' glyphicon glyphicon-pencil' ></i></a>&nbsp;";
             trStr+="<a type=\"button\" class='btn btn-danger btn-xs' onclick='removeUser("+item.draftsid+")'><i class=' glyphicon glyphicon-remove'  ></i></a>";
             trStr+="</td>";
             trStr+="</tr>";
         });
         $("#dataTable").html(trStr);
     }
-
+    //分页
     function newpages(result){
         var splitePageStr = "<li id='prePage'><a href="+result.prePage+"'../user.html?pageNum=' id='pre'>上一页</a></li>";
         for(var i=1;i<=result.pages;i++){
@@ -228,11 +236,12 @@
         $("#pages"+result.pageNum).addClass("active");
     }
 
-
+    //全选框
     $("#checkbox").click(function () {
         var fal =$(this).prop("checked");
         $(".checkboxs").prop("checked",fal)
     });
+    //异步加载的全选框
     function check(id){
         var flg =$("#check_"+id).prop("checked");
         if (!flg){
@@ -250,10 +259,10 @@
         }
     })
 
-
+    //删除
     function removeUser(draftsid) {
         $.ajax({
-            url:"http://localhost:8080/youya_news/removeDraft",
+            url:"/youya_news/removeDraft",
             type:"post",
             contentType: "application/json;charset=utf-8",
             data:JSON.stringify({
@@ -268,18 +277,21 @@
         })
     }
 
-    function update(userid){
+    //获取所有新闻种类
+    $.ajax({
+        url:"/youya_news/getAllCategory",
+        type:"get",
+        success:function (result) {
+            $(result).each(function (index,item) {
+                $("#category").append("<option value='"+item.categoryid+"'>"+item.categoryname+"</option>")
+            })
+        }
+    });
+
+    //获取新闻内容展示内容细节
+    function showdetail(userid){
         $.ajax({
-            url:"http://localhost:8080/youya_news/getAllCategory",
-            type:"get",
-            success:function (result) {
-                $(result).each(function (index,item) {
-                    $("#category").append("<option value='"+item.categoryid+"'>"+item.categoryname+"</option>")
-                })
-            }
-        });
-        $.ajax({
-            url:"http://localhost:8080/youya_news/getDraftDetail",
+            url:"/youya_news/getDraftDetail",
             type:"post",
             data:{
                 id:userid
@@ -287,6 +299,7 @@
             success:function (result) {
                 console.log(result)
                 $("#category").val(result.categoryid)
+                $("#draftsid").val(result.draftsid)
                 $("#newstitle").val(result.newstitle)
                 $("#newssubtitle").val(result.newssubtitle)
                 $("#oldimg").attr("src",result.newsimg)
@@ -294,21 +307,54 @@
             }
         })
     }
+    //展示内容细节框架
     $('#detail').click(fun1());
     function  fun1(){
         $(this).tab('show')
     }
-
+    //展示草稿箱，刷新页面
     $('#draftbox').click(function (e) {
         location.reload()
     });
-
+    //加载已提交页面
     $('#submitted').click(function () {
         $(this).parent().attr("class","active")
         $('#draftboxs').attr("class","")
         $('#lists').load("submitted.html")
     })
-
+    //保存草稿
+    function subm() {
+        var draftsid=$("#draftsid").val();
+        var categoryid=$("#category").val();
+        var newstitle=$("#newstitle").val();
+        var newssubtitle=$("#newssubtitle").val();
+        var newsimg=$("#nowimg").val();
+        if (newsimg==="" ){
+            newsimg=$("#oldimg").attr("src")
+        }
+        var newscontext=editor.txt.html();
+        if (draftsid===""){
+            alert("空")
+        }else {
+            alert(draftsid)
+            // $.ajax({
+            //     url:"",
+            //     type:"post",
+            //     contentType: "application/json;charset=utf-8",
+            //     data:JSON.stringify({
+            //         draftsid:draftsid,
+            //         categoryid:categoryid,
+            //         newstitle:newstitle,
+            //         newssubtitle:newssubtitle,
+            //         newsimg:newsimg,
+            //         newscontext:newscontext
+            //     }),
+            //     success:function (result) {
+            //
+            //     }
+            // })
+        }
+    }
 
 
 </script>

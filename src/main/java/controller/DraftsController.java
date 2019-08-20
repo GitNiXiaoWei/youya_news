@@ -2,6 +2,7 @@ package controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import dto.DraftsInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pojo.DraftsInfo;
@@ -59,9 +60,24 @@ public class DraftsController {
         return i;
     }
 
+    /**
+     * 获取所有新闻种类
+     * @return
+     */
     @RequestMapping(name = "getAllCategory",value = "getAllCategory")
     public Object getAllCategory(){
         List<CategoryVO> allCategory = draftsInfoService.getAllCategory();
         return allCategory;
+    }
+
+    /**
+     * 更新草稿
+     * @param draftsInfoDTO
+     * @return
+     */
+    @RequestMapping(name = "updateDraft",value = "updateDraft")
+    public Object updateDraft(@RequestBody DraftsInfoDTO draftsInfoDTO){
+
+        return draftsInfoService.updateDraft(draftsInfoDTO);
     }
 }

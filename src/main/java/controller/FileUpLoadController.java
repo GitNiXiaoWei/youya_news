@@ -73,9 +73,7 @@ public class FileUpLoadController {
     @RequestMapping("upload")
     @ResponseBody
     public Map<String, Object> upload(MultipartFile dropzFile, HttpServletRequest request) throws IOException {
-        System.out.println("inner upload");
         Map<String, Object> result = new HashMap<String, Object>();
-
         //创建文件需要存储的路径
 //        String destPathName = "D:\\mavenWork\\img";
         String destPathName = request.getSession().getServletContext().getRealPath("/static/upload");
@@ -88,13 +86,16 @@ public class FileUpLoadController {
         //获取文件的后缀名
         String fileSuffix = dropzFile.getOriginalFilename().substring(dropzFile.getOriginalFilename().lastIndexOf("."));
 
+        String serverPath = String.format("%s://%s:%s%s%s", request.getScheme(), InetAddress.getLocalHost().getHostAddress(), request.getServerPort(), request.getContextPath(), "/static/upload");
+
         String destFileName = UUID.randomUUID()+fileSuffix;
-        System.out.println(destFileName);
+        System.out.println("destFileName = "+destFileName);
         File destFile = new File(destPath,destFileName);
         if(!destFile.exists()){
             destFile.createNewFile();
         }
         dropzFile.transferTo(destFile);
+        result.put("serverPath",serverPath);
         result.put("filename",destFileName);
         result.put("status",200);
         result.put("filePath",destFile);
@@ -123,7 +124,6 @@ public class FileUpLoadController {
         try {
             //获取IP地址
             ia = ia.getLocalHost();
-            System.out.println("ia.getHostAddress() = "+ia.getHostAddress());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
