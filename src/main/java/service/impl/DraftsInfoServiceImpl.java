@@ -18,4 +18,10 @@ public class DraftsInfoServiceImpl implements DraftsInfoService {
        return draftsInfoMapper.getAllDrafts();
     }
 
+    @Override
+    public int removeDraft(DraftsInfo draftsInfo) {
+
+        return draftsInfoMapper.removeDraft(draftsInfo);
+    }
+
 }

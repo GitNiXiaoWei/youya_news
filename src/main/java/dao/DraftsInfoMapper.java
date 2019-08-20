@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface DraftsInfoMapper {
     public List<DraftsInfo> getAllDrafts();
+    public int removeDraft(DraftsInfo draftsInfo);
 }

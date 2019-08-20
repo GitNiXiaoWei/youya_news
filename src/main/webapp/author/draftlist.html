@@ -235,6 +235,7 @@
            }
        }
 
+       // 批量删除
        $(".btn-danger").click(function () {
            var a=$(".checkboxs:checked")
            for (var i = 0; i < a.length; i++) {
@@ -252,7 +253,7 @@
                 draftsid:draftsid
             }),
             success: function (responseText) {
-                $("#tr"+userid).remove();
+                $("#tr"+draftsid).remove();
             },
             error: function (responseText) {
                 alert(responseText)

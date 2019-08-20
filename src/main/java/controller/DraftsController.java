@@ -27,6 +27,7 @@ public class DraftsController {
 
     @RequestMapping(name = "removeDraft",value = "removeDraft")
     public Object removeDraft(@RequestBody DraftsInfo draftsInfo){
-        return null;
+        int i = draftsInfoService.removeDraft(draftsInfo);
+        return i;
     }
 }

@@ -7,6 +7,6 @@
         select * from drafts
     </select>
     <update id="removeDraft" parameterType="pojo.DraftsInfo">
-        update drafts set  =  where ;
+        update drafts set status = 0 where draftsid=#{draftsid};
     </update>
 </mapper>

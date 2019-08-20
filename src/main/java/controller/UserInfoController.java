@@ -76,6 +76,11 @@ public class UserInfoController {
         }
     }
 
+    /**
+     * 获取登录信息
+     * @param httpSession
+     * @return
+     */
     @RequestMapping(name = "initUser",value = "/initUser")
     @ResponseBody
     public Object initUser( HttpSession httpSession){
