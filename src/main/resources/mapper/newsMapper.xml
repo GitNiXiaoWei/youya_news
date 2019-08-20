@@ -6,7 +6,7 @@
     <select id="getAllDrafts" resultType="vo.DraftsInfoVO" parameterType="pojo.UserInfo">
         select * from drafts where userid=#{userid} and status=1
     </select>
-    <select id="getDraftDetail" parameterType="int">
+    <select id="getDraftDetail" parameterType="int" resultType="vo.DraftsInfoVO">
         select d.*,c.* from drafts d,drafts_category dc,category c
         where d.draftsid=#{id}
         and d.draftsid=dc.draftsid
@@ -15,4 +15,7 @@
     <update id="removeDraft" parameterType="pojo.DraftsInfo">
         update drafts set status = 0 where draftsid=#{draftsid};
     </update>
+    <select id="getAllCategory" resultType="vo.CategoryVO">
+        select * from category
+    </select>
 </mapper>

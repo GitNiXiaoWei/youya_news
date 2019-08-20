@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pojo.DraftsInfo;
 import pojo.UserInfo;
 import service.DraftsInfoService;
+import vo.CategoryVO;
 import vo.DraftsInfoVO;
 
 import java.util.List;
@@ -23,8 +24,17 @@ public class DraftsInfoServiceImpl implements DraftsInfoService {
 
     @Override
     public int removeDraft(DraftsInfo draftsInfo) {
-
         return draftsInfoMapper.removeDraft(draftsInfo);
+    }
+
+    @Override
+    public DraftsInfoVO getDraftDetail(int id) {
+        return draftsInfoMapper.getDraftDetail(id);
+    }
+
+    @Override
+    public List<CategoryVO> getAllCategory() {
+        return draftsInfoMapper.getAllCategory();
     }
 
 }
