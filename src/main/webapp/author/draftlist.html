@@ -124,10 +124,8 @@
                     <div style="margin-left: 10px; margin-top: 20px; margin-right: 10px">
                         <div class="form-group has-success has-feedback">
                             <h4>新闻类别</h4>
-                            <select  class="form-control" id="category"  >
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
+                            <select  class="form-control" id="category" >
+
                             </select>
                             <span class="glyphicon glyphicon-tag form-control-feedback"></span>
                         </div>
@@ -178,80 +176,79 @@
     if(pageNum!=null){
         requestURL+="?pageNum="+pageNum;
     }
-        $.ajax({
-            type : "GET",
-            dataType:"json",
-            url : requestURL,
-            success : function(result) {
-                context(result);
-                newpages(result);
-                console.log(result);
-            },
-            error : function(e){
-                console.log(e.status);
-                console.log(e.responseText);
-            }
-        })
-
-        function context(result){
-            var trStr="";
-            $(result.list).each(function(index,item){
-                    trStr+= "<tr id=tr"+item.draftsid+">";
-                    trStr+="<td>"+item.draftsid+"</td>";
-                    trStr+="<td><input type='checkbox' class='checkboxs' id=check_"+item.draftsid+" onclick='check("+item.draftsid+")'></td>";
-                    trStr+="<td>"+item.newstitle+"</td>";
-                    trStr+="<td>"+item.newscreatetime+"</td>";
-                    trStr+="<td>"+item.updatetime+"</td>";
-                    trStr+="<td>";
-                    trStr+="<a onclick='update("+item.draftsid+")' href='#detail' class='btn btn-primary btn-xs'  role=\"tab\" data-toggle=\"tab\" aria-controls=\"home\" aria-expanded=\"true\"><i class=' glyphicon glyphicon-pencil' ></i></a>&nbsp;";
-                    trStr+="<a type=\"button\" class='btn btn-danger btn-xs' onclick='removeUser("+item.draftsid+")'><i class=' glyphicon glyphicon-remove'  ></i></a>";
-                    trStr+="</td>";
-                    trStr+="</tr>";
-            });
-            $("#dataTable").html(trStr);
+    $.ajax({
+        type : "GET",
+        dataType:"json",
+        url : requestURL,
+        success : function(result) {
+            context(result);
+            newpages(result);
+            console.log(result);
+        },
+        error : function(e){
+            console.log(e.status);
+            console.log(e.responseText);
         }
+    })
 
-        function newpages(result){
-            var splitePageStr = "<li id='prePage'><a href="+result.prePage+"'../user.html?pageNum=' id='pre'>上一页</a></li>";
-            for(var i=1;i<=result.pages;i++){
-                splitePageStr +="<li id='pages"+i+"'><a href="+i+"'../user.html?pageNum='>"+i+"</a></li>";
-            }
-            splitePageStr += "<li id='nextPage'><a href="+result.nextPage+"'../user.html?pageNum=' id='next' >下一页</a></li>";
-            $(".pagination").html(splitePageStr);
+    function context(result){
+        var trStr="";
+        $(result.list).each(function(index,item){
+            trStr+= "<tr id=tr"+item.draftsid+">";
+            trStr+="<td>"+item.draftsid+"</td>";
+            trStr+="<td><input type='checkbox' class='checkboxs' id=check_"+item.draftsid+" onclick='check("+item.draftsid+")'></td>";
+            trStr+="<td>"+item.newstitle+"</td>";
+            trStr+="<td>"+item.newscreatetime+"</td>";
+            trStr+="<td>"+item.updatetime+"</td>";
+            trStr+="<td>";
+            trStr+="<a onclick='update("+item.draftsid+")' href='#detail' class='btn btn-primary btn-xs'  role=\"tab\" data-toggle=\"tab\" aria-controls=\"home\" aria-expanded=\"true\"><i class=' glyphicon glyphicon-pencil' ></i></a>&nbsp;";
+            trStr+="<a type=\"button\" class='btn btn-danger btn-xs' onclick='removeUser("+item.draftsid+")'><i class=' glyphicon glyphicon-remove'  ></i></a>";
+            trStr+="</td>";
+            trStr+="</tr>";
+        });
+        $("#dataTable").html(trStr);
+    }
 
-            if (result.isFirstPage){
-                $("#prePage").addClass("disabled");
-                $("#pre").click(false);
-            }
-            if (result.isLastPage){
-                $("#nextPage").addClass("disabled");
-                $("#next").click(false);
-            }
-            $("#pages"+result.pageNum).addClass("active");
+    function newpages(result){
+        var splitePageStr = "<li id='prePage'><a href="+result.prePage+"'../user.html?pageNum=' id='pre'>上一页</a></li>";
+        for(var i=1;i<=result.pages;i++){
+            splitePageStr +="<li id='pages"+i+"'><a href="+i+"'../user.html?pageNum='>"+i+"</a></li>";
         }
+        splitePageStr += "<li id='nextPage'><a href="+result.nextPage+"'../user.html?pageNum=' id='next' >下一页</a></li>";
+        $(".pagination").html(splitePageStr);
+
+        if (result.isFirstPage){
+            $("#prePage").addClass("disabled");
+            $("#pre").click(false);
+        }
+        if (result.isLastPage){
+            $("#nextPage").addClass("disabled");
+            $("#next").click(false);
+        }
+        $("#pages"+result.pageNum).addClass("active");
+    }
 
 
     $("#checkbox").click(function () {
-           var fal =$(this).prop("checked");
-           $(".checkboxs").prop("checked",fal)
-       });
+        var fal =$(this).prop("checked");
+        $(".checkboxs").prop("checked",fal)
+    });
+    function check(id){
+        var flg =$("#check_"+id).prop("checked");
+        if (!flg){
+            $("#checkbox").prop("checked",flg)
+        } else if($(".checkboxs").length==$(".checkboxs:checked").length){
+            $("#checkbox").prop("checked",flg)
+        }
+    }
 
-       function check(id){
-           var flg =$("#check_"+id).prop("checked");
-           if (!flg){
-               $("#checkbox").prop("checked",flg)
-           } else if($(".checkboxs").length==$(".checkboxs:checked").length){
-               $("#checkbox").prop("checked",flg)
-           }
-       }
-
-       // 批量删除
-       $(".btn-danger").click(function () {
-           var a=$(".checkboxs:checked")
-           for (var i = 0; i < a.length; i++) {
-               removeUser($(a[i]).attr("id").split("_")[1])
-           }
-       })
+    // 批量删除
+    $(".btn-danger").click(function () {
+        var a=$(".checkboxs:checked")
+        for (var i = 0; i < a.length; i++) {
+            removeUser($(a[i]).attr("id").split("_")[1])
+        }
+    })
 
 
     function removeUser(draftsid) {
@@ -272,12 +269,35 @@
     }
 
     function update(userid){
-
+        $.ajax({
+            url:"http://localhost:8080/youya_news/getAllCategory",
+            type:"get",
+            success:function (result) {
+                $(result).each(function (index,item) {
+                    $("#category").append("<option value='"+item.categoryid+"'>"+item.categoryname+"</option>")
+                })
+            }
+        });
+        $.ajax({
+            url:"http://localhost:8080/youya_news/getDraftDetail",
+            type:"post",
+            data:{
+                id:userid
+            },
+            success:function (result) {
+                console.log(result)
+                $("#category").val(result.categoryid)
+                $("#newstitle").val(result.newstitle)
+                $("#newssubtitle").val(result.newssubtitle)
+                $("#oldimg").attr("src",result.newsimg)
+                editor.txt.html(result.newscontext)
+            }
+        })
     }
     $('#detail').click(fun1());
-     function  fun1(){
-         $(this).tab('show')
-     }
+    function  fun1(){
+        $(this).tab('show')
+    }
 
     $('#draftbox').click(function (e) {
         location.reload()
