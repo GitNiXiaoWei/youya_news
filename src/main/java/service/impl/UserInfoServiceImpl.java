@@ -37,7 +37,13 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public boolean informationUpdateByUsername(UserInfo userInfo) {
-        return userInfoMapper.informationUpdateByUsername(userInfo)>0;
+    public boolean informationUpdateByUserName(UserInfoDTO userInfoDTO) {
+        UserInfo userInfo1 = userInfoMapper.selectByUserName(userInfoDTO);
+        if (userInfo1!=null){
+            return false;
+        }
+        return userInfoMapper.informationUpdateByUsername(userInfoDTO)>0;
     }
+
+
 }

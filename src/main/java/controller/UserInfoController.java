@@ -92,10 +92,10 @@ public class UserInfoController {
             return userInfo;
         }
     }
+
     @RequestMapping("informationUpdateByUsername")
     @ResponseBody
-    public boolean informationUpdateByUsername(@RequestBody UserInfo userInfo) {
-        System.out.println(userInfo);
-        return userInfoService.informationUpdateByUsername(userInfo);
+    public Object informationUpdateByUsername(@RequestBody UserInfoDTO userInfoDTO) {
+        return userInfoService.informationUpdateByUserName(userInfoDTO);
     }
 }

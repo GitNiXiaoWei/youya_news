@@ -122,6 +122,7 @@
 </div>
 
 <script>
+    var username=""
     $.ajax({
         type:"get",
         url:"http://localhost:8080/youya_news/initUser",
@@ -134,6 +135,7 @@
                 $("#password").val(item.password)
                 $("#sex").val(item.sex)
                 $("#icon").val(item.icon)
+                username=item.username;
             })
         },
         error : function(e){
@@ -141,32 +143,58 @@
         }
     });
     function updateinformation() {
-        $.ajax({
-            url: "http://localhost:8080/youya_news/informationUpdateByUsername",
-            dataType: "json",
-            type: "POST",
-            contentType: "application/json;charset=UTF-8",
-            data : JSON.stringify({
-                "userid":$("#userid").val(),
-                "username":$("#username").val(),
-                "email":$("#email").val(),
-                "sex":$("#sex").val(),
-                "icon":$("#icon").val(),
-                "password":$("#password").val()
+        if (username == $("#username").val()){
+            $.ajax({
+                url: "http://localhost:8080/youya_news/informationUpdateByUsername",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                data : JSON.stringify({
+                    "userid":$("#userid").val(),
+                    "email":$("#email").val(),
+                    "sex":$("#sex").val(),
+                    "icon":$("#icon").val(),
+                    "password":$("#password").val()
+                }),
+                success: function (result) {
+                    window.location.href = "http://localhost:8080/youya_news/login.html";
+                    alert("请重新登录")
+                },
+                error : function(e){
+                    console.log(e);
+                    console.log(e.status);
+                    console.log(e.responseText);
 
-            }),
-            success: function (result) {
-                console.log(result);
-                window.location.href = "http://localhost:8080/youya_news/login.html";
-                alert("请重新登录")
-            },
-            error : function(e){
-                console.log(e);
-                console.log(e.status);
-                console.log(e.responseText);
+                }
+            });
+        }else {
+            $.ajax({
+                url: "http://localhost:8080/youya_news/informationUpdateByUsername",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                data : JSON.stringify({
+                    "userid":$("#userid").val(),
+                    "username":$("#username").val(),
+                    "email":$("#email").val(),
+                    "sex":$("#sex").val(),
+                    "icon":$("#icon").val(),
+                    "password":$("#password").val()
+                }),
+                success: function (result) {
+                    alert(result.toString());
+                    window.location.href = "http://localhost:8080/youya_news/login.html";
+                    alert("请重新登录")
+                },
+                error : function(e){
+                    console.log(e);
+                    console.log(e.status);
+                    console.log(e.responseText);
 
-            }
-        });
+                }
+            });
+        }
+
 
     }
 
@@ -204,8 +232,8 @@
                 console.log(data);
                 var status = data.status;
                 if(status==200){
-                    var filePath = data.filePath;
-                    $("#icon").val(filePath);
+                    var filePath = data.filename;
+                    $("#icon").val("http://localhost:8080/youya_news/static/upload/"+filePath);
                 }
                 console.log(file);
             });

@@ -95,6 +95,7 @@ public class FileUpLoadController {
             destFile.createNewFile();
         }
         dropzFile.transferTo(destFile);
+        result.put("filename",destFileName);
         result.put("status",200);
         result.put("filePath",destFile);
 

@@ -8,5 +8,5 @@ public interface UserInfoMapper {
     public int insertUser(UserInfoDTO userInfoDTO);
     public UserInfo selectByUserNameAndPassword(UserInfoDTO userInfoDTO);
 
-    public int informationUpdateByUsername(UserInfo userInfo);
+    public int informationUpdateByUsername(UserInfoDTO userInfoDTO);
 }
