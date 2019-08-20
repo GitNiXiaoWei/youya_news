@@ -77,8 +77,8 @@ public class FileUpLoadController {
         Map<String, Object> result = new HashMap<String, Object>();
 
         //创建文件需要存储的路径
-        String destPathName = "D:\\mavenWork\\img";
-//        String destPathName = request.getSession().getServletContext().getRealPath("/static/upload");
+//        String destPathName = "D:\\mavenWork\\img";
+        String destPathName = request.getSession().getServletContext().getRealPath("/static/upload");
         File destPath = new File(destPathName);
         System.err.println("destPathName = " + destPathName);
         //如果目标文件夹不存在我就创建它
