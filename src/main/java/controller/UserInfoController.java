@@ -88,7 +88,6 @@ public class UserInfoController {
         if ( userInfo==null){
             return null;
         }else {
-            System.out.println("userInfo = " + userInfo);
             return userInfo;
         }
     }

@@ -3,8 +3,14 @@
         PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.DraftsInfoMapper">
-    <select id="getAllDrafts" resultType="pojo.DraftsInfo">
-        select * from drafts
+    <select id="getAllDrafts" resultType="vo.DraftsInfoVO" parameterType="pojo.UserInfo">
+        select * from drafts where userid=#{userid} and status=1
+    </select>
+    <select id="getDraftDetail" parameterType="int">
+        select d.*,c.* from drafts d,drafts_category dc,category c
+        where d.draftsid=#{id}
+        and d.draftsid=dc.draftsid
+        and dc.categoryid=c.categoryid
     </select>
     <update id="removeDraft" parameterType="pojo.DraftsInfo">
         update drafts set status = 0 where draftsid=#{draftsid};
