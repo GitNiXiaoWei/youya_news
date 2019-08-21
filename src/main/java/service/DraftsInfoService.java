@@ -14,4 +14,7 @@ public interface DraftsInfoService {
     public DraftsInfoVO getDraftDetail(int id);
     public List<CategoryVO> getAllCategory();
     public int updateDraft(DraftsInfoDTO draftsInfoDTO);
+    public List<DraftsInfo> selectDraftsByClue(DraftsInfoDTO draftsInfoDTO);
+    public int createDraft(DraftsInfoDTO draftsInfoDTO);
+
 }

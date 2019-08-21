@@ -42,7 +42,28 @@ public class DraftsInfoServiceImpl implements DraftsInfoService {
     public int updateDraft(DraftsInfoDTO draftsInfoDTO) {
         int i = draftsInfoMapper.updateDraft(draftsInfoDTO);
         int i1 = draftsInfoMapper.updateDraftsCategory(draftsInfoDTO);
-        return i;
+        if (i>0&&i1>0){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+    @Override
+    public List<DraftsInfo> selectDraftsByClue(DraftsInfoDTO draftsInfoDTO) {
+        List<DraftsInfo> draftsInfos = draftsInfoMapper.selectDraftsByClue(draftsInfoDTO);
+        return draftsInfos;
+    }
+
+    @Override
+    public int createDraft(DraftsInfoDTO draftsInfoDTO) {
+        int i = draftsInfoMapper.insertDraft(draftsInfoDTO);
+        int i1 = draftsInfoMapper.insertDraftsCategory(draftsInfoDTO);
+        if (i>0&&i1>0){
+            return 1;
+        }else {
+            return 0;
+        }
     }
 
 }

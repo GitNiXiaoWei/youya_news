@@ -2,6 +2,8 @@ package dto;
 
 import lombok.Data;
 
+import java.text.SimpleDateFormat;
+
 @Data
 public class DraftsInfoDTO {
     int draftsid;
@@ -12,7 +14,7 @@ public class DraftsInfoDTO {
     String newssubtitle;
     int userid;
     String newsimg;
-    //类别
+    //新闻类别
     int categoryid;
     String categoryname;
     //条件查询
@@ -22,4 +24,9 @@ public class DraftsInfoDTO {
     String defaultValue="1";
     String value = "pageNum";
     Integer pageNum;
+
+    public DraftsInfoDTO() {
+        SimpleDateFormat simpleDateFormat =new SimpleDateFormat("Y-M-d HH:mm:ss");
+        newscreatetime = simpleDateFormat.format(System.currentTimeMillis());
+    }
 }

@@ -28,11 +28,11 @@ function aaa(pageNum) {
         location.reload()
     }
     var selects1=$("#selects1").text()
-    if (selects1[0]=="账"){
+    if (selects1[0]=="标"){
         selects1="newstitle"
-    }else if (selects1[0]=="名"){
+    }else if (selects1[0]=="副"){
         selects1="newssubtitle"
-    }else if (selects1[0]=="邮"){
+    }else if (selects1[0]=="新"){
         selects1="newscontext"
     }
 

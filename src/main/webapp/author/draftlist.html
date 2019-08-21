@@ -129,7 +129,7 @@
                         </div>
                         <div class="form-group has-success has-feedback">
                             <h4>副标题</h4>
-                            <input type="text" class="form-control" id="newssubtitle" style="margin-top:10px;">
+                            <textarea maxlength="200" class="form-control" id="newssubtitle" style="margin-top:10px;"></textarea>
                             <span class="glyphicon glyphicon-tags form-control-feedback"></span>
                         </div>
                         <div class="form-group has-success has-feedback" >
@@ -319,34 +319,37 @@
         var newstitle=$("#newstitle").val();
         var newssubtitle=$("#newssubtitle").val();
         var newsimg=$("#nowimg").val();
+        var url="";
         if (newsimg==="" ){
             newsimg=$("#oldimg").attr("src")
         }
         var newscontext=editor.txt.html();
         if (draftsid===""){
-            alert("空")
+            alert("空");
+            url="/youya_news/createDraft";
         }else {
-            alert(draftsid)
-            $.ajax({
-                url:"/youya_news/updateDraft",
-                type:"post",
-                contentType: "application/json;charset=utf-8",
-                data:JSON.stringify({
-                    draftsid:draftsid,
-                    categoryid:categoryid,
-                    newstitle:newstitle,
-                    newssubtitle:newssubtitle,
-                    newsimg:newsimg,
-                    newscontext:newscontext
-                }),
-                success:function (result) {
-                    alert("success")
-                },
-                error: function (responseText) {
-                    alert(responseText)
-                }
-            })
+            alert(draftsid);
+            url="/youya_news/updateDraft";
         }
+        $.ajax({
+            url:url,
+            type:"post",
+            contentType: "application/json;charset=utf-8",
+            data:JSON.stringify({
+                draftsid:draftsid,
+                categoryid:categoryid,
+                newstitle:newstitle,
+                newssubtitle:newssubtitle,
+                newsimg:newsimg,
+                newscontext:newscontext
+            }),
+            success:function (result) {
+                alert("success")
+            },
+            error: function (responseText) {
+                alert(responseText)
+            }
+        })
     }
 
 
