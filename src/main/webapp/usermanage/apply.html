@@ -14,6 +14,8 @@
     <script src="../dropzone/dropzone.min.js"></script>
     <script src="../jquery/jquery-2.1.1.min.js"></script>
     <script src="../bootstrap/js/bootstrap.js"></script>
+    <script src="../script/docs.min.js"></script>
+    <script src="../script/back-to-top.js"></script>
     <style>
         #footer {
             padding: 15px 0;
@@ -89,10 +91,14 @@
         <div class="col-sm-9 col-md-9 column">
             <div style="margin-left: 10%;margin-right: 30%;margin-top: 70px">
                 <div class="form-group has-success has-feedback">
-                    <input class="form-control" id="username" placeholder="显示的用户名" style="margin-top:10px;"  readonly>
+                    <input type="text" class="hidden" id="userid" style="margin-top:10px;"  >
+                    <span class=" glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-success has-feedback">
-                    <textarea class="form-control" id="username1"  placeholder="申请理由" style="margin-top:10px; height: 250px">
+                    <input class="form-control" id="username" placeholder="请在下框输入申请理由" style="margin-top:10px;"  readonly>
+                </div>
+                <div class="form-group has-success has-feedback">
+                    <textarea class="form-control" id="applyremarks"  style="margin-top:10px; height: 250px">
                     </textarea>
                 </div>
                 <a class="btn btn-lg btn-success btn-block" onclick="register()" > 申请</a>
@@ -105,10 +111,30 @@
             </div>
         </div>
 </div>
-<script src="../jquery/jquery-2.1.1.min.js"></script>
-<script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../script/docs.min.js"></script>
-<script src="../script/back-to-top.js"></script>
+<script>
+    function register() {
+            $.ajax({
+                url: "http://localhost:8080/youya_news/applicationauthority",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify({
+                    "userid": $("#userid").val(),
+                    "applyremarks": $("#applyremarks").val()
+                }),
+                success: function (result) {
+                    window.location.href = "http://localhost:8080/youya_news/usermanage/userpersonal.html";
+                    alert("申请成功")
+                },
+                error: function (e) {
+                    console.log(e);
+                    console.log(e.status);
+                    console.log(e.responseText);
+
+                }
+            });
+    }
+</script>
 <script>
     $(".col-md-3").load("personal.html");
     $('#myTab a').click(function (e) {
