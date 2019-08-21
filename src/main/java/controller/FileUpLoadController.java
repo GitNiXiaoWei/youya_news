@@ -104,7 +104,7 @@ public class FileUpLoadController {
     }
 
 
-    static String UPLOAD_PATH = "/static/upload/";
+    static String UPLOAD_PATH = "/static/context/";
     @ResponseBody
     @RequestMapping(value = "upload1", method = RequestMethod.POST)
     public Map<String, Object> upload1(MultipartFile editorFile, HttpServletRequest request) {

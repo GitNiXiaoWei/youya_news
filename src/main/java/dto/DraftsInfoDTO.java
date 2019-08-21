@@ -15,4 +15,11 @@ public class DraftsInfoDTO {
     //类别
     int categoryid;
     String categoryname;
+    //条件查询
+    public String clue1;
+    public String selects1;
+    //分页
+    String defaultValue="1";
+    String value = "pageNum";
+    Integer pageNum;
 }

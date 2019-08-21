@@ -80,4 +80,15 @@ public class DraftsController {
 
         return draftsInfoService.updateDraft(draftsInfoDTO);
     }
+
+    /**
+     * 模糊查询草稿
+     * @param draftsInfoDTO
+     * @return
+     */
+    @RequestMapping(name = "selectDraftsByClue",value = "selectDraftsByClue")
+    public Object selectDraftsByClue(@RequestBody DraftsInfoDTO draftsInfoDTO){
+
+        return null;
+    }
 }

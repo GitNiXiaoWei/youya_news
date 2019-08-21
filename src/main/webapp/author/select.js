@@ -1,21 +1,13 @@
-$("#account1").click(function () {
+$("#newstitle1").click(function () {
     $("#selects1").html($(this).text()+"<span class='caret'></span>")
 })
-$("#username1").click(function () {
+$("#newssubtitle1").click(function () {
     $("#selects1").html($(this).text()+"<span class='caret'></span>")
 })
-$("#email1").click(function () {
+$("#newscontext1").click(function () {
     $("#selects1").html($(this).text()+"<span class='caret'></span>")
 })
-$("#account2").click(function () {
-    $("#selects2").html($(this).text()+"<span class='caret'></span>")
-})
-$("#username2").click(function () {
-    $("#selects2").html($(this).text()+"<span class='caret'></span>")
-})
-$("#email2").click(function () {
-    $("#selects2").html($(this).text()+"<span class='caret'></span>")
-})
+
 $(function () {
     $(".input-group-addon").click(function(){
         if ( $(this).find("ul") ) {
@@ -29,31 +21,22 @@ $(function () {
     });
 });
 
-
 function aaa(pageNum) {
     var clue1=$("#clue1").val()
-    var clue2=$("#clue2").val()
-    if (clue1==""&&clue2==""){
+    // var clue2=$("#clue2").val()
+    if (clue1===""){
         location.reload()
     }
     var selects1=$("#selects1").text()
-    var selects2=$("#selects2").text()
     if (selects1[0]=="账"){
-        selects1="account"
+        selects1="newstitle"
     }else if (selects1[0]=="名"){
-        selects1="username"
+        selects1="newssubtitle"
     }else if (selects1[0]=="邮"){
-        selects1="email"
+        selects1="newscontext"
     }
-    if (selects2[0]=="账"){
-        selects2="account"
-    }else if (selects2[0]=="名"){
-        selects2="username"
-    }else if (selects2[0]=="邮"){
-        selects2="email"
-    }
+
     console.log(clue1+" : "+selects1)
-    console.log(clue2+" : "+selects2)
     if (pageNum==null){
         pageNum=0
     }
@@ -61,12 +44,10 @@ function aaa(pageNum) {
         type:"post",
         dataType:"json",
         contentType: "application/json;charset=utf-8",
-        url:"selectUserByClue",
+        url:"/youya_news/selectDraftsByClue",
         data:JSON.stringify({
             clue1:clue1,
-            clue2:clue2,
             selects1:selects1,
-            selects2:selects2,
             pageNum:pageNum
         }),
         success : function(result){

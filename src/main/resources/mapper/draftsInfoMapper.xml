@@ -29,6 +29,20 @@
     <update id="updateDraftsCategory" parameterType="dto.DraftsInfoDTO">
         update drafts_category set
         categoryid  = #{categoryid}
-        where draftsid=#{draftsid};
+        where draftsid=#{draftsid}
     </update>
+    <select id="selectDraftsByClue" parameterType="dto.DraftsInfoDTO" resultType="pojo.DraftsInfo">
+        select * from drafts
+        <where>
+            <if test="selects1 == 'newstitle'">
+                and newstitle like '%${clue1}%'
+            </if>
+            <if test="selects1 == 'newscontext'">
+                and newscontext like '%${clue1}%'
+            </if>
+            <if test="selects1 == 'newssubtitle'">
+                and newssubtitle like '%${clue1}%'
+            </if>
+        </where>
+    </select>
 </mapper>

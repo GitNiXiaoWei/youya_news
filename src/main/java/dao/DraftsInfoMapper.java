@@ -15,4 +15,5 @@ public interface DraftsInfoMapper {
     public List<CategoryVO> getAllCategory();
     public int updateDraft(DraftsInfoDTO draftsInfoDTO);
     public int updateDraftsCategory(DraftsInfoDTO draftsInfoDTO);
+    public List<DraftsInfo> selectDraftsByClue(DraftsInfoDTO draftsInfoDTO);
 }

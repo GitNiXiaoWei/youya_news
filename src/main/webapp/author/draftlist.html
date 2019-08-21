@@ -65,24 +65,12 @@
                                     <div class="input-group-addon tree-closed">
                                         <button id="selects1" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">查询条件<span class="caret"></span></button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li id="account1"><a>账&ensp;&ensp;&ensp;&ensp;号</a></li>
-                                            <li id="username1"><a>名&ensp;&ensp;&ensp;&ensp;称</a></li>
-                                            <li id="email1"><a>邮箱地址</a></li>
+                                            <li id="newstitle1"><a>标&ensp;&ensp;&ensp;&ensp;题</a></li>
+                                            <li id="newssubtitle1"><a>副&ensp;标&ensp;题</a></li>
+                                            <li id="newscontext1"><a>新闻主体</a></li>
                                         </ul>
                                     </div>
                                     <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue1">
-                                </div>
-                                <div class="input-group ">
-                                    <!--下拉框-->
-                                    <div class="input-group-addon tree-closed">
-                                        <button id="selects2" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">查询条件<span class="caret"></span></button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li id="account2"><a>账&ensp;&ensp;&ensp;&ensp;号</a></li>
-                                            <li id="username2"><a>名&ensp;&ensp;&ensp;&ensp;称</a></li>
-                                            <li id="email2"><a>邮箱地址</a></li>
-                                        </ul>
-                                    </div>
-                                    <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue2">
                                 </div>
                             </div>
                             <button type="button" class="btn btn-warning" id="selectByClue" onclick="aaa()"><i class="glyphicon glyphicon-search"></i> 查询</button>
@@ -320,9 +308,11 @@
     $('#submitted').click(function () {
         $(this).parent().attr("class","active")
         $('#draftboxs').attr("class","")
+        $('#lists').addClass("active in")
+        $("#detail").removeClass("active in")
         $('#lists').load("submitted.html")
     })
-    //保存草稿
+    //保存草稿、新建草稿
     function subm() {
         var draftsid=$("#draftsid").val();
         var categoryid=$("#category").val();
@@ -337,22 +327,25 @@
             alert("空")
         }else {
             alert(draftsid)
-            // $.ajax({
-            //     url:"",
-            //     type:"post",
-            //     contentType: "application/json;charset=utf-8",
-            //     data:JSON.stringify({
-            //         draftsid:draftsid,
-            //         categoryid:categoryid,
-            //         newstitle:newstitle,
-            //         newssubtitle:newssubtitle,
-            //         newsimg:newsimg,
-            //         newscontext:newscontext
-            //     }),
-            //     success:function (result) {
-            //
-            //     }
-            // })
+            $.ajax({
+                url:"/youya_news/updateDraft",
+                type:"post",
+                contentType: "application/json;charset=utf-8",
+                data:JSON.stringify({
+                    draftsid:draftsid,
+                    categoryid:categoryid,
+                    newstitle:newstitle,
+                    newssubtitle:newssubtitle,
+                    newsimg:newsimg,
+                    newscontext:newscontext
+                }),
+                success:function (result) {
+                    alert("success")
+                },
+                error: function (responseText) {
+                    alert(responseText)
+                }
+            })
         }
     }
 
