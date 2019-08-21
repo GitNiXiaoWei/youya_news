@@ -12,7 +12,7 @@ editor.customConfig.pasteIgnoreImg = false;
 //editor.customConfig.uploadImgShowBase64 = true
 // 上传图片到服务器
 editor.customConfig.uploadFileName = 'editorFile'; //设置文件上传的参数名称
-editor.customConfig.uploadImgServer = 'fileUpAndDown/upload1'; //设置上传文件的服务器路径
+editor.customConfig.uploadImgServer = '/youya_news/fileUpAndDown/upload1'; //设置上传文件的服务器路径
 editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024; // 将图片大小限制为 3M
 //自定义上传图片事件
 editor.customConfig.uploadImgHooks = {
@@ -253,15 +253,6 @@ var c = [
         value : "[话筒]"
     }
 ];
-// var emojis= [];
-// for (var i = 0; i < emoji.length; i++) {
-//    emojis.push("{alt"+":'"+emoji[i].value+"',src"+":'"+emoji[i].url+"'}");
-// }
-// var d =JSON.stringify(emojis);
-// d = d.replace(/\"/g, "");
-// var dc =JSON.stringify(d);
-// var cc=[]
-//   cc  =JSON.parse(dc);
 var b=[]
 for (var i = 0; i <c.length ; i++) {
     var a={src:'',

@@ -20,6 +20,7 @@
 
     <!-- 2、配置静态资源处理 -->
     <mvc:default-servlet-handler />
+
     <!-- 3、配置注解驱动 -->
     <mvc:annotation-driven>
         <mvc:message-converters>
@@ -50,6 +51,7 @@
         <!--配置登录拦截器-->
         <mvc:interceptor>
             <mvc:mapping path="/*.html"/>
+            <mvc:mapping path="/*/*.html"/>
             <mvc:exclude-mapping path="/login.html"/>
             <mvc:exclude-mapping path="/reg.html"/>
             <bean class="filter.LoginInterceptor"/>

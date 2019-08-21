@@ -2,6 +2,7 @@ package controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import dto.DraftsInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pojo.DraftsInfo;
@@ -31,9 +32,8 @@ public class DraftsController {
 
         Object userInfo = session.getAttribute("userInfo");
         List<DraftsInfoVO> allDrafts = draftsInfoService.getAllDrafts((UserInfo) userInfo);
-        PageInfo<DraftsInfoVO> userInfoPageInfo =new PageInfo<DraftsInfoVO>(allDrafts);
-        System.out.println("allDrafts = " + allDrafts);
-        return userInfoPageInfo;
+        PageInfo<DraftsInfoVO> draftsInfoVOPageInfo =new PageInfo<DraftsInfoVO>(allDrafts);
+        return draftsInfoVOPageInfo;
     }
 
     /**
@@ -59,9 +59,54 @@ public class DraftsController {
         return i;
     }
 
+    /**
+     * 获取所有新闻种类
+     * @return
+     */
     @RequestMapping(name = "getAllCategory",value = "getAllCategory")
     public Object getAllCategory(){
         List<CategoryVO> allCategory = draftsInfoService.getAllCategory();
         return allCategory;
+    }
+
+    /**
+     * 更新草稿
+     * @param draftsInfoDTO
+     * @return
+     */
+    @RequestMapping(name = "updateDraft",value = "updateDraft")
+    public Object updateDraft(@RequestBody DraftsInfoDTO draftsInfoDTO){
+
+        return draftsInfoService.updateDraft(draftsInfoDTO);
+    }
+
+    /**
+     * 新建草稿
+     * @param draftsInfoDTO
+     * @return
+     */
+    @RequestMapping(name = "createDraft",value = "createDraft")
+    public Object createDraft(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        //设置作者id
+        draftsInfoDTO.setUserid(userInfo.getUserid());
+        return draftsInfoService.createDraft(draftsInfoDTO);
+    }
+
+    /**
+     * 模糊查询草稿
+     * @param draftsInfoDTO
+     * @return
+     */
+    @RequestMapping(name = "selectDraftsByClue",value = "selectDraftsByClue")
+    public Object selectDraftsByClue(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
+        int defaultPageSize = 8;
+        PageHelper.startPage(draftsInfoDTO.getPageNum(),defaultPageSize);
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        //设置作者id
+        draftsInfoDTO.setUserid(userInfo.getUserid());
+        List<DraftsInfo> draftsInfos = draftsInfoService.selectDraftsByClue(draftsInfoDTO);
+        PageInfo<DraftsInfo> draftsInfoPageInfo =new PageInfo<DraftsInfo>(draftsInfos);
+        return draftsInfoPageInfo;
     }
 }

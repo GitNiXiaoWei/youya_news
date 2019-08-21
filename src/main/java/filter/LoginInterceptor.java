@@ -20,7 +20,8 @@ public class LoginInterceptor implements HandlerInterceptor {
             if (requestURI.equals("/youya_news/login.html")){
                 return true;
             }
-            httpServletRequest.getRequestDispatcher("login.html").forward(httpServletRequest,httpServletResponse);
+//            httpServletRequest.getRequestDispatcher("login.html").forward(httpServletRequest,httpServletResponse);
+            httpServletResponse.sendRedirect("/youya_news/login.html");
             return false;
         }else{
             return true;
