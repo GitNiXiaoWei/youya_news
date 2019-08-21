@@ -86,8 +86,10 @@ public class DraftsController {
      * @return
      */
     @RequestMapping(name = "createDraft",value = "createDraft")
-    public Object createDraft(@RequestBody DraftsInfoDTO draftsInfoDTO){
-
+    public Object createDraft(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        //设置作者id
+        draftsInfoDTO.setUserid(userInfo.getUserid());
         return draftsInfoService.createDraft(draftsInfoDTO);
     }
 

@@ -351,6 +351,34 @@
             }
         })
     }
+    //发布文章
+    function upnews() {
+        var draftsid=$("#draftsid").val();
+        var categoryid=$("#category").val();
+        var newstitle=$("#newstitle").val();
+        var newssubtitle=$("#newssubtitle").val();
+        var newsimg=$("#nowimg").val();
+        var newscontext=editor.txt.html();
+        $.ajax({
+            url:"url",
+            type:"post",
+            contentType: "application/json;charset=utf-8",
+            data:JSON.stringify({
+                draftsid:draftsid,
+                categoryid:categoryid,
+                newstitle:newstitle,
+                newssubtitle:newssubtitle,
+                newsimg:newsimg,
+                newscontext:newscontext
+            }),
+            success:function (result) {
+                alert("success")
+            },
+            error: function (responseText) {
+                alert(responseText)
+            }
+        })
+    }
 
 
 </script>

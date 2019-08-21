@@ -57,6 +57,9 @@
     <insert id="insertDraft" parameterType="dto.DraftsInfoDTO">
         insert into drafts (newstitle,newscontext,newssubtitle,newscreatetime,userid,newsimg)
         values (#{newstitle},#{newscontext},#{newssubtitle},<![CDATA[#{newscreatetime}]]>,#{userid},#{newsimg})
+        <selectKey keyProperty="draftsid" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID() AS draftsid
+        </selectKey>
     </insert>
     <!--新建草稿类别-->
     <insert id="insertDraftsCategory" parameterType="dto.DraftsInfoDTO">

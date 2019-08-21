@@ -58,6 +58,7 @@ public class DraftsInfoServiceImpl implements DraftsInfoService {
     @Override
     public int createDraft(DraftsInfoDTO draftsInfoDTO) {
         int i = draftsInfoMapper.insertDraft(draftsInfoDTO);
+//        System.err.println("draftsInfoDTO.getDraftsid() = "+draftsInfoDTO.getDraftsid());
         int i1 = draftsInfoMapper.insertDraftsCategory(draftsInfoDTO);
         if (i>0&&i1>0){
             return 1;
