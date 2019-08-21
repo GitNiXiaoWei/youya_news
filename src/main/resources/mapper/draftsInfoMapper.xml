@@ -22,11 +22,27 @@
     <select id="getAllCategory" resultType="vo.CategoryVO">
         select * from category
     </select>
+    <!--草稿模糊查询-->
+    <select id="selectDraftsByClue" parameterType="dto.DraftsInfoDTO" resultType="pojo.DraftsInfo">
+        select * from drafts
+        <where>
+            <if test="selects1 == 'newstitle'">
+                and newstitle like '%${clue1}%'
+            </if>
+            <if test="selects1 == 'newscontent'">
+                and newscontent like '%${clue1}%'
+            </if>
+            <if test="selects1 == 'newssubtitle'">
+                and newssubtitle like '%${clue1}%'
+            </if>
+            and userid=#{userid}
+        </where>
+    </select>
     <!--根据草稿id更新草稿-->
     <update id="updateDraft" parameterType="dto.DraftsInfoDTO">
         update drafts set
         newstitle =  #{newstitle},
-        newscontext =  #{newscontext},
+        newscontent =  #{newscontent},
         newssubtitle =  #{newssubtitle},
         newsimg =  #{newsimg}
         where draftsid=#{draftsid}
@@ -37,26 +53,17 @@
         categoryid  = #{categoryid}
         where draftsid=#{draftsid}
     </update>
-    <!--草稿模糊查询-->
-    <select id="selectDraftsByClue" parameterType="dto.DraftsInfoDTO" resultType="pojo.DraftsInfo">
-        select * from drafts
-        <where>
-            <if test="selects1 == 'newstitle'">
-                and newstitle like '%${clue1}%'
-            </if>
-            <if test="selects1 == 'newscontext'">
-                and newscontext like '%${clue1}%'
-            </if>
-            <if test="selects1 == 'newssubtitle'">
-                and newssubtitle like '%${clue1}%'
-            </if>
-                and userid=#{userid}
-        </where>
-    </select>
+    <!--新增草稿主体中的图片-->
+    <insert id="insertDraftsImgs" parameterType="dto.DraftsInfoDTO">
+        insert into drafts_imgs  values
+        <foreach collection="imgs" item="mid" separator=",">
+            (default ,#{draftsid},#{mid})
+        </foreach>
+    </insert>
     <!--新建草稿-->
     <insert id="insertDraft" parameterType="dto.DraftsInfoDTO">
-        insert into drafts (newstitle,newscontext,newssubtitle,newscreatetime,userid,newsimg)
-        values (#{newstitle},#{newscontext},#{newssubtitle},<![CDATA[#{newscreatetime}]]>,#{userid},#{newsimg})
+        insert into drafts (newstitle,newscontent,newssubtitle,newscreatetime,userid,newsimg)
+        values (#{newstitle},#{newscontent},#{newssubtitle},<![CDATA[#{newscreatetime}]]>,#{userid},#{newsimg})
         <selectKey keyProperty="draftsid" resultType="java.lang.Integer" order="AFTER">
             SELECT LAST_INSERT_ID() AS draftsid
         </selectKey>
@@ -64,5 +71,24 @@
     <!--新建草稿类别-->
     <insert id="insertDraftsCategory" parameterType="dto.DraftsInfoDTO">
         insert into drafts_category  values (default,#{draftsid},#{categoryid})
+    </insert>
+    <!--新建新闻-->
+    <insert id="insertNews" parameterType="dto.DraftsInfoDTO">
+        insert into news (newstitle,newscontent,newssubtitle,newscreatetime,userid,newsimg)
+        values (#{newstitle},#{newscontent},#{newssubtitle},<![CDATA[#{newscreatetime}]]>,#{userid},#{newsimg})
+        <selectKey keyProperty="draftsid" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID() AS draftsid
+        </selectKey>
+    </insert>
+    <!--新建新闻类别-->
+    <insert id="insertNewsCategory" parameterType="dto.DraftsInfoDTO">
+        insert into news_category  values (default,#{newsid},#{categoryid})
+    </insert>
+    <!--新增新闻主体中的图片-->
+    <insert id="insertNewsImgs" parameterType="dto.DraftsInfoDTO">
+        insert into news_imgs  values
+        <foreach collection="imgs" item="mid" separator=",">
+            (default ,#{draftsid},#{mid})
+        </foreach>
     </insert>
 </mapper>

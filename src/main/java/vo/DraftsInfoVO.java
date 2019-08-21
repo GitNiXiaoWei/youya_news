@@ -8,7 +8,7 @@ public class DraftsInfoVO {
     String newscreatetime;
     String updatetime;
     String newstitle;
-    String newscontext;
+    String newscontent;
     String newssubtitle;
     int userid;
     String newsimg;

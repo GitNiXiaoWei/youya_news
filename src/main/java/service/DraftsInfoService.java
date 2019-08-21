@@ -16,5 +16,5 @@ public interface DraftsInfoService {
     public int updateDraft(DraftsInfoDTO draftsInfoDTO);
     public List<DraftsInfo> selectDraftsByClue(DraftsInfoDTO draftsInfoDTO);
     public int createDraft(DraftsInfoDTO draftsInfoDTO);
-
+    public int insertNews(DraftsInfoDTO draftsInfoDTO);
 }

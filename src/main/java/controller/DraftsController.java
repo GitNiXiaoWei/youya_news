@@ -76,7 +76,7 @@ public class DraftsController {
      */
     @RequestMapping(name = "updateDraft",value = "updateDraft")
     public Object updateDraft(@RequestBody DraftsInfoDTO draftsInfoDTO){
-
+//        System.err.println(draftsInfoDTO.getImgs());
         return draftsInfoService.updateDraft(draftsInfoDTO);
     }
 
@@ -108,5 +108,20 @@ public class DraftsController {
         List<DraftsInfo> draftsInfos = draftsInfoService.selectDraftsByClue(draftsInfoDTO);
         PageInfo<DraftsInfo> draftsInfoPageInfo =new PageInfo<DraftsInfo>(draftsInfos);
         return draftsInfoPageInfo;
+    }
+
+    /**
+     * 新建上传新闻
+     * @param draftsInfoDTO
+     * @param session
+     * @return
+     */
+    @RequestMapping(name = "createNews",value = "createNews")
+    public Object createNews(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        //设置作者id
+        draftsInfoDTO.setUserid(userInfo.getUserid());
+        int i = draftsInfoService.insertNews(draftsInfoDTO);
+        return i;
     }
 }

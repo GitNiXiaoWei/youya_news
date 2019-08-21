@@ -4,7 +4,7 @@ $("#newstitle1").click(function () {
 $("#newssubtitle1").click(function () {
     $("#selects1").html($(this).text()+"<span class='caret'></span>")
 })
-$("#newscontext1").click(function () {
+$("#newscontent1").click(function () {
     $("#selects1").html($(this).text()+"<span class='caret'></span>")
 })
 
@@ -33,7 +33,7 @@ function aaa(pageNum) {
     }else if (selects1[0]=="副"){
         selects1="newssubtitle"
     }else if (selects1[0]=="新"){
-        selects1="newscontext"
+        selects1="newscontent"
     }
 
     console.log(clue1+" : "+selects1)

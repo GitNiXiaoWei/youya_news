@@ -3,6 +3,7 @@ package dto;
 import lombok.Data;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 @Data
 public class DraftsInfoDTO {
@@ -10,7 +11,7 @@ public class DraftsInfoDTO {
     String newscreatetime;
     String updatetime;
     String newstitle;
-    String newscontext;
+    String newscontent;
     String newssubtitle;
     int userid;
     String newsimg;
@@ -24,6 +25,8 @@ public class DraftsInfoDTO {
     String defaultValue="1";
     String value = "pageNum";
     Integer pageNum;
+    //内文图片
+    List<String> imgs;
 
     public DraftsInfoDTO() {
         SimpleDateFormat simpleDateFormat =new SimpleDateFormat("Y-M-d HH:mm:ss");

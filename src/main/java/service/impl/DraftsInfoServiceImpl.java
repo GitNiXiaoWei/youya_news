@@ -38,11 +38,17 @@ public class DraftsInfoServiceImpl implements DraftsInfoService {
         return draftsInfoMapper.getAllCategory();
     }
 
+    /**
+     * 更新草稿
+     * @param draftsInfoDTO
+     * @return
+     */
     @Override
     public int updateDraft(DraftsInfoDTO draftsInfoDTO) {
         int i = draftsInfoMapper.updateDraft(draftsInfoDTO);
         int i1 = draftsInfoMapper.updateDraftsCategory(draftsInfoDTO);
-        if (i>0&&i1>0){
+        int i2 = draftsInfoMapper.insertDraftsImgs(draftsInfoDTO);
+        if (i>0&&i1>0&&i2>0){
             return 1;
         }else {
             return 0;
@@ -55,12 +61,35 @@ public class DraftsInfoServiceImpl implements DraftsInfoService {
         return draftsInfos;
     }
 
+    /**
+     * 新增草稿
+     * @param draftsInfoDTO
+     * @return
+     */
     @Override
     public int createDraft(DraftsInfoDTO draftsInfoDTO) {
         int i = draftsInfoMapper.insertDraft(draftsInfoDTO);
-//        System.err.println("draftsInfoDTO.getDraftsid() = "+draftsInfoDTO.getDraftsid());
+        //插入drafts表后自增生成id，并且自动set到bean中
         int i1 = draftsInfoMapper.insertDraftsCategory(draftsInfoDTO);
-        if (i>0&&i1>0){
+        int i2 = draftsInfoMapper.insertDraftsImgs(draftsInfoDTO);
+        if (i>0&&i1>0&&i2>0){
+            return 1;
+        }else {
+            return 0;
+        }
+    }
+
+    /**
+     * 新增上传新闻
+     * @param draftsInfoDTO
+     * @return
+     */
+    @Override
+    public int insertNews(DraftsInfoDTO draftsInfoDTO) {
+        int i = draftsInfoMapper.insertNews(draftsInfoDTO);
+        int i1 = draftsInfoMapper.insertNewsImgs(draftsInfoDTO);
+        int i2 = draftsInfoMapper.insertNewsCategory(draftsInfoDTO);
+        if (i>0&&i1>0&&i2>0){
             return 1;
         }else {
             return 0;

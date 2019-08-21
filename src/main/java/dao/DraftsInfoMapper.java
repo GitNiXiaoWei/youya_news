@@ -18,4 +18,8 @@ public interface DraftsInfoMapper {
     public List<DraftsInfo> selectDraftsByClue(DraftsInfoDTO draftsInfoDTO);
     public int insertDraft(DraftsInfoDTO draftsInfoDTO);
     public int insertDraftsCategory(DraftsInfoDTO draftsInfoDTO);
+    public int insertDraftsImgs(DraftsInfoDTO draftsInfoDTO);
+    public int insertNewsImgs(DraftsInfoDTO draftsInfoDTO);
+    public int insertNews(DraftsInfoDTO draftsInfoDTO);
+    public int insertNewsCategory(DraftsInfoDTO draftsInfoDTO);
 }
