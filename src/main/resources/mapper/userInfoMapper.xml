@@ -31,5 +31,12 @@
         </set>
         where userid = #{userid}
     </update>
-
+    
+    <insert id="applicationauthority" parameterType="dto.ApplicationDTO">
+        insert into application (userid,applyremarks) values (#{userid},#{applyremarks})
+    </insert>
+    
+    <select id="selectApplicationByUserid" resultType="dto.ApplicationDTO">
+        select * from application where userid=#{userid}
+    </select>
 </mapper>
