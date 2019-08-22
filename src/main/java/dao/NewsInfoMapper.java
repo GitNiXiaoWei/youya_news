@@ -6,9 +6,11 @@ import pojo.UserInfo;
 import java.util.List;
 
 public interface NewsInfoMapper {
-//文章审核
+    //获取所有文章列表
     public List<NewsInfo> getAllNews();
+    //审核通过
     public int agreeByNewsId(int id);
+    //审核失败
     public int refuseByNewsId(int id);
 
 
