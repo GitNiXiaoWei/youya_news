@@ -66,33 +66,17 @@
                         <hr style="clear:both;">
                         <div class="table-responsive">
                             <!--dataTable-->
-                            <table class="table  table-bordered" >
+                            <table class="table  table-bordered" id = "dataTable">
                                 <thead>
                                 <tr>
                                     <th width="80">用户ID</th>
                                     <th width="30"><input type="checkbox" id="checkbox"></th>
-
-
                                     <th width="350">用户名</th>
-
                                     <th>申请备注</th>
-
                                     <th width="100">操作</th>
                                 </tr>
                                 </thead >
-                                <tbody id = "dataTable">
-                                <!--<tr>
-                                    <td>1</td>
-                                    <td><input type="checkbox"></td>
-                                    <td>NewsTitle</td>
-                                    <td>NewsContent</td>
-                                    <td>CreateTime</td>
-                                    <td>SubTitle</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-xs">同意</button>
-                                        <button type="button" class="btn btn-danger btn-xs">拒绝</button>
-                                    </td>
-                                </tr>-->
+                                <tbody >
 
                                 </tbody>
 
@@ -164,7 +148,6 @@
     //清空table
     //初始化页面
     function initPage(){
-        //1.从后台的listAllUserInfo接口获取数据
         $.ajax({
             //请求方式GET/POST
             type: "POST",
