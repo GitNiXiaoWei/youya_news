@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <link rel="stylesheet" href="../dropzone/basic.min.css" />
+    <link rel="stylesheet" href="../dropzone/dropzone.min.css" />
+    <link href="../wangeditor/wangEditor.min.css"/>
+    <link rel="stylesheet" href="../wangeditor/wangEditor-fullscreen-plugin.css">
+    <script src="../wangeditor/wangEditor.min.js"></script>
+    <script src="../dropzone/dropzone.min.js"></script>
+
+    <style>
+        .tree li {
+            list-style-type: none;
+            cursor:pointer;
+        }
+        table tbody tr:nth-child(odd){background:#F4F4F4;}
+        table tbody td:nth-child(even){color:#C00;}
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <div><a class="navbar-brand" style="font-size:32px;" href="#">悠亚新闻管理中心</a></div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row ">
+        <!--<div class="col-sm-3 col-md-2 sidebar">
+            &lt;!&ndash;个人菜单&ndash;&gt;
+        </div>-->
+        <!--<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">-->
+
+            <div id="myTabContent" class="tab-content" style="margin-top:10px;">
+                <div  class="panel panel-default tab-pane fade active in" id="lists" aria-labelledby="lists-tab" >
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 待审核</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-inline" role="form" style="float:left;">
+                            <div class="form-group has-feedback">
+                                <div class="input-group ">
+
+
+                                </div>
+                            </div>
+
+                        </form>
+                        <button type="button" class="btn btn-warning" style="float:right;margin-left:10px;" onclick="initPage()">刷新</button>
+
+
+                        <br>
+                        <hr style="clear:both;">
+                        <div class="table-responsive">
+                            <!--dataTable-->
+                            <table class="table  table-bordered" id = "dataTable" >
+                                <thead>
+                                <tr>
+                                    <th width="80">新闻编号</th>
+                                    <th width="30"><input type="checkbox" id="checkbox"></th>
+                                    <th >新闻标题</th>
+                                    <!--<th>新闻内容</th>-->
+                                    <th width="100">创建时间</th>
+                                    <th width="200">副标题</th>
+                                    <th width="150">操作</th>
+                                </tr>
+                                </thead >
+                                <tbody >
+                               <!-- <tr>
+                                    <td>1</td>
+                                    <td><input type="checkbox"></td>
+                                    <td>NewsTitle</td>
+                                    <td>NewsContent</td>
+                                    <td>CreateTime</td>
+                                    <td>SubTitle</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-xs">同意</button>
+                                        <button type="button" class="btn btn-danger btn-xs">拒绝</button>
+                                    </td>
+                                </tr>-->
+
+                                </tbody>
+
+                            </table>
+                            <tfoot>
+                            <tr>
+                                <td colspan="6" align="center">
+                                    <ul class="pagination">
+                                        <!--页码-->
+                                        <li class="disabled"><a href="#">上一页</a></li>
+                                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                        <li><a href="#">下一页</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            </tfoot>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../jquery/jquery-2.1.1.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../script/docs.min.js"></script>
+<script >
+      //清空table
+     //初始化页面
+      function initPage(){
+          //1.从后台的listAllUserInfo接口获取数据
+          $.ajax({
+              //请求方式GET/POST
+              type: "POST",
+              //请求的媒体类型
+              contentType: "application/json;charset=UTF-8",
+              //接受数据类型
+              dataType: "json",
+              //请求地址
+              url: "/youya_news/administrator/listAllNewsInfo",
+              //数据，json字符串
+              //请求成功
+              success: function (result) {
+                  $("#dataTable tbody").html("");
+                  //将数据填充到table中
+                  $(result).each(function (index, item) {
+                      console.log(item);
+                      var trStr = "<tr>";
+                      //获取id并拼接
+                      trStr += "<td>" + item.newsid + "</td>";
+                      trStr += "<td><input type=\"checkbox\"></td>";
+                      trStr += "<td>" + item.newstitle + "</td>";
+                      trStr += "<td>" + item.newscreatetime + "</td>";
+                      trStr += "<td>" + item.newssubtitle + "</td>";
+                      trStr += "<td>";
+                      trStr += "<button type=\"button\" class='btn btn-primary btn-xs'>详情</button>&nbsp;&nbsp;"
+                      trStr += "<button type=\"button\" class='btn btn-primary btn-xs' onclick='agree("+ item.newsid +")'>同意</button>&nbsp;&nbsp;"
+                      trStr += "<button type=\"button\" class='btn btn-danger btn-xs' onclick='refuse("+ item.newsid +")'>拒绝</button>"
+                      trStr += "</td>";
+                      trStr += "</tr>";
+                      $("#dataTable").append(trStr);
+                  });
+              },
+              //请求失败，包含具体的错误信息
+              error: function (e) {
+                  console.error(e);
+                  console.log(e.status);
+                  console.log(e.responseText);
+              }
+          });
+      }
+      initPage();
+          function agree(newsId){
+          $.ajax({
+              //请求方式
+              type:"GET",
+              //请求的媒体类型
+              contentType: "application/json;charset=UTF-8",
+              //接受数据类型
+              dataType: "json",
+              //请求地址
+              url: "/youya_news/administrator/agreeByNewsId?newsid="+newsId,
+              //数据，json字符串
+              //请求成功
+              success: function (result) {
+                  alert("已上架该文章")
+                  initPage();
+
+              },
+              error: function (e) {
+                  console.log(e);
+              }
+          })
+      }
+      function refuse(newsId){
+          $.ajax({
+              //请求方式
+              type:"GET",
+              //请求的媒体类型
+              contentType: "application/json;charset=UTF-8",
+              //接受数据类型
+              dataType: "json",
+              //请求地址
+              url: "/youya_news/administrator/refuseByNewsId?newsid="+newsId,
+              //数据，json字符串
+              //请求成功
+              success: function (result) {
+                  alert("已下架该文章")
+                  initPage();
+
+              },
+              error: function (e) {
+                  console.log(e);
+              }
+          })
+      }
+
+
+
+</script>
+
+</body>
+</html>

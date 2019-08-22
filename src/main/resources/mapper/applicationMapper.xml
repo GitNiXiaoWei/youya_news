@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ApplicationMapper">
+
+    <select id="listAllUserInfo" resultType="vo.UserListVO">
+         SELECT u.userid,u.username,a.applyremarks FROM application a,user u where u.userid=a.userid and a.status=2
+    </select>
+
+    <update id="agreeByUserId" parameterType="int">
+
+       update application set status = 1 where userid=#{userid}
+
+    </update>
+
+    <update id="refuseByUserId" parameterType="int">
+
+        update application set status = 0 where userid=#{userid}
+
+    </update>
+
+</mapper>
