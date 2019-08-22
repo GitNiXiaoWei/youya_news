@@ -439,7 +439,10 @@
                 imgs:wangEditorimgs
             }),
             success:function (result) {
-                alert("success")
+                alert("success");
+                if (url==="/youya_news/createDraft"){
+                    location.reload();
+                }
             },
             error: function (responseText) {
                 alert(responseText)
