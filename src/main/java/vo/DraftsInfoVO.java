@@ -4,12 +4,16 @@ import lombok.Data;
 
 @Data
 public class DraftsInfoVO {
+    int newsid;
     int draftsid;
     String newscreatetime;
     String updatetime;
     String newstitle;
     String newscontent;
     String newssubtitle;
+    long newsclicks;
+    long newstalks;
+    int newsstatus;
     int userid;
     String newsimg;
     //类别

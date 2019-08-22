@@ -123,4 +123,34 @@ public class DraftsInfoServiceImpl implements DraftsInfoService {
         }
     }
 
+    /**
+     * 通过作者id获取所有已上传新闻
+     * @param draftsInfoDTO
+     * @return
+     */
+    @Override
+    public List<DraftsInfoVO> getAllNewsByUserid(DraftsInfoDTO draftsInfoDTO) {
+        return draftsInfoMapper.getAllNewsByUserid(draftsInfoDTO);
+    }
+
+    /**
+     * 通过新闻id下架新闻
+     * @param draftsInfoDTO
+     * @return
+     */
+    @Override
+    public int removeNewsByNewsid(DraftsInfoDTO draftsInfoDTO) {
+        return draftsInfoMapper.removeNewsByNewsid(draftsInfoDTO);
+    }
+
+    /**
+     * 通过条件模糊查找新闻
+     * @param draftsInfoDTO
+     * @return
+     */
+    @Override
+    public List<DraftsInfoVO> selectNewsByClue(DraftsInfoDTO draftsInfoDTO) {
+        return draftsInfoMapper.selectNewsByClue(draftsInfoDTO);
+    }
+
 }

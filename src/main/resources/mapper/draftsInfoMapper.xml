@@ -22,7 +22,7 @@
     <select id="getAllCategory" resultType="vo.CategoryVO">
         select * from category
     </select>
-    <!--草稿模糊查询-->
+    <!--草稿根据条件模糊查询-->
     <select id="selectDraftsByClue" parameterType="dto.DraftsInfoDTO" resultType="pojo.DraftsInfo">
         select * from drafts
         <where>
@@ -102,4 +102,28 @@
             (default ,#{newsid},#{mid})
         </foreach>
     </insert>
+    <!--通过作者id获取所有已上传新闻-->
+    <select id="getAllNewsByUserid" parameterType="dto.DraftsInfoDTO" resultType="vo.DraftsInfoVO">
+        select * from news where userid=#{userid}
+    </select>
+    <!--通过新闻id下架新闻-->
+    <update id="removeNewsByNewsid" parameterType="dto.DraftsInfoDTO">
+         update news set newsstatus = 0 where newsid=#{newsid}
+    </update>
+    <!--新闻根据条件模糊查询-->
+    <select id="selectNewsByClue" parameterType="dto.DraftsInfoDTO" resultType="vo.DraftsInfoVO">
+        select * from news
+        <where>
+            <if test="selects1 == 'newstitle'">
+                and newstitle like '%${clue1}%'
+            </if>
+            <if test="selects1 == 'newscontent'">
+                and newscontent like '%${clue1}%'
+            </if>
+            <if test="selects1 == 'newssubtitle'">
+                and newssubtitle like '%${clue1}%'
+            </if>
+            and userid=#{userid}
+        </where>
+    </select>
 </mapper>

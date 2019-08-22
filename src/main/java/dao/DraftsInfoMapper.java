@@ -24,4 +24,7 @@ public interface DraftsInfoMapper {
     public int insertNewsCategory(DraftsInfoDTO draftsInfoDTO);
     public List<DraftsInfoVO> selectImgsByDraftsid(DraftsInfoDTO draftsInfoDTO);
     public int insertNewsImgsByDrafts(DraftsInfoDTO draftsInfoDTO);
+    public List<DraftsInfoVO> getAllNewsByUserid(DraftsInfoDTO draftsInfoDTO);
+    public int removeNewsByNewsid(DraftsInfoDTO draftsInfoDTO);
+    public List<DraftsInfoVO> selectNewsByClue(DraftsInfoDTO draftsInfoDTO);
 }

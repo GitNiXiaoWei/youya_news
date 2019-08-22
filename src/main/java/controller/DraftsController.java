@@ -18,7 +18,7 @@ import java.util.List;
 public class DraftsController {
     @Autowired
     DraftsInfoService draftsInfoService;
-
+    static int defaultPageSize=8;
     /**
      * 获取所有草稿,分页
      * @param draftsInfoDTO
@@ -27,7 +27,7 @@ public class DraftsController {
      */
     @RequestMapping(name = "getAllDrafts",value = "getAllDrafts")
     public Object getAllDrafts(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
-        int defaultPageSize = 8;
+//        int defaultPageSize = 8;
         PageHelper.startPage(draftsInfoDTO.getPageNum(),defaultPageSize);
 
         Object userInfo = session.getAttribute("userInfo");
@@ -100,7 +100,7 @@ public class DraftsController {
      */
     @RequestMapping(name = "selectDraftsByClue",value = "selectDraftsByClue")
     public Object selectDraftsByClue(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
-        int defaultPageSize = 8;
+//        int defaultPageSize = 8;
         PageHelper.startPage(draftsInfoDTO.getPageNum(),defaultPageSize);
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
         //设置作者id
@@ -122,5 +122,50 @@ public class DraftsController {
         //设置作者id
         draftsInfoDTO.setUserid(userInfo.getUserid());
         return draftsInfoService.insertNews(draftsInfoDTO);
+    }
+
+    /**
+     * 通过作者id获取所有已上传新闻
+     * @param draftsInfoDTO
+     * @param session
+     * @return
+     */
+    @RequestMapping(name = "getAllNewsByUserid",value = "getAllNewsByUserid")
+    public Object getAllNewsByUserid(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
+//        int defaultPageSize = 8;
+        PageHelper.startPage(draftsInfoDTO.getPageNum(),defaultPageSize);
+
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        draftsInfoDTO.setUserid(userInfo.getUserid());
+
+        List<DraftsInfoVO> allNews = draftsInfoService.getAllNewsByUserid(draftsInfoDTO);
+        PageInfo<DraftsInfoVO> newsInfoVOPageInfo =new PageInfo<DraftsInfoVO>(allNews);
+        return newsInfoVOPageInfo;
+    }
+
+    /**
+     * 通过新闻id下架新闻
+     * @param draftsInfoDTO
+     * @return
+     */
+    @RequestMapping(name = "removeNews",value = "removeNews")
+    public Object removeNews(@RequestBody DraftsInfoDTO draftsInfoDTO){
+        return draftsInfoService.removeNewsByNewsid(draftsInfoDTO);
+    }
+    /**
+     * 模糊查询新闻，分页
+     * @param draftsInfoDTO
+     * @return
+     */
+    @RequestMapping(name = "selectNewsByClue",value = "selectNewsByClue")
+    public Object selectNewsByClue(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
+//        int defaultPageSize = 8;
+        PageHelper.startPage(draftsInfoDTO.getPageNum(),defaultPageSize);
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        //设置作者id
+        draftsInfoDTO.setUserid(userInfo.getUserid());
+        List<DraftsInfoVO> newsInfoVOS = draftsInfoService.selectNewsByClue(draftsInfoDTO);
+        PageInfo<DraftsInfoVO> newsInfoPageInfo =new PageInfo<DraftsInfoVO>(newsInfoVOS);
+        return newsInfoPageInfo;
     }
 }
