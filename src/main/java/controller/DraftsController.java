@@ -20,15 +20,15 @@ public class DraftsController {
     DraftsInfoService draftsInfoService;
 
     /**
-     * 获取所有草稿
-     * @param pageNum
+     * 获取所有草稿,分页
+     * @param draftsInfoDTO
      * @param session
      * @return
      */
     @RequestMapping(name = "getAllDrafts",value = "getAllDrafts")
-    public Object getAllDrafts(@RequestParam(required = true,defaultValue = "1",value = "pageNum")Integer pageNum, HttpSession session){
+    public Object getAllDrafts(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
         int defaultPageSize = 8;
-        PageHelper.startPage(pageNum,defaultPageSize);
+        PageHelper.startPage(draftsInfoDTO.getPageNum(),defaultPageSize);
 
         Object userInfo = session.getAttribute("userInfo");
         List<DraftsInfoVO> allDrafts = draftsInfoService.getAllDrafts((UserInfo) userInfo);
@@ -50,12 +50,12 @@ public class DraftsController {
 
     /**
      * 删除草稿
-     * @param draftsInfo
+     * @param draftsInfoDTO
      * @return
      */
     @RequestMapping(name = "removeDraft",value = "removeDraft")
-    public Object removeDraft(@RequestBody DraftsInfo draftsInfo){
-        int i = draftsInfoService.removeDraft(draftsInfo);
+    public Object removeDraft(@RequestBody DraftsInfoDTO draftsInfoDTO){
+        int i = draftsInfoService.removeDraft(draftsInfoDTO);
         return i;
     }
 
@@ -94,7 +94,7 @@ public class DraftsController {
     }
 
     /**
-     * 模糊查询草稿
+     * 模糊查询草稿，分页
      * @param draftsInfoDTO
      * @return
      */
@@ -121,7 +121,6 @@ public class DraftsController {
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
         //设置作者id
         draftsInfoDTO.setUserid(userInfo.getUserid());
-        int i = draftsInfoService.insertNews(draftsInfoDTO);
-        return i;
+        return draftsInfoService.insertNews(draftsInfoDTO);
     }
 }

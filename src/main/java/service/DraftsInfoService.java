@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface DraftsInfoService {
     public List<DraftsInfoVO> getAllDrafts(UserInfo userInfo);
-    public int removeDraft(DraftsInfo draftsInfo);
+    public int removeDraft(DraftsInfoDTO draftsInfoDTO);
     public DraftsInfoVO getDraftDetail(int id);
     public List<CategoryVO> getAllCategory();
     public int updateDraft(DraftsInfoDTO draftsInfoDTO);

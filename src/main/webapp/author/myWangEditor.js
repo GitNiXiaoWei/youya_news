@@ -8,7 +8,7 @@ editor.customConfig.debug = true;
 // 关闭粘贴内容中的样式
 editor.customConfig.pasteFilterStyle = false;
 // 忽略粘贴内容中的图片
-editor.customConfig.pasteIgnoreImg = false;
+editor.customConfig.pasteIgnoreImg = true;
 // 使用 base64 保存图片
 //editor.customConfig.uploadImgShowBase64 = true
 // 上传图片到服务器

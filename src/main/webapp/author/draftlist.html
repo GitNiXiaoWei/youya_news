@@ -47,7 +47,7 @@
                 <li role="presentation"  class="active" id="draftboxs" >
                     <a href="#" id="draftbox" >草稿箱</a>
                 </li>
-                <li role="presentation" id="submitteds">
+                <li role="presentation" id="submitteds" class="">
                     <a href="#" id="submitted" >已提交</a>
                 </li>
             </ul>
@@ -63,7 +63,7 @@
                                 <div class="input-group ">
                                     <!--下拉框-->
                                     <div class="input-group-addon tree-closed">
-                                        <button id="selects1" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">查询条件<span class="caret"></span></button>
+                                        <button id="selects1" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">标&ensp;&ensp;&ensp;&ensp;题<span class="caret"></span></button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li id="newstitle1"><a>标&ensp;&ensp;&ensp;&ensp;题</a></li>
                                             <li id="newssubtitle1"><a>副&ensp;标&ensp;题</a></li>
@@ -73,13 +73,13 @@
                                     <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue1">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-warning" id="selectByClue" onclick="aaa()"><i class="glyphicon glyphicon-search"></i> 查询</button>
+                            <button type="button" class="btn btn-warning"  onclick="aaa()"><i class="glyphicon glyphicon-search"></i> 查询</button>
                         </form>
                         <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                        <a class="btn btn-primary" style="float:right;" href="#detail" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
-                            <i class="glyphicon glyphicon-plus"></i>
-                            新增
-                        </a>
+                            <a class="btn btn-primary" style="float:right;"  onclick="newone()"  href='#'  >
+                                <i class="glyphicon glyphicon-plus"></i>
+                                新增
+                            </a>
                         <br>
                         <hr style="clear:both;">
                         <div class="table-responsive">
@@ -150,12 +150,73 @@
                         <a class="btn btn-lg btn-primary btn-block" onclick="upnews()" > 发布文章</a>
                     </div>
                 </div>
+                <!--已提交-->
+                <div  class="panel panel-default tab-pane fade " id="tijiao" aria-labelledby="tijiao-tab" >
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i>已提交</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-inline" role="form" style="float:left;">
+                            <div class="form-group has-feedback">
+                                <div class="input-group ">
+                                    <!--下拉框-->
+                                    <div class="input-group-addon tree-closed">
+                                        <button id="selects2" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">标&ensp;&ensp;&ensp;&ensp;题<span class="caret"></span></button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li id="newstitle2"><a>标&ensp;&ensp;&ensp;&ensp;题</a></li>
+                                            <li id="newssubtitle2"><a>副&ensp;标&ensp;题</a></li>
+                                            <li id="newscontent2"><a>新闻主体</a></li>
+                                        </ul>
+                                    </div>
+                                    <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue2">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-warning" onclick="bbb()"><i class="glyphicon glyphicon-search"></i> 查询</button>
+                        </form>
+                        <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+                        <a class="btn btn-primary" style="float:right;" href="#detail" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            新增
+                        </a>
+                        <br>
+                        <hr style="clear:both;">
+                        <div class="table-responsive">
+                            <!--dataTable-->
+                            <table class="table  table-bordered" >
+                                <thead>
+                                <tr>
+                                    <th width="30">#</th>
+                                    <th width="30"><input type="checkbox" ></th>
+                                    <th>新闻标题</th>
+                                    <th>创建时间</th>
+                                    <th>点击量</th>
+                                    <th>评论数</th>
+                                    <th>状态</th>
+                                    <th width="100">操作</th>
+                                </tr>
+                                </thead >
+                                <tbody id >
+
+                                </tbody>
+                                <tfoot>
+                                <tr >
+                                    <td colspan="8" align="center">
+                                        <ul class="pagination">
+                                            <!--页码-->
+                                        </ul>
+                                    </td>
+                                </tr>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!--<script src="../script/docs.min.js"></script>-->
-<!--<script src="../script/back-to-top.js"></script>-->
+
 <script src="dropzone.js" ></script>
 <script src="../jquery/jquery-2.1.1.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
@@ -165,27 +226,46 @@
 <script src="select.js"></script>
 <script type="text/javascript">
     $(".sidebar").load("personal.html");
-
-    var pageNum = window.location.search.split("=")[1];
-    var requestURL = "/youya_news/getAllDrafts";
-    if(pageNum!=null){
-        requestURL+="?pageNum="+pageNum;
-    }
-    //获取草稿箱内容
+    //获取所有新闻种类
     $.ajax({
-        type : "GET",
-        dataType:"json",
-        url : requestURL,
-        success : function(result) {
-            context(result);
-            newpages(result);
-            console.log(result);
-        },
-        error : function(e){
-            console.log(e.status);
-            console.log(e.responseText);
+        async:false,
+        url:"/youya_news/getAllCategory",
+        type:"get",
+        success:function (result) {
+            $(result).each(function (index,item) {
+                $("#category").append("<option value='"+item.categoryid+"'>"+item.categoryname+"</option>")
+            })
         }
-    })
+    });
+
+    // var pageNum = window.location.search.split("=")[1];
+    // var requestURL = "/youya_news/getAllDrafts";
+    // if(pageNum!=null){
+    //     requestURL+="?pageNum="+pageNum;
+    // }
+    //获取草稿箱内容
+    function reloadpage(pageNum){
+        $.ajax({
+            type : "post",
+            dataType:"json",
+            contentType: "application/json;charset=utf-8",
+            async:false,
+            url : "/youya_news/getAllDrafts",
+            data:JSON.stringify({
+                pageNum:pageNum
+            }),
+            success : function(result) {
+                context(result);
+                newpages(result);
+                console.log(result);
+            },
+            error : function(e){
+                console.log(e.responseText);
+            }
+        })
+    }
+    reloadpage(0);
+
     //拼接草稿箱内容
     function context(result){
         var trStr="";
@@ -197,8 +277,8 @@
             trStr+="<td>"+item.newscreatetime+"</td>";
             trStr+="<td>"+item.updatetime+"</td>";
             trStr+="<td>";
-            trStr+="<a onclick='showdetail("+item.draftsid+")' href='#detail' class='btn btn-primary btn-xs'  role=\"tab\" data-toggle=\"tab\" aria-controls=\"home\" aria-expanded=\"true\"><i class=' glyphicon glyphicon-pencil' ></i></a>&nbsp;";
-            trStr+="<a type=\"button\" class='btn btn-danger btn-xs' onclick='removeUser("+item.draftsid+")'><i class=' glyphicon glyphicon-remove'  ></i></a>";
+            trStr+="<a onclick='showdetail("+item.draftsid+")' class='btn btn-primary btn-xs' ><i class=' glyphicon glyphicon-pencil' ></i></a>&nbsp;";
+            trStr+="<a onclick='removeUser("+item.draftsid+")' class='btn btn-danger btn-xs' ><i class=' glyphicon glyphicon-remove'  ></i></a>";
             trStr+="</td>";
             trStr+="</tr>";
         });
@@ -206,22 +286,23 @@
     }
     //分页
     function newpages(result){
-        var splitePageStr = "<li id='prePage'><a href="+result.prePage+"'../user.html?pageNum=' id='pre'>上一页</a></li>";
+        var splitePageStr = "<li id='prePage'><a  onclick='reloadpage("+result.prePage+")'>上一页</a></li>";
         for(var i=1;i<=result.pages;i++){
-            splitePageStr +="<li id='pages"+i+"'><a href="+i+"'../user.html?pageNum='>"+i+"</a></li>";
+            splitePageStr +="<li id='pages"+i+"'><a onclick='reloadpage("+i+")'>"+i+"</a></li>";
         }
-        splitePageStr += "<li id='nextPage'><a href="+result.nextPage+"'../user.html?pageNum=' id='next' >下一页</a></li>";
+        splitePageStr += "<li id='nextPage'><a  onclick='reloadpage("+result.nextPage+")'>下一页</a></li>";
         $(".pagination").html(splitePageStr);
 
         if (result.isFirstPage){
             $("#prePage").addClass("disabled");
-            $("#pre").click(false);
+            $("#prePage a").removeAttr('onclick');
         }
         if (result.isLastPage){
             $("#nextPage").addClass("disabled");
-            $("#next").click(false);
+            $("#nextPage a").removeAttr('onclick');
         }
         $("#pages"+result.pageNum).addClass("active");
+        $("#pages"+result.pageNum+" a").removeAttr("onclick");
     }
 
     //全选框
@@ -265,19 +346,10 @@
         })
     }
 
-    //获取所有新闻种类
-    $.ajax({
-        url:"/youya_news/getAllCategory",
-        type:"get",
-        success:function (result) {
-            $(result).each(function (index,item) {
-                $("#category").append("<option value='"+item.categoryid+"'>"+item.categoryname+"</option>")
-            })
-        }
-    });
-
     //获取新闻内容展示内容细节
     function showdetail(userid){
+        $('#lists').removeClass("active in")
+        $("#detail").addClass("active in")
         $.ajax({
             url:"/youya_news/getDraftDetail",
             type:"post",
@@ -295,23 +367,51 @@
             }
         })
     }
-    //展示内容细节框架
-    $('#detail').click(fun1());
-    function  fun1(){
-        $(this).tab('show')
+    //新增按钮
+    function newone() {
+        $('#lists').removeClass("active in")
+        $("#detail").addClass("active in")
+        $("#category").val("")
+        $("#draftsid").val("")
+        $("#newstitle").val("")
+        $("#newssubtitle").val("")
+        $("#oldimg").attr("src","")
+        editor.txt.html("")
     }
+
     //展示草稿箱，刷新页面
-    $('#draftbox').click(function (e) {
-        location.reload()
-    });
+    // $('#lists').click(function (e) {
+    //     // location.reload()
+    //     e.preventDefault()
+    //     $(this).tab('show')
+    // });
+    //展示草稿箱
+    $("#draftbox").click(function () {
+        $(this).parent().attr("class","active")
+        $('#submitteds').removeClass("active")
+        $('#lists').addClass("active in")
+        $("#detail").removeClass("active in")
+        $('#tijiao').removeClass("active in")
+    })
+    //展示内容细节框架
+    // $('#detail').click(function (e) {
+    //     e.preventDefault()
+    //     $(this).tab('show')
+    // });
+
     //加载已提交页面
     $('#submitted').click(function () {
         $(this).parent().attr("class","active")
-        $('#draftboxs').attr("class","")
-        $('#lists').addClass("active in")
+        $('#draftboxs').removeClass("active")
+        $('#tijiao').addClass("active in")
         $("#detail").removeClass("active in")
-        $('#lists').load("submitted.html")
+        $("#lists").removeClass("active in")
+        // $('#lists').load("submitted.html")
     })
+    // $("#tijiao").click(function (e) {
+    //     e.preventDefault()
+    //     $(this).tab('show')
+    // })
     //保存草稿、新建草稿
     function subm() {
         var draftsid=$("#draftsid").val();
@@ -370,13 +470,15 @@
                 newstitle:newstitle,
                 newssubtitle:newssubtitle,
                 newsimg:newsimg,
-                newscontent:newscontent
+                newscontent:newscontent,
+                imgs:wangEditorimgs
             }),
             success:function (result) {
                 alert("success")
             },
-            error: function (responseText) {
-                alert(responseText)
+            error: function (e) {
+                console.error(e)
+                console.error(e.responseText)
             }
         })
     }

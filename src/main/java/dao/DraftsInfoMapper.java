@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface DraftsInfoMapper {
     public List<DraftsInfoVO> getAllDrafts(UserInfo userInfo);
-    public int removeDraft(DraftsInfo draftsInfo);
+    public int removeDraft(DraftsInfoDTO draftsInfoDTO);
     public DraftsInfoVO getDraftDetail(int id);
     public List<CategoryVO> getAllCategory();
     public int updateDraft(DraftsInfoDTO draftsInfoDTO);
@@ -22,4 +22,6 @@ public interface DraftsInfoMapper {
     public int insertNewsImgs(DraftsInfoDTO draftsInfoDTO);
     public int insertNews(DraftsInfoDTO draftsInfoDTO);
     public int insertNewsCategory(DraftsInfoDTO draftsInfoDTO);
+    public List<DraftsInfoVO> selectImgsByDraftsid(DraftsInfoDTO draftsInfoDTO);
+    public int insertNewsImgsByDrafts(DraftsInfoDTO draftsInfoDTO);
 }

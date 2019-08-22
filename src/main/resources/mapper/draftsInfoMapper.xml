@@ -76,8 +76,8 @@
     <insert id="insertNews" parameterType="dto.DraftsInfoDTO">
         insert into news (newstitle,newscontent,newssubtitle,newscreatetime,userid,newsimg)
         values (#{newstitle},#{newscontent},#{newssubtitle},<![CDATA[#{newscreatetime}]]>,#{userid},#{newsimg})
-        <selectKey keyProperty="draftsid" resultType="java.lang.Integer" order="AFTER">
-            SELECT LAST_INSERT_ID() AS draftsid
+        <selectKey keyProperty="newsid" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID() AS newsid
         </selectKey>
     </insert>
     <!--新建新闻类别-->
@@ -88,7 +88,18 @@
     <insert id="insertNewsImgs" parameterType="dto.DraftsInfoDTO">
         insert into news_imgs  values
         <foreach collection="imgs" item="mid" separator=",">
-            (default ,#{draftsid},#{mid})
+            (default ,#{newsid},#{mid})
+        </foreach>
+    </insert>
+    <!--根据草稿id获取所有图片url-->
+    <select id="selectImgsByDraftsid" parameterType="dto.DraftsInfoDTO" resultType="vo.DraftsInfoVO">
+        select * from drafts_imgs where draftsid=#{draftsid}
+    </select>
+    <!--通过草稿主体中存在的图片，新增新闻主体中的图片-->
+    <insert id="insertNewsImgsByDrafts" parameterType="dto.DraftsInfoDTO">
+        insert into news_imgs  values
+        <foreach collection="urls" item="mid" separator=",">
+            (default ,#{newsid},#{mid})
         </foreach>
     </insert>
 </mapper>

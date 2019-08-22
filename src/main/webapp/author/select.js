@@ -77,4 +77,5 @@ function selectpages(result){
         $("#nextPage a").removeAttr('onclick');
     }
     $("#pages"+result.pageNum).addClass("active");
+    $("#pages"+result.pageNum+" a").removeAttr("onclick");
 }

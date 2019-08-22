@@ -15,4 +15,6 @@ public class DraftsInfoVO {
     //类别
     int categoryid;
     String categoryname;
+    //图片
+    String url;
 }
