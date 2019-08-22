@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.DraftsInfoMapper">
+    <!--通过作者id查找所有草稿-->
+    <select id="getAllDrafts" resultType="vo.DraftsInfoVO" parameterType="pojo.UserInfo">
+        select * from drafts where userid=#{userid} and status=1
+    </select>
+    <!--通过草稿id获取草稿细节-->
+    <select id="getDraftDetail" parameterType="int" resultType="vo.DraftsInfoVO">
+        select d.*,c.* from drafts d,drafts_category dc,category c
+        where d.draftsid=#{id}
+        and d.draftsid=dc.draftsid
+        and dc.categoryid=c.categoryid
+    </select>
+    <!--删除草稿-->
+    <update id="removeDraft" parameterType="pojo.DraftsInfo">
+        update drafts set status = 0 where draftsid=#{draftsid}
+    </update>
+    <!--获取所有新闻类别-->
+    <select id="getAllCategory" resultType="vo.CategoryVO">
+        select * from category
+    </select>
+    <!--草稿根据条件模糊查询-->
+    <select id="selectDraftsByClue" parameterType="dto.DraftsInfoDTO" resultType="pojo.DraftsInfo">
+        select * from drafts
+        <where>
+            <if test="selects1 == 'newstitle'">
+                and newstitle like '%${clue1}%'
+            </if>
+            <if test="selects1 == 'newscontent'">
+                and newscontent like '%${clue1}%'
+            </if>
+            <if test="selects1 == 'newssubtitle'">
+                and newssubtitle like '%${clue1}%'
+            </if>
+            and userid=#{userid}
+        </where>
+    </select>
+    <!--根据草稿id更新草稿-->
+    <update id="updateDraft" parameterType="dto.DraftsInfoDTO">
+        update drafts set
+        newstitle =  #{newstitle},
+        newscontent =  #{newscontent},
+        newssubtitle =  #{newssubtitle},
+        newsimg =  #{newsimg}
+        where draftsid=#{draftsid}
+    </update>
+    <!--根据草稿id更新草稿新闻类别-->
+    <update id="updateDraftsCategory" parameterType="dto.DraftsInfoDTO">
+        update drafts_category set
+        categoryid  = #{categoryid}
+        where draftsid=#{draftsid}
+    </update>
+    <!--新增草稿主体中的图片-->
+    <insert id="insertDraftsImgs" parameterType="dto.DraftsInfoDTO">
+        insert into drafts_imgs  values
+        <foreach collection="imgs" item="mid" separator=",">
+            (default ,#{draftsid},#{mid})
+        </foreach>
+    </insert>
+    <!--新建草稿-->
+    <insert id="insertDraft" parameterType="dto.DraftsInfoDTO">
+        insert into drafts (newstitle,newscontent,newssubtitle,newscreatetime,userid,newsimg)
+        values (#{newstitle},#{newscontent},#{newssubtitle},<![CDATA[#{newscreatetime}]]>,#{userid},#{newsimg})
+        <selectKey keyProperty="draftsid" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID() AS draftsid
+        </selectKey>
+    </insert>
+    <!--新建草稿类别-->
+    <insert id="insertDraftsCategory" parameterType="dto.DraftsInfoDTO">
+        insert into drafts_category  values (default,#{draftsid},#{categoryid})
+    </insert>
+    <!--新建新闻-->
+    <insert id="insertNews" parameterType="dto.DraftsInfoDTO">
+        insert into news (newstitle,newscontent,newssubtitle,newscreatetime,userid,newsimg)
+        values (#{newstitle},#{newscontent},#{newssubtitle},<![CDATA[#{newscreatetime}]]>,#{userid},#{newsimg})
+        <selectKey keyProperty="newsid" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID() AS newsid
+        </selectKey>
+    </insert>
+    <!--新建新闻类别-->
+    <insert id="insertNewsCategory" parameterType="dto.DraftsInfoDTO">
+        insert into news_category  values (default,#{newsid},#{categoryid})
+    </insert>
+    <!--新增新闻主体中的图片-->
+    <insert id="insertNewsImgs" parameterType="dto.DraftsInfoDTO">
+        insert into news_imgs  values
+        <foreach collection="imgs" item="mid" separator=",">
+            (default ,#{newsid},#{mid})
+        </foreach>
+    </insert>
+    <!--根据草稿id获取所有图片url-->
+    <select id="selectImgsByDraftsid" parameterType="dto.DraftsInfoDTO" resultType="vo.DraftsInfoVO">
+        select * from drafts_imgs where draftsid=#{draftsid}
+    </select>
+    <!--通过草稿主体中存在的图片，新增新闻主体中的图片-->
+    <insert id="insertNewsImgsByDrafts" parameterType="dto.DraftsInfoDTO">
+        insert into news_imgs  values
+        <foreach collection="urls" item="mid" separator=",">
+            (default ,#{newsid},#{mid})
+        </foreach>
+    </insert>
+    <!--通过作者id获取所有已上传新闻-->
+    <select id="getAllNewsByUserid" parameterType="dto.DraftsInfoDTO" resultType="vo.DraftsInfoVO">
+        select * from news where userid=#{userid}
+    </select>
+    <!--通过新闻id下架新闻-->
+    <update id="removeNewsByNewsid" parameterType="dto.DraftsInfoDTO">
+         update news set newsstatus = 0 where newsid=#{newsid}
+    </update>
+    <!--新闻根据条件模糊查询-->
+    <select id="selectNewsByClue" parameterType="dto.DraftsInfoDTO" resultType="vo.DraftsInfoVO">
+        select * from news
+        <where>
+            <if test="selects1 == 'newstitle'">
+                and newstitle like '%${clue1}%'
+            </if>
+            <if test="selects1 == 'newscontent'">
+                and newscontent like '%${clue1}%'
+            </if>
+            <if test="selects1 == 'newssubtitle'">
+                and newssubtitle like '%${clue1}%'
+            </if>
+            and userid=#{userid}
+        </where>
+    </select>
+</mapper>

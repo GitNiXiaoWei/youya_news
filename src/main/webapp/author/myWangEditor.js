@@ -1,6 +1,7 @@
 var E = window.wangEditor;
+var wangEditorimgs=[];
 //声明
-var editor = new E("#newscontext");
+var editor = new E("#newscontent");
 //设置
 //开启debug模式
 editor.customConfig.debug = true;
@@ -12,8 +13,8 @@ editor.customConfig.pasteIgnoreImg = false;
 //editor.customConfig.uploadImgShowBase64 = true
 // 上传图片到服务器
 editor.customConfig.uploadFileName = 'editorFile'; //设置文件上传的参数名称
-editor.customConfig.uploadImgServer = 'fileUpAndDown/upload1'; //设置上传文件的服务器路径
-editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024; // 将图片大小限制为 3M
+editor.customConfig.uploadImgServer = '/youya_news/fileUpAndDown/upload1'; //设置上传文件的服务器路径
+editor.customConfig.uploadImgMaxSize = 10 * 1024 * 1024; // 将图片大小限制为 10M
 //自定义上传图片事件
 editor.customConfig.uploadImgHooks = {
     before: function(xhr, editor, files) {
@@ -21,6 +22,9 @@ editor.customConfig.uploadImgHooks = {
     },
     success: function(xhr, editor, result) {
         console.log("上传成功");
+        console.log(result.data[0]);
+        wangEditorimgs.push(result.data[0]);
+        console.log(wangEditorimgs);
     },
     fail: function(xhr, editor, result) {
         console.log("上传失败,原因是" + result);
@@ -253,15 +257,6 @@ var c = [
         value : "[话筒]"
     }
 ];
-// var emojis= [];
-// for (var i = 0; i < emoji.length; i++) {
-//    emojis.push("{alt"+":'"+emoji[i].value+"',src"+":'"+emoji[i].url+"'}");
-// }
-// var d =JSON.stringify(emojis);
-// d = d.replace(/\"/g, "");
-// var dc =JSON.stringify(d);
-// var cc=[]
-//   cc  =JSON.parse(dc);
 var b=[]
 for (var i = 0; i <c.length ; i++) {
     var a={src:'',
@@ -315,4 +310,4 @@ editor.customConfig.fontNames = [
 //初始化
 editor.create();
 //设置全屏
-E.fullscreen.init('#newscontext');
+E.fullscreen.init('#newscontent');

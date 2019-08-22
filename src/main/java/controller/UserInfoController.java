@@ -1,5 +1,6 @@
 package controller;
 
+import dto.ApplicationDTO;
 import dto.UserInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -88,9 +89,47 @@ public class UserInfoController {
         if ( userInfo==null){
             return null;
         }else {
-            System.out.println("userInfo = " + userInfo);
             return userInfo;
         }
     }
 
+    /**
+     * 获取个人信息及其更改
+     * @param userInfoDTO
+     * @return
+     */
+    @RequestMapping("informationUpdateByUsername")
+    @ResponseBody
+    public Object informationUpdateByUsername(@RequestBody UserInfoDTO userInfoDTO) {
+        return userInfoService.informationUpdateByUserName(userInfoDTO);
+    }
+
+    /**
+     * 权限申请
+     *
+     * @param applicationDTO
+     * @return
+     */
+    @RequestMapping("applicationauthority")
+    @ResponseBody
+    public Object applicationauthority(@RequestBody ApplicationDTO applicationDTO,HttpSession httpSession) {
+        UserInfo userinfo = (UserInfo)httpSession.getAttribute("userInfo");
+        applicationDTO.setUserid(userinfo.getUserid());
+        return userInfoService.applicationauthority(applicationDTO);
+    }
+
+    /**
+     * 查询application中是否存在id
+     * @param userid
+     * @return
+     */
+    @RequestMapping("selectApplicationByUserid")
+    @ResponseBody
+    public Object selectApplicationByUserid(@RequestParam int userid) {
+        if(userInfoService.selectApplicationByUserid(userid)){
+            return "you";
+        }else {
+            return "wu";
+        }
+    }
 }

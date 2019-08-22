@@ -44,14 +44,15 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <ul  class="nav nav-pills" >
-                <li role="presentation" >
+                <li role="presentation"  class="active" id="draftboxs" >
                     <a href="#" id="draftbox" >草稿箱</a>
                 </li>
-                <li role="presentation">
-                    <a href="#"  >已提交</a>
+                <li role="presentation" id="submitteds" class="">
+                    <a href="#" id="submitted" >已提交</a>
                 </li>
             </ul>
             <div id="myTabContent" class="tab-content" style="margin-top:10px;">
+                <!--列表页-->
                 <div  class="panel panel-default tab-pane fade active in" id="lists" aria-labelledby="lists-tab" >
                     <div class="panel-heading">
                         <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 草稿箱</h3>
@@ -62,32 +63,23 @@
                                 <div class="input-group ">
                                     <!--下拉框-->
                                     <div class="input-group-addon tree-closed">
-                                        <button id="selects1" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">查询条件<span class="caret"></span></button>
+                                        <button id="selects1" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">标&ensp;&ensp;&ensp;&ensp;题<span class="caret"></span></button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li id="account1"><a>账&ensp;&ensp;&ensp;&ensp;号</a></li>
-                                            <li id="username1"><a>名&ensp;&ensp;&ensp;&ensp;称</a></li>
-                                            <li id="email1"><a>邮箱地址</a></li>
+                                            <li id="newstitle1"><a>标&ensp;&ensp;&ensp;&ensp;题</a></li>
+                                            <li id="newssubtitle1"><a>副&ensp;标&ensp;题</a></li>
+                                            <li id="newscontent1"><a>新闻主体</a></li>
                                         </ul>
                                     </div>
                                     <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue1">
                                 </div>
-                                <div class="input-group ">
-                                    <!--下拉框-->
-                                    <div class="input-group-addon tree-closed">
-                                        <button id="selects2" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">查询条件<span class="caret"></span></button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li id="account2"><a>账&ensp;&ensp;&ensp;&ensp;号</a></li>
-                                            <li id="username2"><a>名&ensp;&ensp;&ensp;&ensp;称</a></li>
-                                            <li id="email2"><a>邮箱地址</a></li>
-                                        </ul>
-                                    </div>
-                                    <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue2">
-                                </div>
                             </div>
-                            <button type="button" class="btn btn-warning" id="selectByClue" onclick="aaa()"><i class="glyphicon glyphicon-search"></i> 查询</button>
+                            <button type="button" class="btn btn-warning"  onclick="aaa()"><i class="glyphicon glyphicon-search"></i> 查询</button>
                         </form>
-                        <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                        <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+                        <button class="btn btn-danger" style="float:right;margin-left:10px;" id="removeAllDrafts"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+                            <a class="btn btn-primary" style="float:right;"  onclick="newone()" >
+                                <i class="glyphicon glyphicon-plus"></i>
+                                新增
+                            </a>
                         <br>
                         <hr style="clear:both;">
                         <div class="table-responsive">
@@ -104,13 +96,12 @@
                                 </tr>
                                 </thead >
                                 <tbody id = "dataTable">
-
-
+                                    <!--草稿列表数据-->
                                 </tbody>
                                 <tfoot>
                                 <tr >
                                     <td colspan="6" align="center">
-                                        <ul class="pagination">
+                                        <ul class="pagination" id="pagination">
                                             <!--页码-->
                                         </ul>
                                     </td>
@@ -121,14 +112,13 @@
                         </div>
                     </div>
                 </div>
+                <!--内容页-->
                 <div  class="panel panel-default tab-pane fade" id="detail" aria-labelledby="detail-tab" >
                     <div style="margin-left: 10px; margin-top: 20px; margin-right: 10px">
                         <div class="form-group has-success has-feedback">
                             <h4>新闻类别</h4>
-                            <select  class="form-control" id="category"  >
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
+                            <select  class="form-control" id="category" >
+
                             </select>
                             <span class="glyphicon glyphicon-tag form-control-feedback"></span>
                         </div>
@@ -139,30 +129,92 @@
                         </div>
                         <div class="form-group has-success has-feedback">
                             <h4>副标题</h4>
-                            <input type="text" class="form-control" id="newssubtitle" style="margin-top:10px;">
+                            <textarea maxlength="200" class="form-control" id="newssubtitle" style="margin-top:10px;"></textarea>
                             <span class="glyphicon glyphicon-tags form-control-feedback"></span>
                         </div>
                         <div class="form-group has-success has-feedback" >
                             <h4>主图片</h4>
                             <div id="newsimg"  class="dropzone"  >
-                                <img src="../img/services-box1.jpg" id="oldimg">
+                                <img src="" id="oldimg">
                             </div>
+                            <input type="hidden" id="nowimg">
+                            <input type="hidden" id="draftsid">
                             <span class=" glyphicon glyphicon-picture form-control-feedback"></span>
                         </div>
                         <div class="form-group has-success has-feedback">
                             <h4>内容</h4>
-                            <div id="newscontext" ></div>
+                            <div id="newscontent" ></div>
                             <span class="glyphicon  glyphicon-book form-control-feedback"></span>
                         </div>
-                        <a class="btn btn-lg btn-success btn-block" onclick="register()" > 提交</a>
+                        <a class="btn btn-lg btn-success btn-block" onclick="subm()" > 保存草稿</a>
+                        <a class="btn btn-lg btn-primary btn-block" onclick="upnews()" > 发布文章</a>
+                    </div>
+                </div>
+                <!--已提交-->
+                <div  class="panel panel-default tab-pane fade " id="tijiao" aria-labelledby="tijiao-tab" >
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i>已提交</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-inline" role="form" style="float:left;">
+                            <div class="form-group has-feedback">
+                                <div class="input-group ">
+                                    <!--下拉框-->
+                                    <div class="input-group-addon tree-closed">
+                                        <button id="selects2" class=" btn-success dropdown-toggle" data-toggle="dropdown" style="background-color: #eeeeee; color: #555555;border: 0px">标&ensp;&ensp;&ensp;&ensp;题<span class="caret"></span></button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li id="newstitle2"><a>标&ensp;&ensp;&ensp;&ensp;题</a></li>
+                                            <li id="newssubtitle2"><a>副&ensp;标&ensp;题</a></li>
+                                            <li id="newscontent2"><a>新闻主体</a></li>
+                                        </ul>
+                                    </div>
+                                    <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue2">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-warning" onclick="bbb()"><i class="glyphicon glyphicon-search"></i>查询</button>
+                        </form>
+                        <button class="btn btn-danger" style="float:right;margin-left:10px;" id="removeAllNews"><i class=" glyphicon glyphicon-remove"></i>删除</button>
+                        <a class="btn btn-primary" style="float:right;" onclick="newone()" >
+                            <i class="glyphicon glyphicon-plus"></i>
+                            新增
+                        </a>
+                        <br>
+                        <hr style="clear:both;">
+                        <div class="table-responsive">
+                            <table class="table  table-bordered" >
+                                <thead>
+                                <tr>
+                                    <th width="30">#</th>
+                                    <th width="30"><input type="checkbox" id="newscheckbox"></th>
+                                    <th>新闻标题</th>
+                                    <th>创建时间</th>
+                                    <th>点击量</th>
+                                    <th>评论数</th>
+                                    <th>状态</th>
+                                    <th width="100">操作</th>
+                                </tr>
+                                </thead >
+                                <tbody id="dataNews" >
+                                    <!--已提交新闻列表-->
+                                </tbody>
+                                <tfoot>
+                                <tr >
+                                    <td colspan="8" align="center">
+                                        <ul class="pagination" id="newspagination">
+                                            <!--已提交新闻页码-->
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--<script src="../script/docs.min.js"></script>-->
-<!--<script src="../script/back-to-top.js"></script>-->
+
 <script src="dropzone.js" ></script>
 <script src="../jquery/jquery-2.1.1.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
@@ -170,93 +222,122 @@
 <script src="../wangeditor/wangEditor-fullscreen-plugin.js"></script>
 <script src="myWangEditor.js"></script>
 <script src="select.js"></script>
+<script src="submitted.js"></script>
 <script type="text/javascript">
     $(".sidebar").load("personal.html");
-
-    var pageNum = window.location.search.split("=")[1];
-    var requestURL = "http://localhost:8080/youya_news/getAllDrafts";
-    if(pageNum!=null){
-        requestURL+="?pageNum="+pageNum;
-    }
+    //获取所有新闻种类
+    $.ajax({
+        async:false,
+        url:"/youya_news/getAllCategory",
+        type:"get",
+        success:function (result) {
+            $(result).each(function (index,item) {
+                $("#category").append("<option value='"+item.categoryid+"'>"+item.categoryname+"</option>")
+            })
+        }
+    });
+    //下拉菜单
+    $(function () {
+        $(".input-group-addon").click(function(){
+            if ( $(this).find("ul") ) {
+                $(this).toggleClass("tree-closed");
+                if ( $(this).hasClass("tree-closed") ) {
+                    $("ul", this).hide("fast");
+                } else {
+                    $("ul", this).show("fast");
+                }
+            }
+        });
+    });
+    //获取草稿箱内容
+    function reloadpage(pageNum){
         $.ajax({
-            type : "GET",
+            type : "post",
             dataType:"json",
-            url : requestURL,
+            contentType: "application/json;charset=utf-8",
+            async:false,
+            url : "/youya_news/getAllDrafts",
+            data:JSON.stringify({
+                pageNum:pageNum
+            }),
             success : function(result) {
                 context(result);
                 newpages(result);
                 console.log(result);
             },
             error : function(e){
-                console.log(e.status);
                 console.log(e.responseText);
             }
         })
+    }
+    reloadpage(0);
 
-        function context(result){
-            var trStr="";
-            $(result.list).each(function(index,item){
-                    trStr+= "<tr id=tr"+item.draftsid+">";
-                    trStr+="<td>"+item.draftsid+"</td>";
-                    trStr+="<td><input type='checkbox' class='checkboxs' id=check_"+item.draftsid+" onclick='check("+item.draftsid+")'></td>";
-                    trStr+="<td>"+item.newstitle+"</td>";
-                    trStr+="<td>"+item.newscreatetime+"</td>";
-                    trStr+="<td>"+item.updatetime+"</td>";
-                    trStr+="<td>";
-                    trStr+="<a onclick='update("+item.draftsid+")' href='#detail' class='btn btn-primary btn-xs'  role=\"tab\" data-toggle=\"tab\" aria-controls=\"home\" aria-expanded=\"true\"><i class=' glyphicon glyphicon-pencil' ></i></a>&nbsp;";
-                    trStr+="<a type=\"button\" class='btn btn-danger btn-xs' onclick='removeUser("+item.draftsid+")'><i class=' glyphicon glyphicon-remove'  ></i></a>";
-                    trStr+="</td>";
-                    trStr+="</tr>";
-            });
-            $("#dataTable").html(trStr);
+    //拼接草稿箱内容
+    function context(result){
+        var trStr="";
+        $(result.list).each(function(index,item){
+            trStr+= "<tr id=tr"+item.draftsid+">";
+            trStr+="<td>"+item.draftsid+"</td>";
+            trStr+="<td><input type='checkbox' class='checkboxs' id=check_"+item.draftsid+" onclick='check("+item.draftsid+")'></td>";
+            trStr+="<td>"+item.newstitle+"</td>";
+            trStr+="<td>"+item.newscreatetime+"</td>";
+            trStr+="<td>"+item.updatetime+"</td>";
+            trStr+="<td>";
+            trStr+="<a onclick='showdetail("+item.draftsid+")' class='btn btn-primary btn-xs' ><i class=' glyphicon glyphicon-pencil' ></i></a>&nbsp;";
+            trStr+="<a onclick='removeUser("+item.draftsid+")' class='btn btn-danger btn-xs' ><i class=' glyphicon glyphicon-remove'  ></i></a>";
+            trStr+="</td>";
+            trStr+="</tr>";
+        });
+        $("#dataTable").html(trStr);
+    }
+    //分页
+    function newpages(result){
+        var splitePageStr = "<li id='prePage'><a  onclick='reloadpage("+result.prePage+")'>上一页</a></li>";
+        for(var i=1;i<=result.pages;i++){
+            splitePageStr +="<li id='pages"+i+"'><a onclick='reloadpage("+i+")'>"+i+"</a></li>";
         }
+        splitePageStr += "<li id='nextPage'><a  onclick='reloadpage("+result.nextPage+")'>下一页</a></li>";
+        $("#pagination").html(splitePageStr);
 
-        function newpages(result){
-            var splitePageStr = "<li id='prePage'><a href="+result.prePage+"'../user.html?pageNum=' id='pre'>上一页</a></li>";
-            for(var i=1;i<=result.pages;i++){
-                splitePageStr +="<li id='pages"+i+"'><a href="+i+"'../user.html?pageNum='>"+i+"</a></li>";
-            }
-            splitePageStr += "<li id='nextPage'><a href="+result.nextPage+"'../user.html?pageNum=' id='next' >下一页</a></li>";
-            $(".pagination").html(splitePageStr);
-
-            if (result.isFirstPage){
-                $("#prePage").addClass("disabled");
-                $("#pre").click(false);
-            }
-            if (result.isLastPage){
-                $("#nextPage").addClass("disabled");
-                $("#next").click(false);
-            }
-            $("#pages"+result.pageNum).addClass("active");
+        if (result.isFirstPage){
+            $("#prePage").addClass("disabled");
+            $("#prePage a").removeAttr('onclick');
         }
+        if (result.isLastPage){
+            $("#nextPage").addClass("disabled");
+            $("#nextPage a").removeAttr('onclick');
+        }
+        $("#pages"+result.pageNum).addClass("active");
+        $("#pages"+result.pageNum+" a").removeAttr("onclick");
+    }
 
-
+    //全选框
     $("#checkbox").click(function () {
-           var fal =$(this).prop("checked");
-           $(".checkboxs").prop("checked",fal)
-       });
+        var fal =$(this).prop("checked");
+        $(".checkboxs").prop("checked",fal)
+    });
+    //异步加载的全选框
+    function check(id){
+        var flg =$("#check_"+id).prop("checked");
+        if (!flg){
+            $("#checkbox").prop("checked",flg)
+        } else if($(".checkboxs").length==$(".checkboxs:checked").length){
+            $("#checkbox").prop("checked",flg)
+        }
+    }
 
-       function check(id){
-           var flg =$("#check_"+id).prop("checked");
-           if (!flg){
-               $("#checkbox").prop("checked",flg)
-           } else if($(".checkboxs").length==$(".checkboxs:checked").length){
-               $("#checkbox").prop("checked",flg)
-           }
-       }
+    // 批量删除
+     $("#removeAllDrafts").click(function () {
+         var a=$(".checkboxs:checked")
+         for (var i = 0; i < a.length; i++) {
+             removeUser($(a[i]).attr("id").split("_")[1])
+         }
+     });
 
-       // 批量删除
-       $(".btn-danger").click(function () {
-           var a=$(".checkboxs:checked")
-           for (var i = 0; i < a.length; i++) {
-               removeUser($(a[i]).attr("id").split("_")[1])
-           }
-       })
-
-
+    //删除
     function removeUser(draftsid) {
         $.ajax({
-            url:"http://localhost:8080/youya_news/removeDraft",
+            url:"/youya_news/removeDraft",
             type:"post",
             contentType: "application/json;charset=utf-8",
             data:JSON.stringify({
@@ -271,20 +352,137 @@
         })
     }
 
-    function update(userid){
-
+    //获取新闻内容展示内容细节
+    function showdetail(userid){
+        $('#lists').removeClass("active in")
+        $("#detail").addClass("active in")
+        $.ajax({
+            url:"/youya_news/getDraftDetail",
+            type:"post",
+            data:{
+                id:userid
+            },
+            success:function (result) {
+                console.log(result)
+                $("#category").val(result.categoryid)
+                $("#draftsid").val(result.draftsid)
+                $("#newstitle").val(result.newstitle)
+                $("#newssubtitle").val(result.newssubtitle)
+                $("#oldimg").attr("src",result.newsimg)
+                editor.txt.html(result.newscontent)
+            }
+        })
     }
-    $('#detail').click(fun1());
-     function  fun1(){
-         $(this).tab('show')
-     }
+    //新增按钮
+    function newone() {
+        $('#lists').removeClass("active in");
+        $('#tijiao').removeClass("active in");
+        $("#detail").addClass("active in");
+        $("#category").val("");
+        $("#draftsid").val("");
+        $("#newstitle").val("");
+        $("#newssubtitle").val("");
+        $("#oldimg").attr("src","");
+        $("#nowimg").val("");
+        editor.txt.html("")
+    }
 
-    $('#draftbox').click(function (e) {
-        $('#lists').addClass("active in")
-        $('#detail').removeClass("active in")
+    //展示草稿箱列表
+    $("#draftbox").click(function () {
         $(this).parent().attr("class","active")
-    });
+        $('#submitteds').removeClass("active")
+        $('#lists').addClass("active in")
+        $("#detail").removeClass("active in")
+        $('#tijiao').removeClass("active in")
+    })
 
+    //加载已提交页面
+    $('#submitted').click(function () {
+        $(this).parent().attr("class","active")
+        $('#draftboxs').removeClass("active")
+        $('#tijiao').addClass("active in")
+        $("#detail").removeClass("active in")
+        $("#lists").removeClass("active in")
+        // $('#lists').load("submitted.html")
+    })
+
+    //保存草稿、新建草稿
+    function subm() {
+        var draftsid=$("#draftsid").val();
+        var categoryid=$("#category").val();
+        var newstitle=$("#newstitle").val();
+        var newssubtitle=$("#newssubtitle").val();
+        var newsimg=$("#nowimg").val();
+        var url="";
+        if (newsimg==="" ){
+            newsimg=$("#oldimg").attr("src")
+        }
+        var newscontent=editor.txt.html();
+        if (draftsid===""){
+            alert("空");
+            url="/youya_news/createDraft";
+        }else {
+            alert(draftsid);
+            url="/youya_news/updateDraft";
+        }
+        $.ajax({
+            url:url,
+            type:"post",
+            contentType: "application/json;charset=utf-8",
+            data:JSON.stringify({
+                draftsid:draftsid,
+                categoryid:categoryid,
+                newstitle:newstitle,
+                newssubtitle:newssubtitle,
+                newsimg:newsimg,
+                newscontent:newscontent,
+                imgs:wangEditorimgs
+            }),
+            success:function (result) {
+                alert("success");
+                if (url==="/youya_news/createDraft"){
+                    location.reload();
+                }
+            },
+            error: function (responseText) {
+                alert(responseText)
+            }
+        })
+    }
+    //发布文章
+    function upnews() {
+        var draftsid=$("#draftsid").val();
+        var categoryid=$("#category").val();
+        var newstitle=$("#newstitle").val();
+        var newssubtitle=$("#newssubtitle").val();
+        var newsimg=$("#nowimg").val();
+        var newscontent=editor.txt.html();
+        if (newsimg==="" ){
+            newsimg=$("#oldimg").attr("src")
+        }
+        $.ajax({
+            url:"/youya_news/createNews",
+            type:"post",
+            contentType: "application/json;charset=utf-8",
+            data:JSON.stringify({
+                draftsid:draftsid,
+                categoryid:categoryid,
+                newstitle:newstitle,
+                newssubtitle:newssubtitle,
+                newsimg:newsimg,
+                newscontent:newscontent,
+                imgs:wangEditorimgs
+            }),
+            success:function (result) {
+                alert("success");
+                location.reload();
+            },
+            error: function (e) {
+                console.error(e)
+                console.error(e.responseText)
+            }
+        })
+    }
 
 
 </script>

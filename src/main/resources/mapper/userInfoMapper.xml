@@ -12,4 +12,31 @@
     <select id="selectByUserNameAndPassword" resultType="pojo.UserInfo" parameterType="dto.UserInfoDTO">
         select * from user where username=#{username} and password=#{password}
     </select>
+
+    <update id="informationUpdateByUsername" parameterType="pojo.UserInfo">
+        update user
+        <set>
+            <if test="username!=null and username!='' " >
+                username = #{username},
+            </if>
+            <if test="password!=null and password!='' " >
+                password = #{password},
+            </if>
+            <if test="sex!=null and sex!='' " >
+                sex = #{sex},
+            </if>
+            <if test="icon!=null and icon!='' " >
+                icon = #{icon},
+            </if>
+        </set>
+        where userid = #{userid}
+    </update>
+    
+    <insert id="applicationauthority" parameterType="dto.ApplicationDTO">
+        insert into application (userid,applyremarks) values (#{userid},#{applyremarks})
+    </insert>
+    
+    <select id="selectApplicationByUserid" resultType="dto.ApplicationDTO">
+        select * from application where userid=#{userid}
+    </select>
 </mapper>

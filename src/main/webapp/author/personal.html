@@ -32,10 +32,10 @@
 </body>
 <script src="../jquery/jquery-2.1.1.min.js"></script>
 <script>
-    var page=location.toString().split("/")[5]
+    var page=location.toString().split("/")[5];
     $.ajax({
         type:"get",
-        url:"http://localhost:8080/youya_news/initUser",
+        url:"/youya_news/initUser",
         success:function (result) {
             $(result).each(function(index,item){
                 $("#h3").text(item.username)

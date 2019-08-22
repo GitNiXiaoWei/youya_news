@@ -1,83 +1,52 @@
-$("#account1").click(function () {
+$("#newstitle1").click(function () {
     $("#selects1").html($(this).text()+"<span class='caret'></span>")
 })
-$("#username1").click(function () {
+$("#newssubtitle1").click(function () {
     $("#selects1").html($(this).text()+"<span class='caret'></span>")
 })
-$("#email1").click(function () {
+$("#newscontent1").click(function () {
     $("#selects1").html($(this).text()+"<span class='caret'></span>")
 })
-$("#account2").click(function () {
-    $("#selects2").html($(this).text()+"<span class='caret'></span>")
-})
-$("#username2").click(function () {
-    $("#selects2").html($(this).text()+"<span class='caret'></span>")
-})
-$("#email2").click(function () {
-    $("#selects2").html($(this).text()+"<span class='caret'></span>")
-})
-$(function () {
-    $(".input-group-addon").click(function(){
-        if ( $(this).find("ul") ) {
-            $(this).toggleClass("tree-closed");
-            if ( $(this).hasClass("tree-closed") ) {
-                $("ul", this).hide("fast");
-            } else {
-                $("ul", this).show("fast");
-            }
-        }
-    });
-});
-
 
 function aaa(pageNum) {
     var clue1=$("#clue1").val()
-    var clue2=$("#clue2").val()
-    if (clue1==""&&clue2==""){
-        location.reload()
-    }
-    var selects1=$("#selects1").text()
-    var selects2=$("#selects2").text()
-    if (selects1[0]=="账"){
-        selects1="account"
-    }else if (selects1[0]=="名"){
-        selects1="username"
-    }else if (selects1[0]=="邮"){
-        selects1="email"
-    }
-    if (selects2[0]=="账"){
-        selects2="account"
-    }else if (selects2[0]=="名"){
-        selects2="username"
-    }else if (selects2[0]=="邮"){
-        selects2="email"
-    }
-    console.log(clue1+" : "+selects1)
-    console.log(clue2+" : "+selects2)
-    if (pageNum==null){
-        pageNum=0
-    }
-    $.ajax({
-        type:"post",
-        dataType:"json",
-        contentType: "application/json;charset=utf-8",
-        url:"selectUserByClue",
-        data:JSON.stringify({
-            clue1:clue1,
-            clue2:clue2,
-            selects1:selects1,
-            selects2:selects2,
-            pageNum:pageNum
-        }),
-        success : function(result){
-            context(result);
-            selectpages(result);
-            console.log(result);
-        },
-        error : function(e){
-
+    if (clue1===""){
+        reloadpage(0)
+    }else {
+        var selects1=$("#selects1").text()
+        if (selects1[0]=="标"){
+            selects1="newstitle"
+        }else if (selects1[0]=="副"){
+            selects1="newssubtitle"
+        }else if (selects1[0]=="新"){
+            selects1="newscontent"
         }
-    })
+
+        console.log(clue1+" : "+selects1)
+        if (pageNum==null){
+            pageNum=0
+        }
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            contentType: "application/json;charset=utf-8",
+            url:"/youya_news/selectDraftsByClue",
+            data:JSON.stringify({
+                clue1:clue1,
+                selects1:selects1,
+                pageNum:pageNum
+            }),
+            success : function(result){
+                context(result);
+                selectpages(result);
+                console.log(result);
+            },
+            error : function(e){
+
+            }
+        })
+    }
+
 }
 function selectpages(result){
     var splitePageStr = "<li id='prePage'><a  onclick='aaa("+result.prePage+")'>上一页</a></li>";
@@ -96,4 +65,5 @@ function selectpages(result){
         $("#nextPage a").removeAttr('onclick');
     }
     $("#pages"+result.pageNum).addClass("active");
+    $("#pages"+result.pageNum+" a").removeAttr("onclick");
 }

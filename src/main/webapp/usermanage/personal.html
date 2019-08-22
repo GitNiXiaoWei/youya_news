@@ -7,10 +7,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="thumbnail" style="border-radius: 0px;">
-                <img src="../img/services-box1.jpg" class="img-thumbnail" alt="">
+                <img id="imgurl" src="" class="img-thumbnail" alt="">
                 <div class="caption" style="text-align:center;">
                     <h3 id="h3">
-                        李彦东
+
                     </h3>
                     <!--   <span class="label label-danger" style="cursor:pointer;" onclick="window.location.href='accttype.html'">未实名认证</span>-->
                 </div>
@@ -21,7 +21,7 @@
         <a id="userpersonal" class="list-group-item " style="cursor:pointer;" onclick="window.location.href='userpersonal.html'">
             个人信息<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
-        <a id="apply" class="list-group-item " style="cursor:pointer;" onclick="window.location.href='apply.html'">
+        <a id="apply" class="list-group-item " style="cursor:pointer;" onclick="success()">
             申请当作者<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
         <a id="message" class="list-group-item " style="cursor:pointer;" onclick="window.location.href='message.html'">
@@ -32,6 +32,8 @@
 </body>
 <script src="../jquery/jquery-2.1.1.min.js"></script>
 <script>
+
+    var userid;
     var page=location.toString().split("/")[5];
     $.ajax({
         type:"get",
@@ -39,9 +41,35 @@
         success:function (result) {
             $(result).each(function(index,item){
                 $("#h3").text(item.username)
+                $("#imgurl").attr("src",item.icon)
+                userid=item.userid;
             })
         }
     })
+
+    function success(){
+        $.ajax({
+            url: "http://localhost:8080/youya_news/selectApplicationByUserid",
+            type: "POST",
+            data :{
+                userid:userid
+            },
+            success: function (result) {
+                if(result=="you"){
+                    alert("你已经申请过了,请耐心等待管理员审核")
+                    window.location.href='userpersonal.html'
+                }else{
+                    window.location.href='apply.html'
+                }
+            },
+            error : function(e){
+                console.log(e);
+                console.log(e.status);
+                console.log(e.responseText);
+
+            }
+        });
+    }
 
     $("#"+page.split(".")[0]).addClass("active")
 
