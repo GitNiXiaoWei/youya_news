@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="thumbnail" style="border-radius: 0px;">
-                <img src="../img/services-box1.jpg" class="img-thumbnail" alt="">
+                <img src="../img/services-box1.jpg" class="img-thumbnail" alt="" id="icon">
                 <div class="caption" style="text-align:center;">
                     <h3 id="h3">
                         ZhangSan
@@ -39,6 +39,7 @@
         success:function (result) {
             $(result).each(function(index,item){
                 $("#h3").text(item.username)
+                $("#icon").attr("src",item.icon)
             })
         }
     })
