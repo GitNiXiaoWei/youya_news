@@ -10,11 +10,11 @@
      </select>
     <!--文章审核通过-->
     <update id = "agreeByNewsId" parameterType="int">
-        update newsinfo set newsstatus = 1 where newsid = #{newsid}
+        update news set newsstatus = 1 where newsid = #{newsid}
     </update>
     <!--文章审核不通过-->
     <update id = "refuseByNewsId" parameterType="int">
-        update newsinfo set newsstatus = 0 where newsid = #{newsid}
+        update news set newsstatus = 0 where newsid = #{newsid}
     </update>
 
 </mapper>
