@@ -27,7 +27,6 @@ public class DraftsController {
      */
     @RequestMapping(name = "getAllDrafts",value = "getAllDrafts")
     public Object getAllDrafts(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
-//        int defaultPageSize = 8;
         PageHelper.startPage(draftsInfoDTO.getPageNum(),defaultPageSize);
 
         Object userInfo = session.getAttribute("userInfo");
@@ -44,7 +43,6 @@ public class DraftsController {
     @RequestMapping(name = "getDraftDetail",value = "getDraftDetail")
     public Object getDraftDetail(@RequestParam int id){
         DraftsInfoVO draftDetail = draftsInfoService.getDraftDetail(id);
-        System.err.println("draftDetail = " + draftDetail);
         return draftDetail;
     }
 
@@ -76,7 +74,6 @@ public class DraftsController {
      */
     @RequestMapping(name = "updateDraft",value = "updateDraft")
     public Object updateDraft(@RequestBody DraftsInfoDTO draftsInfoDTO){
-//        System.err.println(draftsInfoDTO.getImgs());
         return draftsInfoService.updateDraft(draftsInfoDTO);
     }
 
@@ -100,7 +97,6 @@ public class DraftsController {
      */
     @RequestMapping(name = "selectDraftsByClue",value = "selectDraftsByClue")
     public Object selectDraftsByClue(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
-//        int defaultPageSize = 8;
         PageHelper.startPage(draftsInfoDTO.getPageNum(),defaultPageSize);
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
         //设置作者id
@@ -132,7 +128,6 @@ public class DraftsController {
      */
     @RequestMapping(name = "getAllNewsByUserid",value = "getAllNewsByUserid")
     public Object getAllNewsByUserid(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
-//        int defaultPageSize = 8;
         PageHelper.startPage(draftsInfoDTO.getPageNum(),defaultPageSize);
 
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
@@ -159,7 +154,6 @@ public class DraftsController {
      */
     @RequestMapping(name = "selectNewsByClue",value = "selectNewsByClue")
     public Object selectNewsByClue(@RequestBody DraftsInfoDTO draftsInfoDTO, HttpSession session){
-//        int defaultPageSize = 8;
         PageHelper.startPage(draftsInfoDTO.getPageNum(),defaultPageSize);
         UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
         //设置作者id

@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/main.css"/>
+    <link rel="stylesheet" href="../dropzone/dropzone.min.css"/>
+    <script src="../dropzone/dropzone.min.js"></script>
     <style>
         .tree li {
             list-style-type: none;
@@ -37,7 +39,38 @@
             <!--个人菜单-->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div style="margin-left: 10%;margin-right: 30%;margin-top: 70px">
+                <form class="form-signin" role="form">
+                    <div class="form-group has-success has-feedback">
+                        <input type="text" class="hidden" id="userid" style="margin-top:10px;"  >
+                        <span class=" glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <input type="text" class="form-control" id="email" placeholder="请输入邮箱地址" style="margin-top:10px;" readonly>
+                        <span class=" glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <input type="text" class="form-control" id="username" placeholder="请输入登录账号" autofocus>
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <input type="text" class="form-control" id="password" placeholder="请输入登录密码" style="margin-top:10px;">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <select type="text" class="form-control" id="sex"  style="margin-top:10px;font-size: 16px">
+                            <option value="1">男♂</option>
+                            <option value="0">女♀</option>
+                        </select>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <div id="dropzoneDiv" class="dropzone"></div>
+                        <input id="icon" type="hidden"/>
+                    </div>
+                    <a class="btn btn-lg btn-success btn-block" onclick="updateinformation()" > 修改</a>
+                </form>
 
+            </div>
         </div>
     </div>
 </div>
@@ -46,213 +79,107 @@
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <script src="../script/docs.min.js"></script>
 <script type="text/javascript">
-    $(".sidebar").load("personal.html");
-
-    $("#account1").click(function () {
-        $("#selects1").html($(this).text()+"<span class='caret'></span>")
-    })
-    $("#username1").click(function () {
-        $("#selects1").html($(this).text()+"<span class='caret'></span>")
-    })
-    $("#email1").click(function () {
-        $("#selects1").html($(this).text()+"<span class='caret'></span>")
-    })
-    $("#account2").click(function () {
-        $("#selects2").html($(this).text()+"<span class='caret'></span>")
-    })
-    $("#username2").click(function () {
-        $("#selects2").html($(this).text()+"<span class='caret'></span>")
-    })
-    $("#email2").click(function () {
-        $("#selects2").html($(this).text()+"<span class='caret'></span>")
-    })
-    $(function () {
-        $(".input-group-addon").click(function(){
-            if ( $(this).find("ul") ) {
-                $(this).toggleClass("tree-closed");
-                if ( $(this).hasClass("tree-closed") ) {
-                    $("ul", this).hide("fast");
-                } else {
-                    $("ul", this).show("fast");
+    Dropzone.options.dropzoneDiv = {
+        url: "/youya_news/fileUpAndDown/upload", // 文件提交地址
+        method: "post",  // 也可用put
+        paramName: "dropzFile", // 默认为file
+        maxFiles: 1,// 一次性上传的文件数量上限
+        maxFilesize: 5, // 文件大小，单位：MB
+        acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
+        addRemoveLinks: true,
+        parallelUploads: 1,// 一次上传的文件数量
+        //previewsContainer:"#preview", // 上传图片的预览窗口
+        dictDefaultMessage: '拖动图片至此或者点击上传头像',
+        dictMaxFilesExceeded: "您最多只能上传1个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg。",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大上传文件最大支持.",
+        dictRemoveLinks: "删除",
+        dictCancelUpload: "取消",
+        init: function () {
+            this.on("addedfile", function (file) {
+                // 上传文件时触发的事件
+            });
+            this.on("success", function (file, data) {
+                console.log(data);
+                var status = data.status;
+                if(status==200){
+                    $("#icon").val(data.serverPath+"/"+data.filename);
                 }
-            }
-        });
+                console.log(file);
+            });
+            this.on("error", function (file, data) {
+
+                console.error(data);
+                console.log(file);
+
+            });
+            this.on("removedfile", function (file) {
+
+            });
+        }
+    }
+</script>
+<script>
+    $(".sidebar").load("personal.html");
+    var username=""
+    $.ajax({
+        type:"get",
+        url:"http://localhost:8080/youya_news/initUser",
+        success:function (result) {
+            console.log(result)
+            $(result).each(function(index,item){
+                $("#userid").val(item.userid)
+                $("#email").val(item.email)
+                $("#username").val(item.username)
+                $("#password").val(item.password)
+                $("#sex").val(item.sex)
+                $("#icon").val(item.icon)
+                username=item.username;
+            })
+        },
+        error : function(e){
+            console.error(e);
+        }
     });
-
-
-    function aaa(pageNum) {
-        var clue1=$("#clue1").val()
-        var clue2=$("#clue2").val()
-        if (clue1==""&&clue2==""){
-            location.reload()
-        }
-        var selects1=$("#selects1").text()
-        var selects2=$("#selects2").text()
-        if (selects1[0]=="账"){
-            selects1="account"
-        }else if (selects1[0]=="名"){
-            selects1="username"
-        }else if (selects1[0]=="邮"){
-            selects1="email"
-        }
-        if (selects2[0]=="账"){
-            selects2="account"
-        }else if (selects2[0]=="名"){
-            selects2="username"
-        }else if (selects2[0]=="邮"){
-            selects2="email"
-        }
-        console.log(clue1+" : "+selects1)
-        console.log(clue2+" : "+selects2)
-        if (pageNum==null){
-            pageNum=0
+    function updateinformation() {
+        var a
+        if (username === $("#username").val()){
+            a=JSON.stringify({
+                    "userid":$("#userid").val(),
+                    "email":$("#email").val(),
+                    "sex":$("#sex").val(),
+                    "icon":$("#icon").val(),
+                    "password":$("#password").val()
+                });
+        }else {
+            a=JSON.stringify({
+                "userid":$("#userid").val(),
+                "username":$("#username").val(),
+                "email":$("#email").val(),
+                "sex":$("#sex").val(),
+                "icon":$("#icon").val(),
+                "password":$("#password").val()
+            });
         }
         $.ajax({
-            type:"post",
-            dataType:"json",
-            contentType: "application/json;charset=utf-8",
-            url:"selectUserByClue",
-            data:JSON.stringify({
-                clue1:clue1,
-                clue2:clue2,
-                selects1:selects1,
-                selects2:selects2,
-                pageNum:pageNum
-            }),
-            success : function(result){
-                context(result);
-                selectpages(result);
-                console.log(result);
+            url: "/youya_news/informationUpdateByUsername",
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            data : a,
+            success: function (result) {
+                alert(result.toString());
+                window.location.href = "/youya_news/login.html";
+                alert("请重新登录")
             },
             error : function(e){
-
-            }
-        })
-    }
-
-    var pageNum = window.location.search.split("=")[1];
-    var requestURL = "http://localhost:8080/youya_news/getAllDrafts";
-    if(pageNum!=null){
-        requestURL+="?pageNum="+pageNum;
-    }
-        $.ajax({
-            type : "GET",
-            dataType:"json",
-            url : requestURL,
-            success : function(result) {
-                context(result);
-                newpages(result);
-                console.log(result);
-            },
-            error : function(e){
+                console.log(e);
                 console.log(e.status);
                 console.log(e.responseText);
             }
-        })
-
-        function context(result){
-            var trStr="";
-            $(result.list).each(function(index,item){
-                    trStr+= "<tr id=tr"+item.draftsid+">";
-                    trStr+="<td>"+item.draftsid+"</td>";
-                    trStr+="<td><input type='checkbox' class='checkboxs' id=check_"+item.draftsid+" onclick='check("+item.draftsid+")'></td>";
-                    trStr+="<td>"+item.newstitle+"</td>";
-                    trStr+="<td>"+item.newscreatetime+"</td>";
-                    trStr+="<td>"+item.updatetime+"</td>";
-                    trStr+="<td>";
-                    trStr+="<button type=\"button\" class='btn btn-primary btn-xs' onclick='updateUser("+item.userid+")'><i class=' glyphicon glyphicon-pencil' ></i></button>&nbsp;";
-                    trStr+="<button type=\"button\" class='btn btn-danger btn-xs' onclick='removeUser("+item.userid+")'><i class=' glyphicon glyphicon-remove'  ></i></button>";
-                    trStr+="</td>";
-                    trStr+="</tr>";
-            });
-            $("#dataTable").html(trStr);
-        }
-
-        function newpages(result){
-            var splitePageStr = "<li id='prePage'><a href="+result.prePage+"'../user.html?pageNum=' id='pre'>上一页</a></li>";
-            for(var i=1;i<=result.pages;i++){
-                splitePageStr +="<li id='pages"+i+"'><a href="+i+"'../user.html?pageNum='>"+i+"</a></li>";
-            }
-            splitePageStr += "<li id='nextPage'><a href="+result.nextPage+"'../user.html?pageNum=' id='next' >下一页</a></li>";
-            $(".pagination").html(splitePageStr);
-
-            if (result.isFirstPage){
-                $("#prePage").addClass("disabled");
-                $("#pre").click(false);
-            }
-            if (result.isLastPage){
-                $("#nextPage").addClass("disabled");
-                $("#next").click(false);
-            }
-            $("#pages"+result.pageNum).addClass("active");
-        }
-    function selectpages(result){
-        var splitePageStr = "<li id='prePage'><a  onclick='aaa("+result.prePage+")'>上一页</a></li>";
-        for(var i=1;i<=result.pages;i++){
-            splitePageStr +="<li id='pages"+i+"'><a onclick='aaa("+i+")' >"+i+"</a></li>";
-        }
-        splitePageStr += "<li id='nextPage'><a  onclick='aaa("+result.nextPage+")'>下一页</a></li>";
-        $(".pagination").html(splitePageStr);
-
-        if (result.isFirstPage){
-            $("#prePage").addClass("disabled");
-            $("#prePage a").removeAttr('onclick');
-        }
-        if (result.isLastPage){
-            $("#nextPage").addClass("disabled");
-            $("#nextPage a").removeAttr('onclick');
-        }
-        $("#pages"+result.pageNum).addClass("active");
-    }
-
-
-
-    $("#checkbox").click(function () {
-           var fal =$(this).prop("checked");
-           $(".checkboxs").prop("checked",fal)
-       });
-
-       function check(id){
-           var flg =$("#check_"+id).prop("checked");
-           if (!flg){
-               $("#checkbox").prop("checked",flg)
-           } else if($(".checkboxs").length==$(".checkboxs:checked").length){
-               $("#checkbox").prop("checked",flg)
-           }
-       }
-
-
-       $(".btn-danger").click(function () {
-           var a=$(".checkboxs:checked")
-           for (var i = 0; i < a.length; i++) {
-               removeUser($(a[i]).attr("id").split("_")[1])
-           }
-       })
-
-
-
-    function removeUser(userid) {
-        $.ajax({
-            url:"http://localhost:8080/spring_mybatis_test/removeUser",
-            type:"post",
-            contentType: "application/json;charset=utf-8",
-            data:JSON.stringify({
-                userid:userid
-            }),
-            success: function (responseText) {
-                $("#tr"+userid).remove();
-            },
-            error: function (responseText) {
-                alert(responseText)
-            }
-        })
-    }
-
-    function updateUser(userid){
-        location.href="http://localhost:8080/spring_mybatis_test/edit.html?userid="+userid
-    }
-    function assignRole(userid) {
-        location.href="http://localhost:8080/spring_mybatis_test/assignRole.html?userid="+userid
+        });
     }
 
 </script>

@@ -45,10 +45,10 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <ul  class="nav nav-pills" >
                 <li role="presentation"  class="active" id="draftboxs" >
-                    <a href="#" id="draftbox" >草稿箱</a>
+                    <a id="draftbox" >草稿箱</a>
                 </li>
                 <li role="presentation" id="submitteds" class="">
-                    <a href="#" id="submitted" >已提交</a>
+                    <a id="submitted" >已提交</a>
                 </li>
             </ul>
             <div id="myTabContent" class="tab-content" style="margin-top:10px;">
@@ -171,9 +171,9 @@
                                     <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue2">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-warning" onclick="bbb()"><i class="glyphicon glyphicon-search"></i>查询</button>
+                            <button type="button" class="btn btn-warning" onclick="bbb()"><i class="glyphicon glyphicon-search"></i> 查询</button>
                         </form>
-                        <button class="btn btn-danger" style="float:right;margin-left:10px;" id="removeAllNews"><i class=" glyphicon glyphicon-remove"></i>删除</button>
+                        <button class="btn btn-danger" style="float:right;margin-left:10px;" id="removeAllNews"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
                         <a class="btn btn-primary" style="float:right;" onclick="newone()" >
                             <i class="glyphicon glyphicon-plus"></i>
                             新增
@@ -236,7 +236,7 @@
             })
         }
     });
-    //下拉菜单
+    //查询下拉菜单
     $(function () {
         $(".input-group-addon").click(function(){
             if ( $(this).find("ul") ) {
@@ -249,7 +249,7 @@
             }
         });
     });
-    //获取草稿箱内容
+    //获取草稿箱列表
     function reloadpage(pageNum){
         $.ajax({
             type : "post",
@@ -272,7 +272,7 @@
     }
     reloadpage(0);
 
-    //拼接草稿箱内容
+    //拼接草稿箱列表
     function context(result){
         var trStr="";
         $(result.list).each(function(index,item){
@@ -378,7 +378,7 @@
         $('#lists').removeClass("active in");
         $('#tijiao').removeClass("active in");
         $("#detail").addClass("active in");
-        $("#category").val("");
+        $("#category").val($("#category").children("option:first").val());
         $("#draftsid").val("");
         $("#newstitle").val("");
         $("#newssubtitle").val("");
@@ -408,12 +408,12 @@
 
     //保存草稿、新建草稿
     function subm() {
-        var draftsid=$("#draftsid").val();
-        var categoryid=$("#category").val();
-        var newstitle=$("#newstitle").val();
-        var newssubtitle=$("#newssubtitle").val();
-        var newsimg=$("#nowimg").val();
-        var url="";
+        let draftsid=$("#draftsid").val();
+        let categoryid=$("#category").val();
+        let newstitle=$("#newstitle").val();
+        let newssubtitle=$("#newssubtitle").val();
+        let newsimg=$("#nowimg").val();
+        let url = "";
         if (newsimg==="" ){
             newsimg=$("#oldimg").attr("src")
         }
@@ -451,12 +451,12 @@
     }
     //发布文章
     function upnews() {
-        var draftsid=$("#draftsid").val();
-        var categoryid=$("#category").val();
-        var newstitle=$("#newstitle").val();
-        var newssubtitle=$("#newssubtitle").val();
-        var newsimg=$("#nowimg").val();
-        var newscontent=editor.txt.html();
+        let draftsid=$("#draftsid").val();
+        let categoryid=$("#category").val();
+        let newstitle=$("#newstitle").val();
+        let newssubtitle=$("#newssubtitle").val();
+        let newsimg=$("#nowimg").val();
+        let newscontent=editor.txt.html();
         if (newsimg==="" ){
             newsimg=$("#oldimg").attr("src")
         }
