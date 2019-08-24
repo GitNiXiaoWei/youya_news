@@ -35,4 +35,12 @@ public class NewsInfoController {
         return this.newsInfoService.refuseByNewsId(newsid);
     }
 
+    /*
+    * 获取文章内容
+    * */
+    @RequestMapping("showContent")
+    public Object showContent(@RequestParam int newsid){
+        System.out.println("id="+newsid);
+        return newsInfoService.showContent(newsid);
+    }
 }

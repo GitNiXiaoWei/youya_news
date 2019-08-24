@@ -11,4 +11,5 @@ public class UserListVO {
     int userid;
     String username;
     String applyremarks;
+
 }

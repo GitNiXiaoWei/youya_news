@@ -16,4 +16,5 @@ public class NewsInfo {
    int newstalks;
    String newsimg;
 
+
 }

@@ -39,11 +39,10 @@
 
 <div class="container-fluid">
     <div class="row ">
-       <!-- <div class="col-sm-3 col-md-2 sidebar">
-            &lt;!&ndash;个人菜单&ndash;&gt;
+        <div class="col-sm-3 col-md-2 sidebar">
+            <!--个人菜单-->
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">-->
-
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div id="myTabContent" class="tab-content" style="margin-top:10px;">
                 <div  class="panel panel-default tab-pane fade active in" id="lists" aria-labelledby="lists-tab" >
                     <div class="panel-heading">
@@ -68,36 +67,36 @@
                             <!--dataTable-->
                             <table class="table  table-bordered" id = "dataTable">
                                 <thead>
-                                <tr>
-                                    <th width="80">用户ID</th>
-                                    <th width="30"><input type="checkbox" id="checkbox"></th>
-                                    <th width="350">用户名</th>
-                                    <th>申请备注</th>
-                                    <th width="100">操作</th>
-                                </tr>
+                                    <tr>
+                                        <th width="80">用户ID</th>
+                                        <th width="30"><input type="checkbox" id="checkbox"></th>
+                                        <th width="350">用户名</th>
+                                        <th>申请备注</th>
+                                        <th width="100">操作</th>
+                                    </tr>
                                 </thead >
                                 <tbody >
 
                                 </tbody>
 
-                            </table>
-                            <tfoot>
-                            <tr >
-                                <td colspan="6" align="center">
-                                    <ul class="pagination">
-                                        <!--页码-->
-                                        <li class="disabled"><a href="#">上一页</a></li>
-                                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">下一页</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
+                                <tfoot>
+                                <tr >
+                                    <td colspan="8" align="center">
+                                        <ul class="pagination">
+                                            <!--页码-->
+                                            <li class="disabled"><a href="#">上一页</a></li>
+                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">5</a></li>
+                                            <li><a href="#">下一页</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
 
-                            </tfoot>
+                                </tfoot>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -145,6 +144,7 @@
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <script src="../script/docs.min.js"></script>
 <script >
+    $(".sidebar").load("personal.html")
     //清空table
     //初始化页面
     function initPage(){

@@ -12,6 +12,8 @@ public interface NewsInfoMapper {
     public int agreeByNewsId(int id);
     //审核失败
     public int refuseByNewsId(int id);
+    //获取文章内容
+    public List<NewsInfo> showContent(int id);
 
 
 }

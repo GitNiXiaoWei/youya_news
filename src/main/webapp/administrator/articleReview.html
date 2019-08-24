@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="zh-CN" >
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="../wangeditor/wangEditor-fullscreen-plugin.css">
     <script src="../wangeditor/wangEditor.min.js"></script>
     <script src="../dropzone/dropzone.min.js"></script>
+    <script src="../jquery/jquery-2.1.1.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../script/docs.min.js"></script>
 
     <style>
         .tree li {
@@ -39,7 +42,7 @@
 
 <div class="container-fluid">
     <div class="row ">
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="col-sm-3 col-md-2 sidebar" >
             个人菜单
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -58,7 +61,7 @@
                             </div>
 
                         </form>
-                        <button type="button" class="btn btn-warning" style="float:right;margin-left:10px;" onclick="initPage()">刷新</button>
+                        <!--<button type="button" class="btn btn-warning" style="float:right;margin-left:10px;" onclick="initPage()">刷新</button>-->
 
 
                         <br>
@@ -78,39 +81,28 @@
                                 </tr>
                                 </thead >
                                 <tbody >
-                               <!-- <tr>
-                                    <td>1</td>
-                                    <td><input type="checkbox"></td>
-                                    <td>NewsTitle</td>
-                                    <td>NewsContent</td>
-                                    <td>CreateTime</td>
-                                    <td>SubTitle</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-xs">同意</button>
-                                        <button type="button" class="btn btn-danger btn-xs">拒绝</button>
-                                    </td>
-                                </tr>-->
+
 
                                 </tbody>
 
+                                <tfoot>
+                                <tr>
+                                    <td colspan="6" align="center">
+                                        <ul class="pagination">
+                                            <!--页码-->
+                                            <li class="disabled"><a href="#">上一页</a></li>
+                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">5</a></li>
+                                            <li><a href="#">下一页</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
                             </table>
-                            <tfoot>
-                            <tr>
-                                <td colspan="6" align="center">
-                                    <ul class="pagination">
-                                        <!--页码-->
-                                        <li class="disabled"><a href="#">上一页</a></li>
-                                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">下一页</a></li>
-                                    </ul>
-                                </td>
-                            </tr>
 
-                            </tfoot>
                         </div>
                     </div>
                 </div>
@@ -118,11 +110,10 @@
         </div>
     </div>
 </div>
-<script src="../jquery/jquery-2.1.1.min.js"></script>
-<script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../script/docs.min.js"></script>
+
 <script >
     $(".sidebar").load("personal.html");
+
       //清空table
      //初始化页面
       function initPage(){
@@ -151,7 +142,7 @@
                       trStr += "<td>" + item.newscreatetime + "</td>";
                       trStr += "<td>" + item.newssubtitle + "</td>";
                       trStr += "<td>";
-                      trStr += "<button type=\"button\" class='btn btn-primary btn-xs'>详情</button>&nbsp;&nbsp;"
+                      trStr += "<button type=\"button\" class='btn btn-primary btn-xs' onclick='showdetail("+ item.newsid +")'>详情</button>&nbsp;&nbsp;"
                       trStr += "<button type=\"button\" class='btn btn-primary btn-xs' onclick='agree("+ item.newsid +")'>同意</button>&nbsp;&nbsp;"
                       trStr += "<button type=\"button\" class='btn btn-danger btn-xs' onclick='refuse("+ item.newsid +")'>拒绝</button>"
                       trStr += "</td>";
@@ -168,7 +159,7 @@
           });
       }
       initPage();
-          function agree(newsId){
+      function agree(newsId){
           $.ajax({
               //请求方式
               type:"GET",
@@ -211,6 +202,9 @@
                   console.log(e);
               }
           })
+      }
+      function showdetail(id) {
+          location.href="content.html?newsid="+id
       }
 
 

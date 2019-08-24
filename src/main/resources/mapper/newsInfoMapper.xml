@@ -16,6 +16,10 @@
     <update id = "refuseByNewsId" parameterType="int">
         update news set newsstatus = 0 where newsid = #{newsid}
     </update>
+    <!--获取新闻内容-->
+    <select id="showContent" resultType="pojo.NewsInfo" parameterType="int">
+        select newscontent from news where newsid=#{newsid}
+    </select>
 
 </mapper>
 

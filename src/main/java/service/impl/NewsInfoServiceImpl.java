@@ -35,6 +35,13 @@ public class NewsInfoServiceImpl  implements NewsInfoService {
         return this.newsInfoMapper.refuseByNewsId(id)>0;
     }
 
+    /*
+    * 获取文章内容
+    * */
+    @Override
+    public List<NewsInfo> showContent(int id) {
+        return newsInfoMapper.showContent(id);
+    }
 
 
 }

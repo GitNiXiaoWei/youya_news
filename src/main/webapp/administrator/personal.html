@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="../jquery/jquery-2.1.1.min.js"></script>
 </head>
 <body>
     <div class="row">
         <div class="col-md-12">
             <div class="thumbnail" style="border-radius: 0px;">
-                <img src="../img/services-box1.jpg" class="img-thumbnail" alt="">
+                <img src="../img/services-box1.jpg" class="img-thumbnail" alt="" id="icon">
                 <div class="caption" style="text-align:center;">
                     <h3 id="h3">
                         ZhangSan
@@ -18,19 +19,18 @@
         </div>
     </div>
     <div class="list-group">
-        <a id="userpersonal" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='userpersonal.html'">
-            个人信息<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+        <a id="articleReview" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='articleReview.html'">
+            新闻审核<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
-        <a id="draftlist" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='draftlist.html'">
-            我的新闻<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+        <a id="authorsReview" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='authorsReview.html'">
+            小编审核<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
-        <a class="list-group-item " style="cursor:pointer;" onclick="window.location.href='minecrowdfunding.html'">
+        <a class="list-group-item " style="cursor:pointer;" onclick="window.location.href='#'">
             我的资产<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
     </div>
 
 </body>
-<script src="../jquery/jquery-2.1.1.min.js"></script>
 <script>
     var page=location.toString().split("/")[5];
     $.ajax({
@@ -39,9 +39,13 @@
         success:function (result) {
             $(result).each(function(index,item){
                 $("#h3").text(item.username)
+                $("#icon").attr("src",item.icon)
             })
         }
     })
     $("#"+page.split(".")[0]).addClass("active")
+    if (location.search!=""){
+        $("#articleReview").addClass("active")
+    }
 </script>
 </html>
