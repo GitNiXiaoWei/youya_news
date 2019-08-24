@@ -14,5 +14,7 @@ public interface NewsInfoService {
     public boolean agreeByNewsId(int id);
 //文章审核失败
     public boolean refuseByNewsId(int id);
+//获取文章具体内容
+    public List<NewsInfo> showContent(int id);
 
 }

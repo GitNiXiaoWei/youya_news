@@ -12,4 +12,5 @@ public interface ApplicationMapper {
     public int agreeByUserId(int id);
     //审核失败
     public int refuseByUserId(int id);
+
 }

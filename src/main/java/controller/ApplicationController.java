@@ -38,4 +38,5 @@ public class ApplicationController {
         return this.applyService.refuseByUserId(userid);
     }
 
+
 }
