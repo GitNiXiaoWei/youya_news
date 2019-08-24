@@ -49,11 +49,11 @@ function aaa(pageNum) {
 
 }
 function selectpages(result){
-    var splitePageStr = "<li id='prePage'><a  onclick='aaa("+result.prePage+")'>上一页</a></li>";
+    var splitePageStr = "<li id='prePage'><a onclick='aaa("+result.prePage+")' href='javascript:void(0);'>上一页</a></li>";
     for(var i=1;i<=result.pages;i++){
-        splitePageStr +="<li id='pages"+i+"'><a onclick='aaa("+i+")' >"+i+"</a></li>";
+        splitePageStr +="<li id='pages"+i+"'><a onclick='aaa("+i+")' href='javascript:void(0);'>"+i+"</a></li>";
     }
-    splitePageStr += "<li id='nextPage'><a  onclick='aaa("+result.nextPage+")'>下一页</a></li>";
+    splitePageStr += "<li id='nextPage'><a onclick='aaa("+result.nextPage+")' href='javascript:void(0);'>下一页</a></li>";
     $(".pagination").html(splitePageStr);
 
     if (result.isFirstPage){

@@ -120,11 +120,11 @@ function removeNews(newsid) {
 
 //查询后分页
 function newsselectpages(result){
-    var splitePageStr = "<li id='newsprePage'><a  onclick='bbb("+result.prePage+")'>上一页</a></li>";
+    var splitePageStr = "<li id='newsprePage'><a onclick='bbb("+result.prePage+")' href='javascript:void(0);'>上一页</a></li>";
     for(var i=1;i<=result.pages;i++){
-        splitePageStr +="<li id='newspages"+i+"'><a onclick='bbb("+i+")' >"+i+"</a></li>";
+        splitePageStr +="<li id='newspages"+i+"'><a onclick='bbb("+i+")' href='javascript:void(0);'>"+i+"</a></li>";
     }
-    splitePageStr += "<li id='newsnextPage'><a  onclick='bbb("+result.nextPage+")'>下一页</a></li>";
+    splitePageStr += "<li id='newsnextPage'><a onclick='bbb("+result.nextPage+")' href='javascript:void(0);'>下一页</a></li>";
     $(".newspagination").html(splitePageStr);
 
     if (result.isFirstPage){
@@ -140,11 +140,11 @@ function newsselectpages(result){
 }
 //显示所有分页
 function shownewsages(result){
-    var splitePageStr = "<li id='newsprePage'><a  onclick='showNewsList("+result.prePage+")'>上一页</a></li>";
+    var splitePageStr = "<li id='newsprePage'><a onclick='showNewsList("+result.prePage+")' href='javascript:void(0);'>上一页</a></li>";
     for(var i=1;i<=result.pages;i++){
-        splitePageStr +="<li id='newspages"+i+"'><a onclick='showNewsList("+i+")' >"+i+"</a></li>";
+        splitePageStr +="<li id='newspages"+i+"'><a onclick='showNewsList("+i+")' href='javascript:void(0);'>"+i+"</a></li>";
     }
-    splitePageStr += "<li id='newsnextPage'><a  onclick='showNewsList("+result.nextPage+")'>下一页</a></li>";
+    splitePageStr += "<li id='newsnextPage'><a onclick='showNewsList("+result.nextPage+")' href='javascript:void(0);'>下一页</a></li>";
     $("#newspagination").html(splitePageStr);
 
     if (result.isFirstPage){
@@ -158,6 +158,7 @@ function shownewsages(result){
     $("#newspages"+result.pageNum).addClass("active");
     $("#newspages"+result.pageNum+" a").removeAttr("onclick");
 }
+//刷新页面
 function showNewsList(pageNum) {
     $.ajax({
         type : "post",
