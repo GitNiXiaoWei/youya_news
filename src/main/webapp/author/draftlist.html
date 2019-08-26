@@ -7,6 +7,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
+    <script src="../jquery/jquery-2.1.1.min.js"></script>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../css/main.css"/>
@@ -14,6 +15,7 @@
     <link rel="stylesheet" href="../dropzone/dropzone.min.css" />
     <link href="../wangeditor/wangEditor.min.css"/>
     <link rel="stylesheet" href="../wangeditor/wangEditor-fullscreen-plugin.css">
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
     <script src="../wangeditor/wangEditor.min.js"></script>
     <script src="../dropzone/dropzone.min.js"></script>
 
@@ -45,10 +47,10 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <ul  class="nav nav-pills" >
                 <li role="presentation"  class="active" id="draftboxs" >
-                    <a id="draftbox" >草稿箱</a>
+                    <a href="javascript:void(0);" type="button" id="draftbox" >草稿箱</a>
                 </li>
                 <li role="presentation" id="submitteds" class="">
-                    <a id="submitted" >已提交</a>
+                    <a href="javascript:void(0);" id="submitted" >已提交</a>
                 </li>
             </ul>
             <div id="myTabContent" class="tab-content" style="margin-top:10px;">
@@ -153,7 +155,7 @@
                 <!--已提交-->
                 <div  class="panel panel-default tab-pane fade " id="tijiao" aria-labelledby="tijiao-tab" >
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i>已提交</h3>
+                        <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 已提交</h3>
                     </div>
                     <div class="panel-body">
                         <form class="form-inline" role="form" style="float:left;">
@@ -216,9 +218,7 @@
 </div>
 
 <script src="dropzone.js" ></script>
-<script src="../jquery/jquery-2.1.1.min.js"></script>
-<script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../script/docs.min.js"></script>
+<!--<script src="../script/docs.min.js"></script>-->
 <script src="../wangeditor/wangEditor-fullscreen-plugin.js"></script>
 <script src="myWangEditor.js"></script>
 <script src="select.js"></script>
@@ -292,11 +292,11 @@
     }
     //分页
     function newpages(result){
-        var splitePageStr = "<li id='prePage'><a  onclick='reloadpage("+result.prePage+")'>上一页</a></li>";
+        var splitePageStr = "<li id='prePage'><a onclick='reloadpage("+result.prePage+")' href='javascript:void(0);'>上一页</a></li>";
         for(var i=1;i<=result.pages;i++){
-            splitePageStr +="<li id='pages"+i+"'><a onclick='reloadpage("+i+")'>"+i+"</a></li>";
+            splitePageStr +="<li id='pages"+i+"'><a onclick='reloadpage("+i+")' href='javascript:void(0);'>"+i+"</a></li>";
         }
-        splitePageStr += "<li id='nextPage'><a  onclick='reloadpage("+result.nextPage+")'>下一页</a></li>";
+        splitePageStr += "<li id='nextPage'><a onclick='reloadpage("+result.nextPage+")' href='javascript:void(0);'>下一页</a></li>";
         $("#pagination").html(splitePageStr);
 
         if (result.isFirstPage){

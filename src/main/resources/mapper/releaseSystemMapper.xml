@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.releaseSystemMapper">
+
+    <!--通过新闻类别id获取有关新闻和作者列表-->
+    <select id="getAllNewsListsByCategoryid" resultType="vo.releaseSystemVO">
+         select n.newstitle,n.newscreatetime,n.newssubtitle,n.newsclicks,n.newstalks,n.newsimg,u.*
+         from news n,news_category nc,user u
+         where n.newsid=nc.newsid  and u.userid=n.userid and newsstatus=1 and Categoryid=#{Categoryid}
+    </select>
+
+</mapper>
+
+
