@@ -75,7 +75,7 @@
                                     <input class="form-control has-success" type="text" placeholder="请输入查询条件" id="clue1">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-warning"  onclick="aaa()"><i class="glyphicon glyphicon-search"></i> 查询</button>
+                            <button type="button" class="btn btn-warning"  onclick="aaa(0)"><i class="glyphicon glyphicon-search"></i> 查询</button>
                         </form>
                         <button class="btn btn-danger" style="float:right;margin-left:10px;" id="removeAllDrafts"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
                             <a class="btn btn-primary" style="float:right;"  onclick="newone()" >
@@ -363,13 +363,13 @@
                 id:userid
             },
             success:function (result) {
-                console.log(result)
-                $("#category").val(result.categoryid)
-                $("#draftsid").val(result.draftsid)
-                $("#newstitle").val(result.newstitle)
-                $("#newssubtitle").val(result.newssubtitle)
-                $("#oldimg").attr("src",result.newsimg)
-                editor.txt.html(result.newscontent)
+                console.log(result);
+                $("#category").val(result.categoryid);
+                $("#draftsid").val(result.draftsid);
+                $("#newstitle").val(result.newstitle);
+                $("#newssubtitle").val(result.newssubtitle);
+                $("#oldimg").attr("src",result.newsimg);
+                editor.txt.html(result.newscontent);
             }
         })
     }
@@ -403,7 +403,6 @@
         $('#tijiao').addClass("active in")
         $("#detail").removeClass("active in")
         $("#lists").removeClass("active in")
-        // $('#lists').load("submitted.html")
     })
 
     //保存草稿、新建草稿

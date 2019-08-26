@@ -6,11 +6,22 @@
     <select id="selectByUserName" resultType="pojo.UserInfo" parameterType="dto.UserInfoDTO">
         select * from user where username=#{username}
     </select>
+    <!--注册-->
     <insert id="insertUser" parameterType="dto.UserInfoDTO">
-        insert into user  values (default ,#{username},#{password},#{sex},#{email},#{icon});
+        insert into user  values (default ,#{username},#{password},#{sex},#{email},#{icon})
+        <selectKey keyProperty="userid" resultType="java.lang.Integer" order="AFTER">
+            SELECT LAST_INSERT_ID() AS userid
+        </selectKey>
     </insert>
+    <!--首次注册默认会员-->
+    <insert id="insertUserRole" parameterType="dto.UserInfoDTO">
+        insert into user_role values (default,userid,1);
+    </insert>
+    <!--登录-->
     <select id="selectByUserNameAndPassword" resultType="pojo.UserInfo" parameterType="dto.UserInfoDTO">
-        select * from user where username=#{username} and password=#{password}
+        select u.*,r.* from user u,user_role ur ,role r
+        where username=#{username} and password=#{password}
+        and u.userid=ur.userid and r.roleid=ur.roleid
     </select>
 
     <update id="informationUpdateByUsername" parameterType="pojo.UserInfo">

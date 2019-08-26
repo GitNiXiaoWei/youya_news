@@ -2,13 +2,20 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="dao.releaseSystemMapper">
+<mapper namespace="dao.ReleaseSystemMapper">
 
     <!--通过新闻类别id获取有关新闻和作者列表-->
-    <select id="getAllNewsListsByCategoryid" resultType="vo.releaseSystemVO">
+    <select id="getAllNewsListsByCategoryid" resultType="vo.ReleaseSystemVO" parameterType="int">
          select n.newstitle,n.newscreatetime,n.newssubtitle,n.newsclicks,n.newstalks,n.newsimg,u.*
          from news n,news_category nc,user u
-         where n.newsid=nc.newsid  and u.userid=n.userid and newsstatus=1 and Categoryid=#{Categoryid}
+         where n.newsid=nc.newsid  and u.userid=n.userid and newsstatus=1 and categoryid=#{categoryid} order by newscreatetime desc
+    </select>
+    <!--通过新闻类别id，关键字获取有关新闻和作者列表-->
+    <select id="searchAllNews" resultType="vo.ReleaseSystemVO" parameterType="dto.ReleaseSystemDTO">
+         select n.newstitle,n.newscreatetime,n.newssubtitle,n.newsclicks,n.newstalks,n.newsimg,n.newscontent,u.*
+         from news n,news_category nc,user u
+         where n.newsid=nc.newsid  and u.userid=n.userid and newsstatus=1 and categoryid=#{categoryid} and newscontent like '%${search}%'
+         order by newscreatetime desc
     </select>
 
 </mapper>

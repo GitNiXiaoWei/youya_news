@@ -54,6 +54,7 @@
             <mvc:mapping path="/*/*.html"/>
             <mvc:exclude-mapping path="/login.html"/>
             <mvc:exclude-mapping path="/reg.html"/>
+            <mvc:exclude-mapping path="/news/*.html"/>
             <bean class="filter.LoginInterceptor"/>
         </mvc:interceptor>
 

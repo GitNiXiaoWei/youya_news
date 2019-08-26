@@ -14,4 +14,5 @@ public interface UserInfoMapper {
     public boolean applicationauthority(ApplicationDTO applicationDTO);
 
     public ApplicationDTO selectApplicationByUserid(int userid);
+    public int insertUserRole(UserInfoDTO userInfoDTO);
 }

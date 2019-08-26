@@ -22,10 +22,8 @@ function aaa(pageNum) {
             selects1="newscontent"
         }
 
-        console.log(clue1+" : "+selects1)
-        if (pageNum==null){
-            pageNum=0
-        }
+        console.log(clue1+" : "+selects1);
+
         $.ajax({
             type:"post",
             dataType:"json",

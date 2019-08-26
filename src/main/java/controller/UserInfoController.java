@@ -87,7 +87,7 @@ public class UserInfoController {
     public Object initUser( HttpSession httpSession){
         Object userInfo = httpSession.getAttribute("userInfo");
         if ( userInfo==null){
-            return null;
+            return "false";
         }else {
             return userInfo;
         }

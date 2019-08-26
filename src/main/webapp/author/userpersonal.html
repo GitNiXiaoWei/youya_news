@@ -58,9 +58,9 @@
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                     </div>
                     <div class="form-group has-success has-feedback">
-                        <select type="text" class="form-control" id="sex"  style="margin-top:10px;font-size: 16px">
+                        <select  class="form-control" id="sex"  style="margin-top:10px;font-size: 16px">
                             <option value="1">ÄÐ¡á</option>
-                            <option value="0">Å®¡â</option>
+                            <option value="2">Å®¡â</option>
                         </select>
                     </div>
                     <div class="form-group has-success has-feedback">
@@ -144,7 +144,7 @@
         }
     });
     function updateinformation() {
-        var a
+        let a;
         if (username === $("#username").val()){
             a=JSON.stringify({
                     "userid":$("#userid").val(),

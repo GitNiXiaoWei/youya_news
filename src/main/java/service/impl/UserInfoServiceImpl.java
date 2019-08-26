@@ -15,6 +15,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     UserInfoMapper userInfoMapper;
 
+    /**
+     * 注册，首次注册默认普通会员
+     * @param userInfoDto
+     * @return
+     */
     @Override
     public boolean register(UserInfoDTO userInfoDto) {
         UserInfo userInfos = userInfoMapper.selectByUserName(userInfoDto);
@@ -22,7 +27,8 @@ public class UserInfoServiceImpl implements UserInfoService {
             return false;
         }else {
             int i = userInfoMapper.insertUser(userInfoDto);
-            if (i>0) return true;
+            int i1 = userInfoMapper.insertUserRole(userInfoDto);
+            if (i>0&&i1>0) return true;
         }
         return false;
     }

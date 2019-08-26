@@ -1,6 +1,9 @@
 package vo;
 
-public class releaseSystemVO {
+import lombok.Data;
+
+@Data
+public class ReleaseSystemVO {
     int newsid;
     String newstitle;
     String newscontent;

@@ -10,4 +10,7 @@ public class UserInfo {
     int sex;
     String email;
     String icon;
+    //角色
+    int roleid;
+    String rolename;
 }
