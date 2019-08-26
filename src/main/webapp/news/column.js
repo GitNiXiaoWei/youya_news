@@ -12,16 +12,15 @@ if (categoryname==="guoji"||categoryname==="guonei"){
 }else {
     $("#"+categoryname).addClass("active")
 }
-alert(categoryname);
 //获取当前时间
 $(".blog_date_div").html("<p>"+
-    "<span class='glyphicon glyphicon-time'></span>"+
+    "<i class='glyphicon glyphicon-time'></i>"+
     year + "-" + month + "-" + da + "&nbsp" + hours + ":" + min+
     "</p>");
 //更新当前时间(每隔5s)
 setInterval(function() {
-     datas = new Date();
-     da = datas.getDate();
+    let datas = new Date();
+    da = datas.getDate();
      month = datas.getMonth() + 1;
      year = datas.getFullYear();
      min = datas.getMinutes();
@@ -113,10 +112,10 @@ function context(result){
                     "<div class=\"blog_post_style2\">\n" +
                     "<!--头条新闻图片-->\n" +
                     "<div class=\"blog_post_style2_img\">\n" +
-                    "<img src=\""+item.newsimg+"\" class=\"img-fluid\" alt=\"\"></div>\n" +
+                    "<img src=\""+item.newsimg+"\" class=\"img-fluid\" alt=\"\" width='525' height='400'></div>\n" +
                     "<div class=\"blog_post_style2_content\">\n" +
                     "<!--头条新闻标题-->\n" +
-                    "<h3><a href=\"#\">"+item.newstitle+"</a></h3>\n" +
+                    "<h3><a href='/youya_news/news/article.html?newsid="+item.newsid+"'>"+item.newstitle+"</a></h3>\n" +
                     "<!--头条新闻作者-->\n" +
                     "<div class=\"blog_author_data\">\n" +
                     "<a href=\"#\">\n" +
@@ -135,7 +134,7 @@ function context(result){
                     "<!--头条新闻副标题-->\n" +
                     "<p>"+item.newssubtitle+"</p>" +
                     "<!--头条新闻进入内文-->\n" +
-                    "<a href=\"#\" class=\"blog_readmore\">\n" +
+                    "<a href='/youya_news/news/article.html?newsid="+item.newsid+"' class=\"blog_readmore\">\n" +
                     "查看更多</a></div></div></div>";
             }
             else {
@@ -143,10 +142,10 @@ function context(result){
                     "<div class=\"blog_post_style2\">\n" +
                     "<!--头条新闻图片-->\n" +
                     "<div class=\"blog_post_style2_img\">\n" +
-                    "<img src=\""+item.newsimg+"\" class=\"img-fluid\" alt=\"\"></div>\n" +
+                    "<img src=\""+item.newsimg+"\" class=\"img-fluid\" alt=\"\" width='180' height='180'></div>\n" +
                     "<div class=\"blog_post_style2_content\">\n" +
                     "<!--头条新闻标题-->\n" +
-                    "<h3><a href=\"#\">"+item.newstitle+"</a></h3>\n" +
+                    "<h3><a href='/youya_news/news/article.html?newsid="+item.newsid+"'>"+item.newstitle+"</a></h3>\n" +
                     "<!--头条新闻作者-->\n" +
                     "<div class=\"blog_author_data\">\n" +
                     "<a href=\"#\">\n" +
@@ -165,7 +164,7 @@ function context(result){
                     "<!--头条新闻副标题-->\n" +
                     "<p>"+item.newssubtitle+"</p>" +
                     "<!--头条新闻进入内文-->\n" +
-                    "<a href=\"#\" class=\"blog_readmore\">\n" +
+                    "<a href='/youya_news/news/article.html?newsid="+item.newsid+"' class=\"blog_readmore\">\n" +
                     "查看更多</a></div></div></div>";
             }
         }
@@ -174,10 +173,10 @@ function context(result){
                 "<div class=\"blog_post_style2\">\n" +
                 "<!--头条新闻图片-->\n" +
                 "<div class=\"blog_post_style2_img\">\n" +
-                "<img src=\""+item.newsimg+"\" class=\"img-fluid\" alt=\"\"></div>\n" +
+                "<img src=\""+item.newsimg+"\" class=\"img-fluid\" alt=\"\" width='180' height='180'></div>\n" +
                 "<div class=\"blog_post_style2_content\">\n" +
                 "<!--头条新闻标题-->\n" +
-                "<h3><a href=\"#\">"+item.newstitle+"</a></h3>\n" +
+                "<h3><a href='/youya_news/news/article.html?newsid="+item.newsid+"'>"+item.newstitle+"</a></h3>\n" +
                 "<!--头条新闻作者-->\n" +
                 "<div class=\"blog_author_data\">\n" +
                 "<a href=\"#\">\n" +
@@ -196,7 +195,7 @@ function context(result){
                 "<!--头条新闻副标题-->\n" +
                 "<p>"+item.newssubtitle+"</p>" +
                 "<!--头条新闻进入内文-->\n" +
-                "<a href=\"#\" class=\"blog_readmore\">\n" +
+                "<a href='/youya_news/news/article.html?newsid="+item.newsid+"' class=\"blog_readmore\">\n" +
                 "查看更多</a></div></div></div>";
         }
     });

@@ -6,7 +6,9 @@ import dto.ReleaseSystemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import service.NewsInfoService;
 import service.ReleaseSystemService;
 import vo.ReleaseSystemVO;
 
@@ -17,6 +19,7 @@ import java.util.List;
 public class ReleaseSystemController {
     @Autowired
     ReleaseSystemService releaseSystemService;
+
     static int defaultPageSize=6;
 
     /**
@@ -47,5 +50,15 @@ public class ReleaseSystemController {
         List<ReleaseSystemVO> allNewsListsByCategoryid = releaseSystemService.searchAllNews(releaseSystemDTO);
         PageInfo<ReleaseSystemVO> systemVOPageInfo = new PageInfo<>(allNewsListsByCategoryid);
         return systemVOPageInfo;
+    }
+
+    /**
+     * 通过newsid获取新闻详情
+     * @param newsid
+     * @return
+     */
+    @RequestMapping(name = "getNewsDetil",value = "/getNewsDetil")
+    public Object getNewsDetil(@RequestParam int newsid){
+        return releaseSystemService.getNewsDetailByNewsid(newsid);
     }
 }

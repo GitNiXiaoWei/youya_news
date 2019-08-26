@@ -6,16 +6,22 @@
 
     <!--通过新闻类别id获取有关新闻和作者列表-->
     <select id="getAllNewsListsByCategoryid" resultType="vo.ReleaseSystemVO" parameterType="int">
-         select n.newstitle,n.newscreatetime,n.newssubtitle,n.newsclicks,n.newstalks,n.newsimg,u.*
+         select n.newstitle,n.newscreatetime,n.newssubtitle,n.newsclicks,n.newstalks,n.newsimg,n.newsid,u.*
          from news n,news_category nc,user u
          where n.newsid=nc.newsid  and u.userid=n.userid and newsstatus=1 and categoryid=#{categoryid} order by newscreatetime desc
     </select>
     <!--通过新闻类别id，关键字获取有关新闻和作者列表-->
     <select id="searchAllNews" resultType="vo.ReleaseSystemVO" parameterType="dto.ReleaseSystemDTO">
-         select n.newstitle,n.newscreatetime,n.newssubtitle,n.newsclicks,n.newstalks,n.newsimg,n.newscontent,u.*
+         select n.newstitle,n.newscreatetime,n.newssubtitle,n.newsclicks,n.newstalks,n.newsimg,n.newscontent,n.newsid,u.*
          from news n,news_category nc,user u
          where n.newsid=nc.newsid  and u.userid=n.userid and newsstatus=1 and categoryid=#{categoryid} and newscontent like '%${search}%'
          order by newscreatetime desc
+    </select>
+    <!--通过新闻id获取新闻和作者列表-->
+    <select id="getNewsDetailByNewsid" resultType="vo.ReleaseSystemVO" parameterType="int">
+         select n.newstitle,n.newscreatetime,n.newssubtitle,n.newsclicks,n.newstalks,n.newsimg,n.newsid,n.newscontent,u.*
+         from news n,user u
+         where u.userid=n.userid and newsid=#{newsid}
     </select>
 
 </mapper>

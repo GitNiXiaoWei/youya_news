@@ -26,4 +26,9 @@ public class ReleaseSystemServiceImpl implements ReleaseSystemService {
         }
         return releaseSystemMapper.searchAllNews(releaseSystemDTO);
     }
+
+    @Override
+    public ReleaseSystemVO getNewsDetailByNewsid(int id) {
+        return releaseSystemMapper.getNewsDetailByNewsid(id);
+    }
 }
