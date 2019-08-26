@@ -57,6 +57,13 @@
             <mvc:exclude-mapping path="/news/*.html"/>
             <bean class="filter.LoginInterceptor"/>
         </mvc:interceptor>
+        <!--配置权限拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/administrator/*.html"/>
+            <mvc:mapping path="/author/*.html"/>
+            <mvc:mapping path="/usermanage/*.html"/>
+            <bean class="filter.jurisdictionInterceptor"/>
+        </mvc:interceptor>
 
     </mvc:interceptors>
 

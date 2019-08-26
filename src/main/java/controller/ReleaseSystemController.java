@@ -29,8 +29,30 @@ public class ReleaseSystemController {
      */
     @RequestMapping(name = "getAllNews",value = "/getAllNews")
     public Object getAllNews(@RequestBody ReleaseSystemDTO releaseSystemDTO){
-        if (releaseSystemDTO.getCategoryname().equals("guonei")){
+        if (releaseSystemDTO.getCategoryname().equals("guoji")){
+            releaseSystemDTO.setCategoryid(1);
+        }else if (releaseSystemDTO.getCategoryname().equals("guonei")){
             releaseSystemDTO.setCategoryid(2);
+        }else if (releaseSystemDTO.getCategoryname().equals("shishang")){
+            releaseSystemDTO.setCategoryid(3);
+        }else if (releaseSystemDTO.getCategoryname().equals("lvyou")){
+            releaseSystemDTO.setCategoryid(4);
+        }else if (releaseSystemDTO.getCategoryname().equals("youxi")){
+            releaseSystemDTO.setCategoryid(5);
+        }else if (releaseSystemDTO.getCategoryname().equals("jiaoyu")){
+            releaseSystemDTO.setCategoryid(6);
+        }else if (releaseSystemDTO.getCategoryname().equals("fangchan")){
+            releaseSystemDTO.setCategoryid(7);
+        }else if (releaseSystemDTO.getCategoryname().equals("qiche")){
+            releaseSystemDTO.setCategoryid(8);
+        }else if (releaseSystemDTO.getCategoryname().equals("yule")){
+            releaseSystemDTO.setCategoryid(9);
+        }else if (releaseSystemDTO.getCategoryname().equals("keji")){
+            releaseSystemDTO.setCategoryid(10);
+        }else if (releaseSystemDTO.getCategoryname().equals("caijing")){
+            releaseSystemDTO.setCategoryid(11);
+        }else if (releaseSystemDTO.getCategoryname().equals("tiyu")){
+            releaseSystemDTO.setCategoryid(12);
         }
         PageHelper.startPage(releaseSystemDTO.getPageNum(),defaultPageSize);
         List<ReleaseSystemVO> allNewsListsByCategoryid = releaseSystemService.getAllNewsListsByCategoryid(releaseSystemDTO.getCategoryid());

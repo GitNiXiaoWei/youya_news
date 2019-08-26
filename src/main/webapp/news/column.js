@@ -40,7 +40,7 @@ $.ajax({
                 $("#blogUserWrapper").attr("href","/youya_news/author/draftlist.html")
             }
             if (result.rolename==="会员"){
-                $("#blogUserWrapper").attr("href","/youya_news/usermanger/message.html")
+                $("#blogUserWrapper").attr("href","/youya_news/usermanage/message.html")
             }
             if (result.rolename==="管理员"){
                 $("#blogUserWrapper").attr("href","/youya_news/administrator/articleReview.html")
