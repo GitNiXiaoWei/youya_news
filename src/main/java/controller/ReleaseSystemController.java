@@ -2,14 +2,15 @@ package controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import dto.CommentInfoDTO;
 import dto.ReleaseSystemDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import service.NewsInfoService;
 import service.ReleaseSystemService;
+import vo.CommentVO;
 import vo.ReleaseSystemVO;
 
 import java.util.List;
@@ -82,5 +83,31 @@ public class ReleaseSystemController {
     @RequestMapping(name = "getNewsDetil",value = "/getNewsDetil")
     public Object getNewsDetil(@RequestParam int newsid){
         return releaseSystemService.getNewsDetailByNewsid(newsid);
+    }
+
+    /**
+     * 通过新闻id获取所有评论信息
+     * @param newsid
+     * @return
+     */
+    @RequestMapping(name = "getAllComment",value = "/getAllComment")
+    public Object getAllComment(@RequestParam int newsid){
+        List<CommentVO> allCommentByNewsid = releaseSystemService.getAllCommentByNewsid(newsid);
+        for (CommentVO a:
+                allCommentByNewsid) {
+            System.out.println("a = " + a);
+            System.out.println("a.getReplyVOList() = " + a.getReplyVOList());
+        }
+        return allCommentByNewsid;
+    }
+
+    /**
+     * 创建新评论
+     * @param commentInfoDTO
+     * @return
+     */
+    @RequestMapping(name = "createComment",value = "/createComment")
+    public Object createComment(@RequestBody CommentInfoDTO commentInfoDTO){
+        return releaseSystemService.insertComment(commentInfoDTO);
     }
 }

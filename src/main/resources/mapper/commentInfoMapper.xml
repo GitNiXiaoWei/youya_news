@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.CommentInfoMapper">
+    <resultMap id="comment" type="vo.CommentVO">
+        <id column="commentid" property="commentid"></id>
+        <result property="newsid" column="newsid"></result>
+        <result property="userid" column="userid"></result>
+        <result property="commentcontent" column="commentcontent"></result>
+        <result property="commenttime" column="commenttime"></result>
+        <result property="cusername" column="cusername"></result>
+        <result property="cicon" column="cicon"></result>
+        <collection property="replyVOList" ofType="vo.ReplyVO">
+            <id column="replyid" property="replyid"></id>
+            <result property="commentid" column="rcommentid"></result>
+            <result property="replierid" column="replierid"></result>
+            <result property="userid" column="ruserid"></result>
+            <result property="replycontent" column="replycontent"></result>
+            <result property="replytime" column="replytime"></result>
+            <result property="rusername" column="rusername"></result>
+            <result property="ricon" column="ricon"></result>
+            <result property="rcusername" column="rcusername"></result>
+        </collection>
+    </resultMap>
+    <select id="getAllCommentByNewsid" resultMap="comment" parameterType="int">
+        select a.*,b.username cusername,b.icon cicon
+        from (select c.*,r.replyid,r.replierid,r.commentid rcommentid,r.rusername,r.ricon,r.rcusername,r.userid ruserid,r.replycontent,r.replytime
+        from (select * from comment where newsid=#{newsid}) c
+        left join  (select r1.*,r2.username rusername,r2.icon ricon,r3.username rcusername from reply r1,user r2,user r3 where r1.replierid=r2.userid and r1.userid=r3.userid) r
+        on c.commentid=r.commentid ) a,user b
+        where a.userid =b.userid
+    </select>
+    <insert id="insertComment" parameterType="dto.CommentInfoDTO">
+        insert into comment  values (default ,#{newsid},#{userid},#{comment},default );
+    </insert>
+    <update id="insertTalksByNewsid" parameterType="dto.CommentInfoDTO">
+        update news set newstalks = newstalks+1 where newsid=#{newsid};
+    </update>
+
+</mapper>
+
+
