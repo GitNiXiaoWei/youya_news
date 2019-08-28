@@ -9,4 +9,5 @@ public interface CommentInfoMapper {
     public List<CommentVO> getAllCommentByNewsid(int id);
     public int insertComment(CommentInfoDTO commentInfoDTO);
     public int insertTalksByNewsid(CommentInfoDTO commentInfoDTO);
+    public int insertReply(CommentInfoDTO commentInfoDTO);
 }

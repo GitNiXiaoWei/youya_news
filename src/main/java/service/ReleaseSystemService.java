@@ -13,4 +13,6 @@ public interface ReleaseSystemService {
     public ReleaseSystemVO getNewsDetailByNewsid(int id);
     public List<CommentVO> getAllCommentByNewsid(int id);
     public int insertComment(CommentInfoDTO commentInfoDTO);
+    public int insertReply(CommentInfoDTO commentInfoDTO);
+
 }

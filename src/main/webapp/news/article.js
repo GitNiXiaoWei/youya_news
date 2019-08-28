@@ -160,8 +160,34 @@ function comment() {
     }
 }
 //回复功能
-function reply(commentid,userid,name) {
-    $('#myModalLabel').text('回复 @'+name)
-    $('#myModal').modal('show')
+function reply(commentid,id,name) {
+    if (userid===undefined){
+        alert("请登录后回复评论");
+    }else {
+        $('#myModalLabel').text('回复 @'+name);
+        $('#myModal').modal('show');
+        $('#upreply').attr('onclick',"upreplys("+commentid+","+id+","+"\""+name+"\""+")");
+    }
+}
+function upreplys(commentid,id,name) {
+    if ($('#text1').val()===""){
+        alert("内容为空")
+    }else {
+        $.ajax({
+            type : "post",
+            contentType: "application/json;charset=utf-8",
+            url : "/youya_news/ReleaseSystem/createReply",
+            data:JSON.stringify({
+                commentid:commentid,
+                userid:id,
+                replierid:userid,
+                replycontent:$("#text1").val()
+            }),
+            success:function (result) {
+                $('#myModal').modal('hide');
+                getcomment();
+            }
+        })
+    }
 }
 

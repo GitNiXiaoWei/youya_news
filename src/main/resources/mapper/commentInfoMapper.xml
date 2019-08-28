@@ -40,7 +40,10 @@
     <update id="insertTalksByNewsid" parameterType="dto.CommentInfoDTO">
         update news set newstalks = newstalks+1 where newsid=#{newsid};
     </update>
-
+    <!--新增回复-->
+    <insert id="insertReply" parameterType="dto.CommentInfoDTO">
+        insert into reply  values (default ,#{commentid},#{replierid},#{userid},#{replycontent},default );
+    </insert>
 </mapper>
 
 

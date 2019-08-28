@@ -93,11 +93,6 @@ public class ReleaseSystemController {
     @RequestMapping(name = "getAllComment",value = "/getAllComment")
     public Object getAllComment(@RequestParam int newsid){
         List<CommentVO> allCommentByNewsid = releaseSystemService.getAllCommentByNewsid(newsid);
-        for (CommentVO a:
-                allCommentByNewsid) {
-            System.out.println("a = " + a);
-            System.out.println("a.getReplyVOList() = " + a.getReplyVOList());
-        }
         return allCommentByNewsid;
     }
 
@@ -109,5 +104,17 @@ public class ReleaseSystemController {
     @RequestMapping(name = "createComment",value = "/createComment")
     public Object createComment(@RequestBody CommentInfoDTO commentInfoDTO){
         return releaseSystemService.insertComment(commentInfoDTO);
+    }
+
+    /**
+     * 新建回复
+     * @param commentInfoDTO
+     * @return
+     */
+    @RequestMapping(name = "createReply",value = "/createReply")
+    public Object createReply(@RequestBody CommentInfoDTO commentInfoDTO){
+        System.out.println("commentInfoDTO = " + commentInfoDTO);
+        int i = releaseSystemService.insertReply(commentInfoDTO);
+        return i;
     }
 }

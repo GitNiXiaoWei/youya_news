@@ -59,4 +59,14 @@ public class ReleaseSystemServiceImpl implements ReleaseSystemService {
             return 1;
         }else return 0;
     }
+
+    /**
+     * 新增回复
+     * @param commentInfoDTO
+     * @return
+     */
+    @Override
+    public int insertReply(CommentInfoDTO commentInfoDTO) {
+        return commentInfoMapper.insertReply(commentInfoDTO);
+    }
 }
