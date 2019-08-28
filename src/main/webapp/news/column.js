@@ -26,7 +26,7 @@ setInterval(function() {
      min = datas.getMinutes();
      hours = datas.getHours();
     $(".blog_date_div").html("<p>"+
-    "<span class='glyphicon glyphicon-time'></span>"+
+    "<i class='glyphicon glyphicon-time'></i>&ensp;"+
         year + "-" + month + "-" + da + "&nbsp" + hours + ":" + min+
     "</p>");
 }, 5000);
@@ -130,7 +130,12 @@ function context(result){
                     "<!--评论数-->\n" +
                     "<li><span class=\"blog_bg_pink\">\n" +
                     "<i class=\"fa fa-comments\"></i>\n" +
-                    ""+item.newstalks+"</span></li></ul>" +
+                    ""+item.newstalks+"</span></li>" +
+                    "<!--发布时间-->\n" +
+                    "<li id=\"createtime\">\n" +
+                    "<i class=\"glyphicon glyphicon-time\"></i>&ensp;\n" +
+                    ""+item.newscreatetime+"" +
+                    "</li></ul>" +
                     "<!--头条新闻副标题-->\n" +
                     "<p>"+item.newssubtitle+"</p>" +
                     "<!--头条新闻进入内文-->\n" +
@@ -160,7 +165,12 @@ function context(result){
                     "<!--评论数-->\n" +
                     "<li><span class=\"blog_bg_pink\">\n" +
                     "<i class=\"fa fa-comments\"></i>\n" +
-                    ""+item.newstalks+"</span></li></ul>" +
+                    ""+item.newstalks+"</span></li>" +
+                    "<!--发布时间-->\n" +
+                    "<li id=\"createtime\">\n" +
+                    "<i class=\"glyphicon glyphicon-time\"></i>&ensp;\n" +
+                    ""+item.newscreatetime+"" +
+                    "</li></ul>" +
                     "<!--头条新闻副标题-->\n" +
                     "<p>"+item.newssubtitle+"</p>" +
                     "<!--头条新闻进入内文-->\n" +
@@ -191,7 +201,12 @@ function context(result){
                 "<!--评论数-->\n" +
                 "<li><span class=\"blog_bg_pink\">\n" +
                 "<i class=\"fa fa-comments\"></i>\n" +
-                ""+item.newstalks+"</span></li></ul>" +
+                ""+item.newstalks+"</span></li>" +
+                "<!--发布时间-->\n" +
+                "<li id=\"createtime\">\n" +
+                "<i class=\"glyphicon glyphicon-time\"></i>&ensp;\n" +
+                ""+item.newscreatetime+"" +
+                "</li></ul>" +
                 "<!--头条新闻副标题-->\n" +
                 "<p>"+item.newssubtitle+"</p>" +
                 "<!--头条新闻进入内文-->\n" +

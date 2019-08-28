@@ -125,7 +125,7 @@ function newsselectpages(result){
         splitePageStr +="<li id='newspages"+i+"'><a onclick='bbb("+i+")' href='javascript:void(0);'>"+i+"</a></li>";
     }
     splitePageStr += "<li id='newsnextPage'><a onclick='bbb("+result.nextPage+")' href='javascript:void(0);'>下一页</a></li>";
-    $(".newspagination").html(splitePageStr);
+    $("#newspagination").html(splitePageStr);
 
     if (result.isFirstPage){
         $("#newsprePage").addClass("disabled");

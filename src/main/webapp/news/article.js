@@ -20,7 +20,7 @@ setInterval(function() {
     min = datas.getMinutes();
     hours = datas.getHours();
     $(".blog_date_div").html("<p>"+
-        "<i class='glyphicon glyphicon-time'></i>"+
+        "<i class='glyphicon glyphicon-time'></i>&ensp;"+
         year + "-" + month + "-" + da + "&nbsp" + hours + ":" + min+
         "</p>");
 }, 5000);
@@ -60,7 +60,7 @@ $.ajax({
         $("#blog_author_data").html("<img src=\""+result.icon+"\" class=\"img-fluid\" alt=\"\" width=\"34\" height=\"34\">" + result.username);
         $("#clicks").html("<i class=\"glyphicon glyphicon-eye-open\"></i>&ensp;"+result.newsclicks+"");
         $("#talks").html("<i class=\"fa fa-comments\"></i>&ensp;"+result.newstalks+"");
-        $("#createtime").html("<i class=\"glyphicon glyphicon-time\"></i>"+result.newscreatetime+"");
+        $("#createtime").html("<i class=\"glyphicon glyphicon-time\"></i>&ensp;"+result.newscreatetime+"");
         $("#content").html(result.newscontent);
     }
 });
