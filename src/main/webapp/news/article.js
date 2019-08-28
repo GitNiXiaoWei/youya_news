@@ -98,7 +98,7 @@ function getcomment(){
                     "<i class=\"fa fa-thumbs-o-up\"></i>\n" +
                     "&ensp;26</a></li>\n" +
                     "<!--评论--><li>\n" +
-                    "<a href=\"javascript:void(0);\" onclick='reply("+item.commentid+","+item.userid+")'>\n" +
+                    "<a href=\"javascript:void(0);\" onclick='reply("+item.commentid+","+item.userid+","+'\"'+item.cusername+'\"'+")'>\n" +
                     "<i class=\"fa fa-comments\"></i>\n" +
                     "&ensp;"+item.replyVOList.length+"</a></li></ul></div><ul class=\"children\" id='comment"+item.commentid+"'></ul></li>";
                 $(".comment-list").append(str);
@@ -122,7 +122,7 @@ function getcomment(){
                             "<i class=\"fa fa-thumbs-o-up\"></i>\n" +
                             "&ensp;26</a></li>\n" +
                             "<!--评论--><li>\n" +
-                            "<a href=\"javascript:void(0);\" onclick='reply("+item.commentid+","+item.replierid+")'>\n" +
+                            "<a href=\"javascript:void(0);\" onclick='reply("+item.commentid+","+item.replierid+","+'\"'+item.rusername+'\"'+")'>\n" +
                             "<i class=\"fa fa-comments\"></i>\n" +
                             "&ensp;</a></li></ul></div></li>";
                         $("#comment"+item.commentid).append(reply)
@@ -160,8 +160,8 @@ function comment() {
     }
 }
 //回复功能
-function reply(commentid,userid) {
-    alert("commentid : "+commentid)
-    alert("userid : "+userid)
+function reply(commentid,userid,name) {
+    $('#myModalLabel').text('回复 @'+name)
+    $('#myModal').modal('show')
 }
 
