@@ -50,9 +50,26 @@
             <div class="blog_user_div">
                 <div class="blogUserWrapper">
                     <a href="/youya_news/login.html" id="blogUserWrapper">
-                        <img src="./author_img.jpg" class="img-fluid" height="34" width="34">
+                        <img src="./author_img.jpg" class="img-fluid" alt="">
                         登录
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
                     </a>
+                    <div class="blog_profile_div">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0);" id="user">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    &ensp;个人中心
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" onclick="signout()">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                    &ensp;退出登录
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

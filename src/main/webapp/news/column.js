@@ -37,17 +37,17 @@ $.ajax({
     success:function (result) {
         if (result!="false"){
             if (result.rolename==="小编"){
-                $("#blogUserWrapper").attr("href","/youya_news/author/draftlist.html")
+                $("#user").attr("href","/youya_news/author/draftlist.html")
             }
             if (result.rolename==="会员"){
-                $("#blogUserWrapper").attr("href","/youya_news/usermanage/message.html")
+                $("#user").attr("href","/youya_news/usermanage/message.html")
             }
             if (result.rolename==="管理员"){
-                $("#blogUserWrapper").attr("href","/youya_news/administrator/articleReview.html")
+                $("#user").attr("href","/youya_news/administrator/articleReview.html")
             }
-            $("#blogUserWrapper").html("" +
-                "<img src=\""+result.icon+"\" class=\"img-fluid\" height=\"40\" width=\"40\">\n" +
-                ""+result.username+"")
+            $("#blogUserWrapper").html("<img src=\""+result.icon+"\" class=\"img-fluid\" height=\"40\" width=\"40\">\n" +
+                ""+result.username+"<i class=\"fa fa-angle-down\" aria-hidden=\"true\"></i>");
+            $("#blogUserWrapper").attr("href","javascript:void(0);");
         }
     }
 });
@@ -259,4 +259,14 @@ function searchpages(result) {
     }
     $("#pages"+result.pageNum).addClass("active");
     $("#pages"+result.pageNum+" a").removeAttr("onclick");
+}
+//退出登录
+function signout() {
+    $.ajax({
+        type : "get",
+        url : "/youya_news/ReleaseSystem/signOut",
+        success:function (result) {
+            location.reload();
+        }
+    })
 }

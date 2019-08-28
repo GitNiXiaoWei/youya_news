@@ -31,17 +31,17 @@ $.ajax({
     success:function (result) {
         if (result!="false"){
             if (result.rolename==="小编"){
-                $("#blogUserWrapper").attr("href","/youya_news/author/draftlist.html")
+                $("#user").attr("href","/youya_news/author/draftlist.html")
             }
             if (result.rolename==="会员"){
-                $("#blogUserWrapper").attr("href","/youya_news/usermanger/message.html")
+                $("#user").attr("href","/youya_news/usermanger/message.html")
             }
             if (result.rolename==="管理员"){
-                $("#blogUserWrapper").attr("href","/youya_news/administrator/articleReview.html")
+                $("#user").attr("href","/youya_news/administrator/articleReview.html")
             }
-            $("#blogUserWrapper").html("" +
-                "<img src=\""+result.icon+"\" class=\"img-fluid\" height=\"40\" width=\"40\">\n" +
-                ""+result.username+"")
+            $("#blogUserWrapper").html("<img src=\""+result.icon+"\" class=\"img-fluid\" height=\"40\" width=\"40\">\n" +
+                ""+result.username+"<i class=\"fa fa-angle-down\" aria-hidden=\"true\"></i>");
+            $("#blogUserWrapper").attr("href","javascript:void(0);");
             userid=result.userid
         }
     }
@@ -159,7 +159,7 @@ function comment() {
         }
     }
 }
-//回复功能
+//弹出隐藏输入框
 function reply(commentid,id,name) {
     if (userid===undefined){
         alert("请登录后回复评论");
@@ -169,6 +169,7 @@ function reply(commentid,id,name) {
         $('#upreply').attr('onclick',"upreplys("+commentid+","+id+","+"\""+name+"\""+")");
     }
 }
+//回复
 function upreplys(commentid,id,name) {
     if ($('#text1').val()===""){
         alert("内容为空")
@@ -181,6 +182,7 @@ function upreplys(commentid,id,name) {
                 commentid:commentid,
                 userid:id,
                 replierid:userid,
+                newsid:newsid,
                 replycontent:$("#text1").val()
             }),
             success:function (result) {
@@ -189,5 +191,15 @@ function upreplys(commentid,id,name) {
             }
         })
     }
+}
+//退出登录
+function signout() {
+    $.ajax({
+        type : "get",
+        url : "/youya_news/ReleaseSystem/signOut",
+        success:function (result) {
+            location.reload();
+        }
+    })
 }
 

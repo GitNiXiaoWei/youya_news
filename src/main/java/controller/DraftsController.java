@@ -20,7 +20,7 @@ public class DraftsController {
     DraftsInfoService draftsInfoService;
     static int defaultPageSize=8;
     /**
-     * 获取所有草稿,分页
+     * 通过小编id获取所有草稿,分页
      * @param draftsInfoDTO
      * @param session
      * @return

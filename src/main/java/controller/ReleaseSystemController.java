@@ -13,6 +13,7 @@ import service.ReleaseSystemService;
 import vo.CommentVO;
 import vo.ReleaseSystemVO;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -116,5 +117,17 @@ public class ReleaseSystemController {
         System.out.println("commentInfoDTO = " + commentInfoDTO);
         int i = releaseSystemService.insertReply(commentInfoDTO);
         return i;
+    }
+
+    /**
+     * 退出登录，清空session
+     * @param session
+     * @return
+     */
+    @RequestMapping(name = "signOut",value = "/signOut")
+    public Object signOut(HttpSession session){
+        session.removeAttribute("userInfo");
+        System.out.println("signOut");
+        return 1;
     }
 }
