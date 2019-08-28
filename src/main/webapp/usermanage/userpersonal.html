@@ -125,7 +125,7 @@
     var username=""
     $.ajax({
         type:"get",
-        url:"http://localhost:8080/youya_news/initUser",
+        url:"/youya_news/initUser",
         success:function (result) {
             console.log(result)
             $(result).each(function(index,item){
@@ -145,7 +145,7 @@
     function updateinformation() {
         if (username == $("#username").val()){
             $.ajax({
-                url: "http://localhost:8080/youya_news/informationUpdateByUsername",
+                url: "/youya_news/informationUpdateByUsername",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json;charset=UTF-8",
@@ -157,7 +157,7 @@
                     "password":$("#password").val()
                 }),
                 success: function (result) {
-                    window.location.href = "http://localhost:8080/youya_news/login.html";
+                    window.location.href = "/youya_news/login.html";
                     alert("请重新登录")
                 },
                 error : function(e){
@@ -169,7 +169,7 @@
             });
         }else {
             $.ajax({
-                url: "http://localhost:8080/youya_news/informationUpdateByUsername",
+                url: "/youya_news/informationUpdateByUsername",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json;charset=UTF-8",
@@ -183,7 +183,7 @@
                 }),
                 success: function (result) {
                     alert(result.toString());
-                    window.location.href = "http://localhost:8080/youya_news/login.html";
+                    window.location.href = "/youya_news/login.html";
                     alert("请重新登录")
                 },
                 error : function(e){
@@ -207,7 +207,7 @@
 </script>
 <script>
     Dropzone.options.dropzoneDiv = {
-        url: "http://localhost:8080/youya_news/fileUpAndDown/upload", // 文件提交地址
+        url: "/youya_news/fileUpAndDown/upload", // 文件提交地址
         method: "post",  // 也可用put
         paramName: "dropzFile", // 默认为file
         maxFiles: 1,// 一次性上传的文件数量上限
