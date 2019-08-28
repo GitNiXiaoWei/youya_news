@@ -14,7 +14,7 @@ if (categoryname==="guoji"||categoryname==="guonei"){
 }
 //获取当前时间
 $(".blog_date_div").html("<p>"+
-    "<i class='glyphicon glyphicon-time'></i>"+
+    "<i class='glyphicon glyphicon-time'></i>&ensp;"+
     year + "-" + month + "-" + da + "&nbsp" + hours + ":" + min+
     "</p>");
 //更新当前时间(每隔5s)

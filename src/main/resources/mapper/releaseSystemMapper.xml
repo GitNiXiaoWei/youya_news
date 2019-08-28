@@ -10,7 +10,7 @@
          from news n,news_category nc,user u
          where n.newsid=nc.newsid  and u.userid=n.userid and newsstatus=1 and categoryid=#{categoryid} order by newscreatetime desc
     </select>
-    <!--通过新闻类别id，关键字获取有关新闻和作者列表-->
+    <!--通过新闻类别id，搜索关键字获取有关新闻和作者列表-->
     <select id="searchAllNews" resultType="vo.ReleaseSystemVO" parameterType="dto.ReleaseSystemDTO">
          select n.newstitle,n.newscreatetime,n.newssubtitle,n.newsclicks,n.newstalks,n.newsimg,n.newscontent,n.newsid,u.*
          from news n,news_category nc,user u

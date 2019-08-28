@@ -353,14 +353,14 @@
     }
 
     //获取新闻内容展示内容细节
-    function showdetail(userid){
+    function showdetail(draftsid){
         $('#lists').removeClass("active in")
         $("#detail").addClass("active in")
         $.ajax({
             url:"/youya_news/getDraftDetail",
             type:"post",
             data:{
-                id:userid
+                id:draftsid
             },
             success:function (result) {
                 console.log(result);

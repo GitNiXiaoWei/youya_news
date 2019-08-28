@@ -179,3 +179,6 @@ function showNewsList(pageNum) {
     })
 }
 showNewsList(0);
+function showNewsdetail(newsid) {
+    location.href="/youya_news/news/article.html?newsid="+newsid;
+}
