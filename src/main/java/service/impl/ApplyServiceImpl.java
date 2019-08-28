@@ -3,6 +3,8 @@ package service.impl;
 import dao.ApplicationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import service.ApplyService;
 import vo.UserListVO;
 
@@ -23,11 +25,11 @@ public class ApplyServiceImpl implements ApplyService {
     *审核通过
     * */
     @Override
-
+    @Transactional(propagation = Propagation.REQUIRED)
     public boolean agreeByUserId(int id) {
-        int i = applicationMapper.agreeByUserId(id);
-
-        return i>0;
+        int i1 = applicationMapper.agreeByUserId(id);
+        int i2 = applicationMapper.updateByUserId(id);
+        return i1>0&i2>0;
     }
     /*
     * 审核失败
