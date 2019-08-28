@@ -77,7 +77,7 @@
         console.log(email);
         $.ajax({
             type:"post",
-            url:"http://localhost:8080/youya_news/getCode",
+            url:"/youya_news/getCode",
             data:{
                 email:email
             },
@@ -113,7 +113,7 @@
                 alert("账户名密码不能为空")
             }else {
                 $.ajax({
-                    url:"http://localhost:8080/youya_news/register",
+                    url:"/youya_news/register",
                     type:"post",
                     contentType: "application/json;charset=utf-8",
                     data:JSON.stringify({

@@ -23,8 +23,11 @@ public class ApplyServiceImpl implements ApplyService {
     *审核通过
     * */
     @Override
+
     public boolean agreeByUserId(int id) {
-        return this.applicationMapper.agreeByUserId(id)>0;
+        int i = applicationMapper.agreeByUserId(id);
+
+        return i>0;
     }
     /*
     * 审核失败
