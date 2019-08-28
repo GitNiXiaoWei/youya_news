@@ -10,6 +10,7 @@ public interface ApplicationMapper {
     public List<UserListVO> listAllUserInfo();
     //审核通过
     public int agreeByUserId(int id);
+    public int updateByUserId(int id);
     //审核失败
     public int refuseByUserId(int id);
 
