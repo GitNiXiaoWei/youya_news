@@ -4,6 +4,28 @@ let month = datas.getMonth() + 1;
 let year = datas.getFullYear();
 let min = datas.getMinutes();
 let hours = datas.getHours();
+//获取用户信息
+$.ajax({
+    type:"get",
+    url:"/youya_news/initUser",
+    success:function (result) {
+        if (result!="false"){
+            if (result.rolename==="小编"){
+                $("#user").attr("href","/youya_news/author/draftlist.html")
+            }
+            if (result.rolename==="会员"){
+                $("#user").attr("href","/youya_news/usermanage/userpersonal.html")
+            }
+            if (result.rolename==="管理员"){
+                $("#user").attr("href","/youya_news/administrator/articleReview.html")
+            }
+            $("#blogUserWrapper").html("<img src=\""+result.icon+"\" class=\"img-fluid\" height=\"40\" width=\"40\">\n" +
+                ""+result.username+"<i class=\"fa fa-angle-down\" aria-hidden=\"true\"></i>");
+            $("#blogUserWrapper").attr("href","javascript:void(0);");
+        }
+    }
+});
+
 let categoryname= location.search.split("=")[1].split("&")[0];
 if (categoryname==="guoji"||categoryname==="guonei"){
     $("#redian").addClass("active")
@@ -30,27 +52,7 @@ setInterval(function() {
         year + "-" + month + "-" + da + "&nbsp" + hours + ":" + min+
     "</p>");
 }, 5000);
-//获取用户信息
-$.ajax({
-    type:"get",
-    url:"/youya_news/initUser",
-    success:function (result) {
-        if (result!="false"){
-            if (result.rolename==="小编"){
-                $("#user").attr("href","/youya_news/author/draftlist.html")
-            }
-            if (result.rolename==="会员"){
-                $("#user").attr("href","/youya_news/usermanage/userpersonal.html")
-            }
-            if (result.rolename==="管理员"){
-                $("#user").attr("href","/youya_news/administrator/articleReview.html")
-            }
-            $("#blogUserWrapper").html("<img src=\""+result.icon+"\" class=\"img-fluid\" height=\"40\" width=\"40\">\n" +
-                ""+result.username+"<i class=\"fa fa-angle-down\" aria-hidden=\"true\"></i>");
-            $("#blogUserWrapper").attr("href","javascript:void(0);");
-        }
-    }
-});
+
 //搜索功能
 function header_search(pageNum){
     let search=$(".form-control").val();
