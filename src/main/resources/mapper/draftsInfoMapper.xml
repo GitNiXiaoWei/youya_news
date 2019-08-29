@@ -104,8 +104,9 @@
     </insert>
     <!--通过作者id获取所有已上传新闻-->
     <select id="getAllNewsByUserid" parameterType="dto.DraftsInfoDTO" resultType="vo.DraftsInfoVO">
-        select newsid,newstitle,newscreatetime,newsclicks,newsstatus,newstalks
-        from news where userid=#{userid} order by newscreatetime desc
+        select n.newsid,n.newstitle,n.newscreatetime,n.newsclicks,n.newsstatus,n.newstalks,c.categoryname
+        from news n,news_category nc,category c
+        where n.userid=#{userid} and nc.newsid=n.newsid and c.categoryid=nc.categoryid order by n.newscreatetime desc
     </select>
     <!--通过新闻id下架新闻-->
     <update id="removeNewsByNewsid" parameterType="dto.DraftsInfoDTO">

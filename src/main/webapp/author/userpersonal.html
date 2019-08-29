@@ -124,7 +124,7 @@
     var username=""
     $.ajax({
         type:"get",
-        url:"http://localhost:8080/youya_news/initUser",
+        url:"/youya_news/initUser",
         success:function (result) {
             console.log(result)
             $(result).each(function(index,item){

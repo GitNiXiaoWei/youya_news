@@ -56,6 +56,7 @@ function newscontext(result){
         trStr+="<td>"+item.newsid+"</td>";
         trStr+="<td><input type='checkbox' class='newscheckboxs' id=newscheck_"+item.newsid+" onclick='newscheck("+item.newsid+")'></td>";
         trStr+="<td>"+item.newstitle+"</td>";
+        trStr+="<td>"+item.categoryname+"</td>";
         trStr+="<td>"+item.newscreatetime+"</td>";
         trStr+="<td>"+item.newsclicks+"</td>";
         trStr+="<td>"+item.newstalks+"</td>";
