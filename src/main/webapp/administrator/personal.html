@@ -19,14 +19,17 @@
         </div>
     </div>
     <div class="list-group">
+        <a id="userpersonal" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='userpersonal.html'">
+            个人信息<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+        </a>
         <a id="articleReview" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='articleReview.html'">
             新闻审核<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
         <a id="authorsReview" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='authorsReview.html'">
             小编审核<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
-        <a class="list-group-item " style="cursor:pointer;" onclick="window.location.href='#'">
-            我的资产<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+        <a class="list-group-item " style="cursor:pointer;" onclick="outlogin()">
+            退出登录<span class="badge" ><i class="glyphicon glyphicon-log-out"></i></span>
         </a>
     </div>
 
@@ -46,6 +49,16 @@
     $("#"+page.split(".")[0]).addClass("active")
     if (location.search!=""){
         $("#articleReview").addClass("active")
+    }
+    //退出登录
+    function outlogin() {
+        $.ajax({
+            type : "get",
+            url : "/youya_news/ReleaseSystem/signOut",
+            success:function (result) {
+                location.reload();
+            }
+        })
     }
 </script>
 </html>

@@ -1,109 +1,186 @@
 <!DOCTYPE html>
-<html lang="GB18030">
+<html lang="GB18030" >
 <head>
-    <meta charset="GB18030">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/theme.css">
-    <link rel="stylesheet" href="../dropzone/basic.min.css"/>
+    <meta charset="GB18030"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
     <link rel="stylesheet" href="../dropzone/dropzone.min.css"/>
-    <script src="../dropzone/dropzone.min.js"></script>
     <script src="../jquery/jquery-2.1.1.min.js"></script>
-    <script src="../bootstrap/js/bootstrap.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../script/docs.min.js"></script>
+    <script src="../dropzone/dropzone.min.js"></script>
     <style>
-        #footer {
-            padding: 15px 0;
-            background: #fff;
-            border-top: 1px solid #ddd;
-            text-align: center;
+        .tree li {
+            list-style-type: none;
+            cursor:pointer;
         }
-        #topcontrol {
-            color: #fff;
-            z-index: 99;
-            width: 30px;
-            height: 30px;
-            font-size: 20px;
-            background: #222;
-            position: relative;
-            right: 14px !important;
-            bottom: 11px !important;
-            border-radius: 3px !important;
-        }
-
-        #topcontrol:after {
-            /*top: -2px;*/
-            left: 8.5px;
-            content: "\f106";
-            position: absolute;
-            text-align: center;
-            font-family: FontAwesome;
-        }
-
-        #topcontrol:hover {
-            color: #fff;
-            background: #18ba9b;
-            -webkit-transition: all 0.3s ease-in-out;
-            -moz-transition: all 0.3s ease-in-out;
-            -o-transition: all 0.3s ease-in-out;
-            transition: all 0.3s ease-in-out;
-        }
-
+        table tbody tr:nth-child(odd){background:#F4F4F4;}
+        table tbody td:nth-child(even){color:#C00;}
     </style>
 </head>
+
 <body>
-<div class="navbar-wrapper">
-    <div class="container">
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html" style="font-size:32px;">悠亚新闻管理员中心</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse" style="float:right;">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>朱劲松<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="member.html"><i class="glyphicon glyphicon-scale"></i> 会员中心</a></li>
-                                <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
-                                <li class="divider"></li>
-                                <li><a href="index.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
-    </div>
-</div>
-<div class="container">
-    <div class="row clearfix">
-        <div class="col-sm-3 col-md-3 column">
-
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" style="font-size:32px;" href="#">悠亚新闻用户个人中心</a>
         </div>
+    </div>
+</nav>
 
-
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <!--个人菜单-->
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div style="margin-left: 10%;margin-right: 30%;margin-top: 70px">
+                <form class="form-signin" role="form">
+                    <div class="form-group has-success has-feedback">
+                        <input type="text" class="hidden" id="userid" style="margin-top:10px;"  >
+                        <span class=" glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <input type="text" class="form-control" id="email" placeholder="请输入邮箱地址" style="margin-top:10px;" readonly>
+                        <span class=" glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <input type="text" class="form-control" id="username" placeholder="请输入登录账号" autofocus>
+                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <input type="text" class="form-control" id="password" placeholder="请输入登录密码" style="margin-top:10px;">
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <select  class="form-control" id="sex"  style="margin-top:10px;font-size: 16px">
+                            <option value="1">男♂</option>
+                            <option value="2">女♀</option>
+                        </select>
+                    </div>
+                    <div class="form-group has-success has-feedback">
+                        <div id="dropzoneDiv" class="dropzone"></div>
+                        <input id="icon" type="hidden"/>
+                    </div>
+                    <a class="btn btn-lg btn-success btn-block" onclick="updateinformation()" > 修改</a>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    Dropzone.options.dropzoneDiv = {
+        url: "/youya_news/fileUpAndDown/upload", // 文件提交地址
+        method: "post",  // 也可用put
+        paramName: "dropzFile", // 默认为file
+        maxFiles: 1,// 一次性上传的文件数量上限
+        maxFilesize: 5, // 文件大小，单位：MB
+        acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
+        addRemoveLinks: true,
+        parallelUploads: 1,// 一次上传的文件数量
+        //previewsContainer:"#preview", // 上传图片的预览窗口
+        dictDefaultMessage: '拖动图片至此或者点击上传头像',
+        dictMaxFilesExceeded: "您最多只能上传1个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg。",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大上传文件最大支持.",
+        dictRemoveLinks: "删除",
+        dictCancelUpload: "取消",
+        init: function () {
+            this.on("addedfile", function (file) {
+                // 上传文件时触发的事件
+            });
+            this.on("success", function (file, data) {
+                console.log(data);
+                var status = data.status;
+                if(status==200){
+                    $("#icon").val(data.serverPath+"/"+data.filename);
+                }
+                console.log(file);
+            });
+            this.on("error", function (file, data) {
+
+                console.error(data);
+                console.log(file);
+
+            });
+            this.on("removedfile", function (file) {
+
+            });
+        }
+    }
+</script>
 <script>
+    $(".sidebar").load("personal.html");
+    var username=""
+    $.ajax({
+        type:"get",
+        url:"/youya_news/initUser",
+        success:function (result) {
+            console.log(result)
+            $(result).each(function(index,item){
+                $("#userid").val(item.userid)
+                $("#email").val(item.email)
+                $("#username").val(item.username)
+                $("#password").val(item.password)
+                $("#sex").val(item.sex)
+                $("#icon").val(item.icon)
+                username=item.username;
+            })
+        },
+        error : function(e){
+            console.error(e);
+        }
+    });
+    function updateinformation() {
+        let a;
+        if (username === $("#username").val()){
+            a=JSON.stringify({
+                    "userid":$("#userid").val(),
+                    "email":$("#email").val(),
+                    "sex":$("#sex").val(),
+                    "icon":$("#icon").val(),
+                    "password":$("#password").val()
+                });
+        }else {
+            a=JSON.stringify({
+                "userid":$("#userid").val(),
+                "username":$("#username").val(),
+                "email":$("#email").val(),
+                "sex":$("#sex").val(),
+                "icon":$("#icon").val(),
+                "password":$("#password").val()
+            });
+        }
+        $.ajax({
+            url: "/youya_news/informationUpdateByUsername",
+            dataType: "json",
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            data : a,
+            success: function (result) {
+                alert(result.toString());
+                window.location.href = "/youya_news/login.html";
+                alert("请重新登录")
+            },
+            error : function(e){
+                console.log(e);
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        });
+    }
 
 </script>
-<script src="../jquery/jquery-2.1.1.min.js"></script>
-<script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../script/docs.min.js"></script>
-<script src="../script/back-to-top.js"></script>
-<script>
-    $(".col-md-3").load("administrator.html")
-    $('#myTab a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-    })
 
-</script>
 </body>
 </html>
