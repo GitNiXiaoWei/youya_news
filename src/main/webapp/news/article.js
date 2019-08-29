@@ -34,7 +34,7 @@ $.ajax({
                 $("#user").attr("href","/youya_news/author/draftlist.html")
             }
             if (result.rolename==="会员"){
-                $("#user").attr("href","/youya_news/usermanger/message.html")
+                $("#user").attr("href","/youya_news/usermanger/userpersonal.html")
             }
             if (result.rolename==="管理员"){
                 $("#user").attr("href","/youya_news/administrator/articleReview.html")

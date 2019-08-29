@@ -27,6 +27,9 @@
         <a id="message" class="list-group-item " style="cursor:pointer;" onclick="inreply()">
             消息通知<span class="badge" id="messageNum"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
+        <a class="list-group-item " style="cursor:pointer;" onclick="outlogin()">
+            退出登录<span class="badge" ><i class="glyphicon glyphicon-log-out"></i></span>
+        </a>
     </div>
 
 </body>
@@ -82,7 +85,7 @@
         success:function (result) {
             var num=result.length;
             if (num>0){
-                $('#messageNum').html(""+num+"&ensp;<i class='glyphicon glyphicon-chevron-right'></i>")
+                $('#messageNum').html("<i class='fa fa-comments'></i>&ensp;"+num+"")
             }else {
                 $('#messageNum').html("<i class='glyphicon glyphicon-chevron-right'></i>")
             }
@@ -100,6 +103,16 @@
             }
         });
         location.href='message.html'
+    }
+    //退出登录
+    function outlogin() {
+        $.ajax({
+            type : "get",
+            url : "/youya_news/ReleaseSystem/signOut",
+            success:function (result) {
+                location.reload();
+            }
+        })
     }
 
 </script>

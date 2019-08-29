@@ -1,114 +1,119 @@
 <!DOCTYPE html>
 <html lang="GB18030">
 <head>
-    <meta charset="GB18030">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/theme.css">
+    <meta charset="GB18030"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
 
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <link rel="stylesheet" href="../dropzone/dropzone.min.css"/>
+    <script src="../jquery/jquery-2.1.1.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../script/docs.min.js"></script>
+    <script src="../dropzone/dropzone.min.js"></script>
+    <style>
+        .tree li {
+            list-style-type: none;
+            cursor:pointer;
+        }
+        table tbody tr:nth-child(odd){background:#F4F4F4;}
+        table tbody td:nth-child(even){color:#C00;}
+    </style>
 </head>
+
 <body>
-<div class="navbar-wrapper">
-    <div class="container">
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#" style="font-size:32px;">悠亚新闻用户个人中心</a>
-                </div>
 
-            </div>
-        </nav>
-
-    </div>
-</div>
-<div class="container">
-    <div class="row clearfix">
-        <div class="col-sm-3 col-md-3 column">
-
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" style="font-size:32px;" href="#">悠亚新闻用户个人中心</a>
         </div>
-        <div class="col-sm-9 col-md-9 column">
-            <ul id="myTab1" class="nav nav-tabs">
-                <li role="presentation" class="active">
-                    <a href="javascript:void(0);" id="replys">回复我的</a>
-                </li>
-                <li role="presentation">
-                    <a href="javascript:void(0);" id="comments">我的评论</a>
-                </li>
-            </ul>
-            <div  class="tab-content" style="margin-top:10px;">
-                <div role="tabpanel" class="tab-pane fade active in" id="reply" aria-labelledby="support-tab">
-                    <div class="table-responsive">
-                        <!--dataTable-->
-                        <table class="table  table-bordered" >
-                            <thead>
-                            <tr>
-                                <th width="30">#</th>
-                                <th>新闻标题</th>
-                                <th width="80">回复者</th>
-                                <th>回复内容</th>
-                                <th>回复时间</th>
-                                <th width="50">查看</th>
-                            </tr>
-                            </thead >
-                            <tbody id = "replydataTable">
-                            <!--草稿列表数据-->
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="6" align="center">
-                                    <ul class="pagination" id="replypage">
-                                        <!--页码-->
-                                    </ul>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <!--个人菜单-->
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <ul id="myTab1" class="nav nav-tabs">
+                    <li role="presentation" class="active">
+                        <a href="javascript:void(0);" id="replys">回复我的</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="javascript:void(0);" id="comments">我的评论</a>
+                    </li>
+                </ul>
+                <div  class="tab-content" style="margin-top:10px;">
+                    <div role="tabpanel" class="tab-pane fade active in" id="reply" aria-labelledby="support-tab">
+                        <div class="table-responsive">
+                            <!--dataTable-->
+                            <table class="table  table-bordered" >
+                                <thead>
+                                <tr>
+                                    <th width="30">#</th>
+                                    <th>新闻标题</th>
+                                    <th width="80">回复者</th>
+                                    <th>回复内容</th>
+                                    <th>回复时间</th>
+                                    <th width="50">查看</th>
+                                </tr>
+                                </thead >
+                                <tbody id = "replydataTable">
+                                <!--草稿列表数据-->
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="6" align="center">
+                                        <ul class="pagination" id="replypage">
+                                            <!--页码-->
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade " id="comment" aria-labelledby="support-tab">
+                        <div class="table-responsive">
+                            <!--dataTable-->
+                            <table class="table  table-bordered" >
+                                <thead>
+                                <tr>
+                                    <th width="30">#</th>
+                                    <th>新闻标题</th>
+                                    <th>评论时间</th>
+                                    <th>评论内容</th>
+                                    <th width="100">查看</th>
+                                </tr>
+                                </thead >
+                                <tbody id = "dataTable">
+                                <!--草稿列表数据-->
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="6" align="center">
+                                        <ul class="pagination" id="commentpage">
+                                            <!--页码-->
+                                        </ul>
+                                    </td>
+                                </tr>
+
+                                </tfoot>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="comment" aria-labelledby="support-tab">
-                    <div class="table-responsive">
-                        <!--dataTable-->
-                        <table class="table  table-bordered" >
-                            <thead>
-                            <tr>
-                                <th width="30">#</th>
-                                <th>新闻标题</th>
-                                <th>评论时间</th>
-                                <th>评论内容</th>
-                                <th width="100">查看</th>
-                            </tr>
-                            </thead >
-                            <tbody id = "dataTable">
-                            <!--草稿列表数据-->
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="6" align="center">
-                                    <ul class="pagination" id="commentpage">
-                                        <!--页码-->
-                                    </ul>
-                                </td>
-                            </tr>
-
-                            </tfoot>
-                        </table>
-                    </div>
-
-                </div>
-            </div>
         </div>
     </div>
 </div>
-<script src="../jquery/jquery-2.1.1.min.js"></script>
-<script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../script/docs.min.js"></script>
-<script src="../script/back-to-top.js"></script>
 <script>
-    $(".col-md-3").load("personal.html");
+    $(".sidebar").load("personal.html");
     $("#comments").click(function () {
         $(this).parent().attr("class","active")
         $('#replys').parent().removeClass("active")

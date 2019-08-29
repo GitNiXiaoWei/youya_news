@@ -5,7 +5,7 @@
 <mapper namespace="dao.DraftsInfoMapper">
     <!--通过作者id查找所有未删除草稿-->
     <select id="getAllDrafts" resultType="vo.DraftsInfoVO" parameterType="pojo.UserInfo">
-        select draftsid,updatetime,newstitle,newscreatetime from drafts where userid=#{userid} and status=1
+        select draftsid,updatetime,newstitle,newscreatetime from drafts where userid=#{userid} and status=1 order by updatetime desc
     </select>
     <!--通过草稿id获取草稿细节-->
     <select id="getDraftDetail" parameterType="int" resultType="vo.DraftsInfoVO">
@@ -105,7 +105,7 @@
     <!--通过作者id获取所有已上传新闻-->
     <select id="getAllNewsByUserid" parameterType="dto.DraftsInfoDTO" resultType="vo.DraftsInfoVO">
         select newsid,newstitle,newscreatetime,newsclicks,newsstatus,newstalks
-        from news where userid=#{userid}
+        from news where userid=#{userid} order by newscreatetime desc
     </select>
     <!--通过新闻id下架新闻-->
     <update id="removeNewsByNewsid" parameterType="dto.DraftsInfoDTO">

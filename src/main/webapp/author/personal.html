@@ -24,25 +24,74 @@
         <a id="draftlist" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='draftlist.html'">
             我的新闻<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
-        <a class="list-group-item " style="cursor:pointer;" onclick="window.location.href='minecrowdfunding.html'">
-            我的资产<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+<!--        <a class="list-group-item " style="cursor:pointer;" onclick="window.location.href='minecrowdfunding.html'">-->
+<!--            我的资产<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>-->
+<!--        </a>-->
+        <a id="message" class="list-group-item " style="cursor:pointer;" onclick="inreply()">
+            消息通知<span class="badge" id="messageNum"><i class="glyphicon glyphicon-chevron-right"></i></span>
+        </a>
+        <a class="list-group-item " style="cursor:pointer;" onclick="outlogin()">
+            退出登录<span class="badge" ><i class="glyphicon glyphicon-log-out"></i></span>
         </a>
     </div>
 
 </body>
 <script src="../jquery/jquery-2.1.1.min.js"></script>
 <script>
+    let userid=0;
     var page=location.toString().split("/")[5];
+    $("#"+page.split(".")[0]).addClass("active");
+    //获取用户信息
     $.ajax({
         type:"get",
         url:"/youya_news/initUser",
+        async:false,
         success:function (result) {
             $(result).each(function(index,item){
-                $("#h3").text(item.username)
-                $("#icon").attr("src",item.icon)
+                $("#h3").text(item.username);
+                $("#icon").attr("src",item.icon);
+                userid=item.userid;
             })
         }
-    })
-    $("#"+page.split(".")[0]).addClass("active")
+    });
+    //获取最新回复信息
+    $.ajax({
+        type:"get",
+        url:"/youya_news/ReleaseSystem/getNewReply",
+        data:{
+            id:userid
+        },
+        success:function (result) {
+            var num=result.length;
+            if (num>0){
+                $('#messageNum').html("<i class='fa fa-comments'></i>&ensp;"+num+"")
+            }else {
+                $('#messageNum').html("<i class='glyphicon glyphicon-chevron-right'></i>")
+            }
+        }
+    });
+    //进入查看评论和消息
+    function inreply() {
+        $.ajax({
+            type:"get",
+            url:"/youya_news/ReleaseSystem/lookedNewReply",
+            data:{
+                id:userid
+            },
+            success:function (result) {
+            }
+        });
+        location.href='message.html'
+    };
+    //退出登录
+    function outlogin() {
+        $.ajax({
+            type : "get",
+            url : "/youya_news/ReleaseSystem/signOut",
+            success:function (result) {
+                location.reload();
+            }
+        })
+    }
 </script>
 </html>
