@@ -86,20 +86,19 @@
                                 </tbody>
 
                                 <tfoot>
-                                <tr>
-                                    <td colspan="6" align="center">
+                                <tr >
+                                    <td colspan="8" align="center">
                                         <ul class="pagination">
                                             <!--页码-->
                                             <li class="disabled"><a href="#">上一页</a></li>
                                             <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
                                             <li><a href="#">2</a></li>
                                             <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#">5</a></li>
                                             <li><a href="#">下一页</a></li>
                                         </ul>
                                     </td>
                                 </tr>
+
                                 </tfoot>
                             </table>
 
@@ -117,22 +116,27 @@
       //清空table
      //初始化页面
       function initPage(){
+          var pageNum=window.location.search.split("=")[1];
+          var requestURL="/youya_news/administrator/listAllNewsInfo";
+          if(pageNum!=null){
+              requestURL+="?pageNum="+pageNum;
+          }
           //1.从后台的listAllUserInfo接口获取数据
           $.ajax({
               //请求方式GET/POST
-              type: "POST",
+              type: "GET",
               //请求的媒体类型
               contentType: "application/json;charset=UTF-8",
               //接受数据类型
               dataType: "json",
               //请求地址
-              url: "/youya_news/administrator/listAllNewsInfo",
+              url: requestURL,
               //数据，json字符串
               //请求成功
               success: function (result) {
                   $("#dataTable tbody").html("");
                   //将数据填充到table中
-                  $(result).each(function (index, item) {
+                  $(result.list).each(function (index, item) {
                       console.log(item);
                       var trStr = "<tr>";
                       //获取id并拼接
@@ -148,6 +152,14 @@
                       trStr += "</tr>";
                       $("#dataTable").append(trStr);
                   });
+                  //分页
+                  var splitePageStr="<li><a href=\"#\">上一页</a></li>";
+                  for(var i=1;i<=result.pages;i++){
+                      splitePageStr+="<li><a href=\"articleReview.html?pageNum="+i+"\">"+i+"</a></li>";
+                  }
+                  splitePageStr+="<li><a href=\"#\">下一页</a></li>";
+                  $(".pagination").html("");
+                  $(".pagination").append(splitePageStr);
               },
               //请求失败，包含具体的错误信息
               error: function (e) {

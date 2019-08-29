@@ -88,8 +88,6 @@
                                             <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
                                             <li><a href="#">2</a></li>
                                             <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#">5</a></li>
                                             <li><a href="#">下一页</a></li>
                                         </ul>
                                     </td>
@@ -100,42 +98,6 @@
                         </div>
                     </div>
                 </div>
-              <!-- <div  class="panel panel-default tab-pane fade" id="detail" aria-labelledby="detail-tab" >
-                    <div style="margin-left: 10px; margin-top: 20px; margin-right: 10px">
-                        <div class="form-group has-success has-feedback">
-                            <h4>新闻类别</h4>
-                            <select  class="form-control" id="category"  >
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                            </select>
-                            <span class="glyphicon glyphicon-tag form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-success has-feedback">
-                            <h4>新闻标题</h4>
-                            <input type="text" class="form-control" id="newstitle"  >
-                            <span class="glyphicon glyphicon-tag form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-success has-feedback">
-                            <h4>副标题</h4>
-                            <input type="text" class="form-control" id="newssubtitle" style="margin-top:10px;">
-                            <span class="glyphicon glyphicon-tags form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-success has-feedback" >
-                            <h4>主图片</h4>
-                            <div id="newsimg"  class="dropzone"  >
-                                <img src="../img/services-box1.jpg" id="oldimg">
-                            </div>
-                            <span class=" glyphicon glyphicon-picture form-control-feedback"></span>
-                        </div>
-                        <div class="form-group has-success has-feedback">
-                            <h4>内容</h4>
-                            <div id="newscontext" ></div>
-                            <span class="glyphicon  glyphicon-book form-control-feedback"></span>
-                        </div>
-                        <a class="btn btn-lg btn-success btn-block" onclick="register()" > 提交</a>
-                    </div>
-                </div>-->
             </div>
         </div>
     </div>
@@ -148,19 +110,24 @@
     //清空table
     //初始化页面
     function initPage(){
+        var pageNum=window.location.search.split("=")[1];
+        var requestURL="/youya_news/administrator/listAllUserInfo";
+        if(pageNum!=null){
+            requestURL+="?pageNum="+pageNum;
+        }
         $.ajax({
             //请求方式GET/POST
-            type: "POST",
+            type: "GET",
             //接受数据类型
             dataType: "json",
             //请求地址
-            url: "/youya_news/administrator/listAllUserInfo",
+            url: requestURL,
             //数据，json字符串
             //请求成功
             success: function (result) {
                 $("#dataTable tbody").html("");
                 //将数据填充到table中
-                $(result).each(function (index, item) {
+                $(result.list).each(function (index, item) {
                     console.log(item);
                     var trStr = "<tr>";
                     //获取id并拼接
@@ -175,6 +142,14 @@
                     trStr += "</tr>";
                     $("#dataTable").append(trStr);
                 });
+                //分页
+                var splitePageStr="<li><a href=\"#\">上一页</a></li>";
+                for(var i=1;i<=result.pages;i++){
+                    splitePageStr+="<li><a href=\"authorReview.html?pageNum="+i+"\">"+i+"</a></li>";
+                }
+                splitePageStr+="<li><a href=\"#\">下一页</a></li>";
+                $(".pagination").html("");
+                $(".pagination").append(splitePageStr);
             },
             //请求失败，包含具体的错误信息
             error: function (e) {
