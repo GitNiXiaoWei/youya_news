@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import service.ReleaseSystemService;
 import vo.CommentVO;
 import vo.ReleaseSystemVO;
+import vo.ReplyVO;
 
 import java.util.List;
 @Service
@@ -72,5 +73,45 @@ public class ReleaseSystemServiceImpl implements ReleaseSystemService {
         if (i>0&&i1>0){
             return 1;
         }else return 0;
+    }
+
+    /**
+     * 通过userid获取有关评论信息
+     * @param id
+     * @return
+     */
+    @Override
+    public List<CommentVO> getCommentByUserid(int id) {
+        return commentInfoMapper.getCommentByUserid(id);
+    }
+
+    /**
+     * 通过userid获取被回复的信息
+     * @param id
+     * @return
+     */
+    @Override
+    public List<ReplyVO> getReplyByUserid(int id) {
+        return commentInfoMapper.getReplyByUserid(id);
+    }
+
+    /**
+     * 通过userid获取最新的回复消息
+     * @param id
+     * @return
+     */
+    @Override
+    public List<ReplyVO> getNewReply(int id) {
+        return commentInfoMapper.getNewReply(id);
+    }
+
+    /**
+     * 通过userid将查看过后的回复消息置为1
+     * @param id
+     * @return
+     */
+    @Override
+    public int updateLookedNewReply(int id) {
+        return commentInfoMapper.updateLookedNewReply(id);
     }
 }

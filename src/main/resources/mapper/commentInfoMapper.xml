@@ -34,16 +34,33 @@
     </select>
     <!--新增评论-->
     <insert id="insertComment" parameterType="dto.CommentInfoDTO">
-        insert into comment  values (default ,#{newsid},#{userid},#{comment},default );
+        insert into comment  values (default ,#{newsid},#{userid},#{comment},default )
     </insert>
     <!--评论数加1-->
     <update id="insertTalksByNewsid" parameterType="dto.CommentInfoDTO">
-        update news set newstalks = newstalks+1 where newsid=#{newsid};
+        update news set newstalks = newstalks+1 where newsid=#{newsid}
     </update>
     <!--新增回复-->
     <insert id="insertReply" parameterType="dto.CommentInfoDTO">
-        insert into reply  values (default ,#{commentid},#{replierid},#{userid},#{replycontent},default );
+        insert into reply  values (default ,#{commentid},#{replierid},#{userid},#{replycontent},default )
     </insert>
+    <!--通过userid获取有关评论-->
+    <select id="getCommentByUserid" parameterType="int" resultType="vo.CommentVO">
+        select c.*,n.newstitle from comment c,news n where c.userid=#{userid} and c.newsid=n.newsid order by c.commenttime desc
+    </select>
+    <!--通过userid获取被回复的信息-->
+    <select id="getReplyByUserid" parameterType="int" resultType="vo.ReplyVO">
+        select r.*,n.newstitle,c.newsid,u.username rusername from comment c,news n,reply r,user u
+        where r.userid=#{userid} and c.commentid=r.commentid and c.newsid=n.newsid and u.userid=r.replierid order by r.replytime desc
+    </select>
+    <!--通过userid获取最新的回复消息-->
+    <select id="getNewReply" parameterType="int" resultType="vo.ReplyVO">
+        select * from reply where replystatus=0 and userid=#{userid}
+    </select>
+    <!--通过userid将查看过后的回复消息置为1-->
+    <update id="updateLookedNewReply" parameterType="int">
+        update reply set replystatus = 1 where userid=#{userid}
+    </update>
 </mapper>
 
 

@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pojo.UserInfo;
 import service.ReleaseSystemService;
 import vo.CommentVO;
 import vo.ReleaseSystemVO;
+import vo.ReplyVO;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -129,5 +131,54 @@ public class ReleaseSystemController {
         session.removeAttribute("userInfo");
         System.out.println("signOut");
         return 1;
+    }
+
+    /**
+     * 通过userid获取该用户的所有评论，分页
+     * @param session
+     * @return
+     */
+    @RequestMapping(name = "getCommentByUserid",value = "/getCommentByUserid")
+    public Object getCommentByUserid(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum, HttpSession session){
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        PageHelper.startPage(pageNum,defaultPageSize);
+        List<CommentVO> commentByUserid = releaseSystemService.getCommentByUserid(userInfo.getUserid());
+        PageInfo<CommentVO> commentVOPageInfo = new PageInfo<>(commentByUserid);
+        return commentVOPageInfo;
+    }
+
+    /**
+     * 通过userid获取被回复的信息，分页
+     * @param pageNum
+     * @param session
+     * @return
+     */
+    @RequestMapping(name = "getReplyByUserid",value = "/getReplyByUserid")
+    public Object getReplyByUserid(@RequestParam(defaultValue = "1",value = "pageNum") Integer pageNum, HttpSession session){
+        UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+        PageHelper.startPage(pageNum,defaultPageSize);
+        List<ReplyVO> replyByUserid = releaseSystemService.getReplyByUserid(userInfo.getUserid());
+        PageInfo<ReplyVO> replyVOPageInfo = new PageInfo<>(replyByUserid);
+        return replyVOPageInfo;
+    }
+
+    /**
+     * 通过userid获取最新的回复消息
+     * @param id
+     * @return
+     */
+    @RequestMapping(name = "getNewReply",value = "/getNewReply")
+    public Object getNewReply(@RequestParam int id){
+        return releaseSystemService.getNewReply(id);
+    }
+
+    /**
+     * 通过userid将查看过后的回复消息置为1
+     * @param id
+     * @return
+     */
+    @RequestMapping(name = "lookedNewReply",value = "/lookedNewReply")
+    public Object lookedNewReply(@RequestParam int id){
+        return releaseSystemService.updateLookedNewReply(id);
     }
 }

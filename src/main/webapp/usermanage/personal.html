@@ -24,20 +24,22 @@
         <a id="apply" class="list-group-item " style="cursor:pointer;" onclick="success()">
             申请当作者<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
-        <a id="message" class="list-group-item " style="cursor:pointer;" onclick="window.location.href='message.html'">
-            消息通知<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
+        <a id="message" class="list-group-item " style="cursor:pointer;" onclick="inreply()">
+            消息通知<span class="badge" id="messageNum"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
     </div>
 
 </body>
 <script src="../jquery/jquery-2.1.1.min.js"></script>
 <script>
-
-    var userid;
+    let userid=0;
     var page=location.toString().split("/")[5];
+    $("#"+page.split(".")[0]).addClass("active");
+    //获取用户信息
     $.ajax({
         type:"get",
         url:"/youya_news/initUser",
+        async:false,
         success:function (result) {
             $(result).each(function(index,item){
                 $("#h3").text(item.username)
@@ -45,8 +47,8 @@
                 userid=item.userid;
             })
         }
-    })
-
+    });
+    //申请小编
     function success(){
         $.ajax({
             url: "/youya_news/selectApplicationByUserid",
@@ -70,8 +72,35 @@
             }
         });
     }
-
-    $("#"+page.split(".")[0]).addClass("active")
+    //获取最新回复信息
+    $.ajax({
+        type:"get",
+        url:"/youya_news/ReleaseSystem/getNewReply",
+        data:{
+            id:userid
+        },
+        success:function (result) {
+            var num=result.length;
+            if (num>0){
+                $('#messageNum').html(""+num+"&ensp;<i class='glyphicon glyphicon-chevron-right'></i>")
+            }else {
+                $('#messageNum').html("<i class='glyphicon glyphicon-chevron-right'></i>")
+            }
+        }
+    });
+    //进入查看评论和消息
+    function inreply() {
+        $.ajax({
+            type:"get",
+            url:"/youya_news/ReleaseSystem/lookedNewReply",
+            data:{
+                id:userid
+            },
+            success:function (result) {
+            }
+        });
+        location.href='message.html'
+    }
 
 </script>
 </html>
