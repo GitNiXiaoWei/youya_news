@@ -42,7 +42,7 @@
     </update>
     <!--新增回复-->
     <insert id="insertReply" parameterType="dto.CommentInfoDTO">
-        insert into reply  values (default ,#{commentid},#{replierid},#{userid},#{replycontent},default )
+        insert into reply  values (default,#{commentid},#{replierid},#{userid},#{replycontent},default,default)
     </insert>
     <!--通过userid获取有关评论-->
     <select id="getCommentByUserid" parameterType="int" resultType="vo.CommentVO">

@@ -69,6 +69,7 @@ public class ReleaseSystemServiceImpl implements ReleaseSystemService {
     @Override
     public int insertReply(CommentInfoDTO commentInfoDTO) {
         int i = commentInfoMapper.insertReply(commentInfoDTO);
+        System.out.println("commentInfoDTO.getCommentid() = " + commentInfoDTO.getCommentid());
         int i1 = commentInfoMapper.insertTalksByNewsid(commentInfoDTO);
         if (i>0&&i1>0){
             return 1;
