@@ -16,5 +16,7 @@ public class NewsInfo {
    int newstalks;
    String newsimg;
 
+   String username;
+
 
 }

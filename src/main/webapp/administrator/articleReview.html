@@ -76,6 +76,7 @@
                                     <th width="80">新闻编号</th>
                                     <!--<th width="30"><input type="checkbox" id="checkbox"></th>-->
                                     <th >新闻标题</th>
+                                    <th >作者</th>
                                     <!--<th>新闻内容</th>-->
                                     <th width="100">创建时间</th>
                                     <th width="200">副标题</th>
@@ -144,6 +145,7 @@
                       //获取id并拼接
                       trStr += "<td>" + item.newsid + "</td>";
                       trStr += "<td>" + item.newstitle + "</td>";
+                      trStr += "<td>" + item.username + "</td>";
                       trStr += "<td>" + item.newscreatetime + "</td>";
                       trStr += "<td>" + item.newssubtitle + "</td>";
                       trStr += "<td>";
@@ -155,11 +157,11 @@
                       $("#dataTable").append(trStr);
                   });
                   //分页
-                  var splitePageStr="<li><a href=\"#\">上一页</a></li>";
+                  var splitePageStr="<li><a href=\"articleReview.html?pageNum="+result.prePage+"\">上一页</a></li>";
                   for(var i=1;i<=result.pages;i++){
                       splitePageStr+="<li><a href=\"articleReview.html?pageNum="+i+"\">"+i+"</a></li>";
                   }
-                  splitePageStr+="<li><a href=\"#\">下一页</a></li>";
+                  splitePageStr+="<li><a href=\"articleReview.html?pageNum="+result.nextPage+"\">下一页</a></li>";
                   $(".pagination").html("");
                   $(".pagination").append(splitePageStr);
               },

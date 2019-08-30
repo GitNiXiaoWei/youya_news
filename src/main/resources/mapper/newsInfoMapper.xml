@@ -6,7 +6,7 @@
 
     <!--获取文章信息列表-->
     <select id="getAllNews" resultType="pojo.NewsInfo">
-         select * from news where newsstatus=2
+         select n.*,u.username from news n,user u where n.newsstatus=2 and u.userid=n.userid
      </select>
     <!--文章审核通过-->
     <update id = "agreeByNewsId" parameterType="int">

@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="list-group">
+    <div class="list-group ss" id="list-group">
         <a id="userpersonal" class="list-group-item" style="cursor:pointer;" onclick="window.location.href='userpersonal.html'">
             个人信息<span class="badge"><i class="glyphicon glyphicon-chevron-right"></i></span>
         </a>
@@ -36,6 +36,7 @@
 </body>
 <script>
     var page=location.toString().split("/")[5];
+    console.log(page.split(".")[0])
     $.ajax({
         type:"get",
         url:"/youya_news/initUser",
@@ -46,10 +47,14 @@
             })
         }
     })
-    $("#"+page.split(".")[0]).addClass("active")
-    if (location.search!=""){
-        $("#articleReview").addClass("active")
-    }
+
+    $('.ss a').removeClass("active");
+
+    $("#"+page.split(".")[0]).addClass("active");
+
+    // if (location.search!=""){
+    //     $("#articleReview").addClass("active")
+    // }
     //退出登录
     function outlogin() {
         $.ajax({
