@@ -36,10 +36,10 @@
                 </p>
             </div>
             <!--地点温度-->
-            <div class="blog_temperature_div">
+            <div class="blog_temperature_div" style="width: 250px">
                 <p>
-                    <span class="glyphicon glyphicon-cloud"></span>
-                    31°c , 中国●南京
+                    <span class="glyphicon glyphicon-cloud" id="weather"></span>
+<!--                    31°c , 中国●南京-->
                 </p>
             </div>
             <!--logo <a>标签内加入img标签-->
@@ -278,5 +278,30 @@
     </div>
 </div><!--Main js file Style-->
 <script src="article.js"></script>
+<script>
+    getWeather();
+    function getWeather() {
+        jQuery.support.cors = true;
+        $.ajax({
+            url: "http://wthrcdn.etouch.cn/weather_mini",
+            type: "GET",
+            dataType: 'json',
+            data: {city: "南京市"}, //(returnCitySN.cname).split('省')[1]：获取所在的市
+            success: function (res) {
+                // var res=JSON.parse(res);
+                var city = res.data.city;
+                var maxTemperature = res.data.forecast[0].high;
+                var minTemperature = res.data.forecast[0].low;
+                var weather = minTemperature.split(' ')[1] + '~' + maxTemperature.split(' ')[1];
+                var type = res.data.forecast[0].type;//天气状态
+                $('#weather').html("&ensp;"+weather+",&ensp;南京")
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        });
+    }
+
+</script>
 </body>
 </html>
