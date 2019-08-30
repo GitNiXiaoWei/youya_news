@@ -65,7 +65,7 @@ public class ReleaseSystemController {
     }
 
     /**
-     * 新闻查询功能，分页
+     * 新闻模糊查询功能，分页
      * @param releaseSystemDTO
      * @return
      */
